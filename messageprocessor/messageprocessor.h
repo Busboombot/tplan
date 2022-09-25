@@ -57,12 +57,13 @@ public:
 
   int availableMessages() override;
 
-private:
-
-  uint8_t crc(size_t length);
 
   // Perform operation for each type of message recieved
   void processPacket(const uint8_t* buffer_, size_t size);
+
+private:
+
+  uint8_t crc(size_t length);
 
   void send(size_t length);
 

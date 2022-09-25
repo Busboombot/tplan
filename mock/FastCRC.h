@@ -4,7 +4,7 @@
 class FastCRC8
 {
 public:
-    FastCRC8();
+    FastCRC8(){};
     uint8_t smbus(const uint8_t *data, const uint16_t datalen){return 0;}		// Alias CRC-8
     uint8_t maxim(const uint8_t *data, const uint16_t datalen){return 0;}		// Equivalent to _crc_ibutton_update() in crc16.h from avr_libc
 

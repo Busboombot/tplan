@@ -9,7 +9,7 @@
 
 FastCRC8 CRC8;
 
-extern char printf_buffer[1024];
+char printf_buffer[2048];
 
 
 MessageProcessor::MessageProcessor(Stream &stream) : stream(stream) {
@@ -113,7 +113,7 @@ void MessageProcessor::processPacket(const uint8_t* buffer_, size_t size){
       return; // Echos are their own ack.
     } 
     
-    //messages.emplace_back(*ph, payload, payload_size);
+    messages.emplace_back(*ph, (char*)payload, payload_size);
 
     sendAck(ph->seq);
     DEBUG_CLEAR_4

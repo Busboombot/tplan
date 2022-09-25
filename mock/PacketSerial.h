@@ -15,7 +15,7 @@ public:
 
     PacketSerial() {}
 
-    void setStream(Stream *stream);
+    void setStream(Stream *stream){};
 
     void setPacketHandler(PacketHandlerFunctionWithSender onPacketFunction){}
 

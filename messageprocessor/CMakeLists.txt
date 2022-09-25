@@ -12,3 +12,5 @@ add_library( ${PROJECT_NAME} ${SOURCES})
 target_compile_definitions(${PROJECT_NAME} PUBLIC "TRJ_ENV_HOST")
 target_compile_definitions(${PROJECT_NAME} PUBLIC INTERRUPT_DELAY=4)
 target_include_directories(${PROJECT_NAME} PUBLIC ../interface ../mock ${PROJECT_SOURCE_DIR} )
+
+add_subdirectory(test)

@@ -4,7 +4,7 @@ class IMessageProcessor {
 
     public:
 
-    IMessageProcessor();
+    IMessageProcessor() = default;
     virtual ~IMessageProcessor() = default;
 
 public: 
