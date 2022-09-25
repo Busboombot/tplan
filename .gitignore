@@ -17,3 +17,5 @@ _deps
 cmake-build-debug
 cmake
 DartConfiguration.tcl
+
+.DS_Store

@@ -18,7 +18,7 @@ void dump_seg(const Segment& seg, string test_name, string tag){
     cout << "JSON" << jout << endl;
 }
 
-TEST_CASE("Basic Segment Test", "[segment]")
+TEST_CASE("Basic Segment Test", "[segment][json]")
 {
     Joint j(0, 5e3, 50e3);
     std::vector<Joint> joints = {j, j, j};

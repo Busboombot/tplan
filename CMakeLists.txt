@@ -6,8 +6,10 @@ include(CTest)
 find_package(Catch2 3 REQUIRED)
 include(Catch)
 
-add_subdirectory(src)
-add_subdirectory(src/test)
-add_subdirectory(src/cli)
+add_subdirectory(planner)
+add_subdirectory(planner/test)
+add_subdirectory(planner/cli)
 
+add_subdirectory(messageprocessor)
+#add_subdirectory(cmdloop)
 
