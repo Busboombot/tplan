@@ -9,6 +9,7 @@ find_package(Catch2 3 REQUIRED)
 include(Catch)
 enable_testing()
 
+
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 if(NOT Boost_FOUND)
     message(FATAL_ERROR "Could not find boost!")

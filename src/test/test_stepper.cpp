@@ -110,7 +110,7 @@ TEST_CASE("Stepper File Test", "[stepper]") {
     Planner p(joints);
     fstream inputFile;
     array<int, 3> counts = {0};
-    path inputFilePath = current_path().parent_path().parent_path() / "test" / "stepper_file_test.txt";
+    path inputFilePath = current_path().parent_path().parent_path().parent_path() / "test_data" / "stepper_file_test.txt";
     inputFile.open( inputFilePath.string(), ios::in);
 
     if (inputFile.is_open()) {
@@ -128,6 +128,7 @@ TEST_CASE("Stepper File Test", "[stepper]") {
 
     } else {
         cout << "Err: not opened:  "<< inputFilePath << endl;
+        REQUIRE(false);
     }
 
     //
