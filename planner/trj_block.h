@@ -69,7 +69,7 @@ public:
 
     struct ACDBlockParams params();
 
-    friend ostream &operator<<( ostream &output, const Block &s );
+
 
     trj_float_t getT() const;
 
@@ -90,6 +90,7 @@ public:
     static trj_float_t meanBv(Block& prior, Block &next);
 
     friend Planner;
+    friend ostream &operator<<( ostream &output, const Block &s );
 
 private:
 

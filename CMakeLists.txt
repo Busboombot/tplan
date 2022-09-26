@@ -11,5 +11,7 @@ add_subdirectory(planner/test)
 add_subdirectory(planner/cli)
 
 add_subdirectory(messageprocessor)
+add_subdirectory(interface)
+add_subdirectory(host)
 #add_subdirectory(cmdloop)
 

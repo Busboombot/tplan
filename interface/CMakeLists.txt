@@ -13,7 +13,7 @@ set(SOURCES
         trj_move.cpp
         trj_move.h
         trj_types.h
-        )
+        ipacketserial.h ../host/PacketSerial.cpp)
 
 add_library( ${PROJECT_NAME} ${SOURCES})
 
