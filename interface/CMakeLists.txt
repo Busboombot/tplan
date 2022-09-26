@@ -6,14 +6,14 @@ project(interface VERSION 0.1)
 
 set(SOURCES
         ihardware.h
-        imessageprocessor.h
         iplanner.h
         trj_config.h
         trj_const.h
         trj_move.cpp
         trj_move.h
         trj_types.h
-        ipacketserial.h ../host/PacketSerial.cpp)
+        trj_types.cpp
+        ipacketserial.h )
 
 add_library( ${PROJECT_NAME} ${SOURCES})
 

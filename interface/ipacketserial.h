@@ -1,3 +1,5 @@
+#pragma once
+
 #include "trj_types.h"
 
 class IPacketSerial {

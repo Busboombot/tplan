@@ -2,10 +2,9 @@
 #include <stdarg.h>
 
 #include "trj_types.h"
-#include "messageprocessor.h"
-#include "trj_debug.h"
 #include "FastCRC.h"
 #include "PacketSerial.h"
+#include "messageprocessor.h"
 
 FastCRC8 CRC8;
 

@@ -53,7 +53,6 @@ TEST_CASE("Basic Message Processor", "[mproc]")
     mps.push(PacketHeader(2,CommandCode::ECHO),
                      (char*)str1.data(), str1.length() );
 
-
     string str2("More Cowbell");
     mps.push(PacketHeader(3,CommandCode::MESSAGE),
                      (char*)str2.data(), str2.length() );
@@ -70,7 +69,7 @@ TEST_CASE("Basic Message Processor", "[mproc]")
     cout << "----";
     cout << "Out Messages: " << mps.outgoing.size() << endl;
     while(!mps.outgoing.empty()){
-        cout << Message(mps.outgoing.front()) << endl;
+        cout << "Out: " << Message(mps.outgoing.front()) << endl;
         mps.outgoing.pop_front();
     }
     //REQUIRE(stream.messages.size()==3);

@@ -13,6 +13,9 @@ ostream &operator<<( ostream &output, const Message &m ){
             cout << "Echo " << string(m.buffer.data()) ;
             break;
 
+        default:
+            break;
+
     }
 
     cout << "]";

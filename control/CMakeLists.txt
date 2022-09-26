@@ -2,9 +2,9 @@
 cmake_minimum_required(VERSION 3.23)
 set (CMAKE_CXX_STANDARD 11)
 
-project(libmproc VERSION 0.1)
+project(libcontrol VERSION 0.1)
 
-set(SOURCES messageprocessor.cpp ../host/PacketSerial.h ../host/Arduino.h ../host/FastCRC.h ../interface/try_types.cpp)
+set(SOURCES messageprocessor.cpp )
 
 add_library( ${PROJECT_NAME} ${SOURCES})
 

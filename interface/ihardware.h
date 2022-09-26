@@ -14,4 +14,5 @@ class IHardware {
 
     virtual void delayMillis(unsigned long) = 0;
     virtual void delayMicros(unsigned long) = 0;
+
 };
