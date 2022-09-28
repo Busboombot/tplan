@@ -24,18 +24,6 @@ public:
 
     void signalError(bool v) override;
 
-    void signalSegmentComplete() override;
-
-    void setEmptyLed(PinVal value) override;
-
-    void setRunningLed(PinVal value) override;
-
-    void setBuiltinLed(PinVal value) override;
-
-    void setYLed(PinVal value) override;
-
-    void setBLed(PinVal value) override;
-
     tmillis millis() override;
 
     tmicros micros() override;
@@ -62,12 +50,9 @@ public: // # local testing functions
 
 private:
 
-
     bool print_pin_change = false;
     u_int8_t pin_change_crc = 0;
     steady_clock::time_point last_pin_change;
     vector <PinVal> pins={0};
 
-
 };
-

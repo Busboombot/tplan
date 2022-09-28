@@ -16,18 +16,6 @@ public:
 
     void signalError(bool v) override;
 
-    void signalSegmentComplete() override;
-
-    void setEmptyLed(PinVal value) override;
-
-    void setRunningLed(PinVal value) override;
-
-    void setBuiltinLed(PinVal value) override;
-
-    void setYLed(PinVal value) override;
-
-    void setBLed(PinVal value) override;
-
     tmillis millis() override;
 
     tmicros micros() override;

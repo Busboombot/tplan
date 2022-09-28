@@ -1,13 +1,13 @@
 #include <iostream>
-
 #include <string>
+#include <limits>
 #include <catch2/catch_test_macros.hpp>
-#define CATCH_CONFIG_MAIN
-
 
 #include "trj_types.h"
 #include "messageprocessor.h"
 #include "PacketSerial.h"
+
+#define CATCH_CONFIG_MAIN
 
 using namespace std;
 
@@ -106,5 +106,19 @@ TEST_CASE("Message Processor Text Messages", "[mproc]")
     log("Should see this\n");
     string s2("Should see this\n");
     log(s2);
+
+}
+
+TEST_CASE("Int Timing Test", "[scratch]"){
+
+    using T = long double;
+    T mx = numeric_limits<T>::max();
+    T last = mx - 50;
+    T now =  mx + 50;
+
+    cout << last<< " " << now<< " " << float(mx/1000/60/60/24)/365. << " " << numeric_limits<T>::digits << endl;
+    cout << "DIFF " << now - last << endl;
+
+
 
 }

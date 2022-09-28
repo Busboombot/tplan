@@ -38,3 +38,7 @@ vector<Stepper> Hardware::getSteppers() {
     return steppers;
 }
 
+void Hardware::update() {
+    writePin(config.segment_complete_pin, LOW);
+}
+

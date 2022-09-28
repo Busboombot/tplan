@@ -9,7 +9,6 @@ set(SOURCES
         json.hpp
         Hardware.h
         Hardware.cpp
-        iplanner.h
         trj_config.h
         trj_const.h
         trj_move.cpp

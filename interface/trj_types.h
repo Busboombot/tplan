@@ -152,6 +152,7 @@ typedef struct AxisConfig {
     uint32_t v_max=0;
     uint32_t a_max=0;
 
+
     explicit AxisConfig(){};
 
     AxisConfig(uint8_t axis, uint8_t stepPin, uint8_t directionPin, uint8_t enablePin, uint8_t stepHighValue,
@@ -160,6 +161,7 @@ typedef struct AxisConfig {
                axis(axis), step_pin(stepPin),direction_pin(directionPin),enable_pin(enablePin),step_high_value(stepHighValue),
                direction_high_value(directionHighValue),enable_high_value(enableHighValue),step_output_mode(stepOutputMode),
                direction_output_mode(directionOutputMode), enable_output_mode(enableOutputMode), v_max(vMax), a_max(aMax) {}
+
 
     friend ostream &operator<<( ostream &output, const AxisConfig &ac );
 
@@ -171,7 +173,12 @@ typedef struct Config {
     uint8_t n_axes = 0;         // Number of axes
     uint8_t interrupt_delay = INTERRUPT_DELAY;    // How often interrupt is called, in microseconds
     uint8_t segment_complete_pin = 0; // Pin on which to signal that a segment is complete
-    uint8_t limit_pin = 0; // Pin to recieve signals that the encoder foind a limit
+    uint8_t limit_pin = 0; //
+    uint8_t yellow_led_pin=0;
+    uint8_t blue_led_pin=0;
+    uint8_t running_led_pin=0;
+    uint8_t empty_led_pin=0;
+    uint8_t builtin_led_pin=0;
     bool debug_print = true;
     bool debug_tick = true;
 

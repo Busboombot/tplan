@@ -59,30 +59,6 @@ void HostHardware::signalError(bool v) {
 
 }
 
-void HostHardware::signalSegmentComplete() {
-
-}
-
-void HostHardware::setEmptyLed(PinVal value) {
-
-}
-
-void HostHardware::setRunningLed(PinVal value) {
-
-}
-
-void HostHardware::setBuiltinLed(PinVal value) {
-
-}
-
-void HostHardware::setYLed(PinVal value) {
-
-}
-
-void HostHardware::setBLed(PinVal value) {
-
-}
-
 tmillis HostHardware::millis() {
     return 0;
 }

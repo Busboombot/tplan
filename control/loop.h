@@ -26,35 +26,17 @@ public:
 
     void processMessage(Message& message);
 
-    void setConfig(Message& message);
-
-    void setAxisConfig(Message& message);
-
     void processMove(Message& message);
 
-
     void stop();
-
     void start();
-
-    inline Config& getConfig(){ return config;}
 
     void reset();
     void zero();
     void enable();
     void disable();
 
-    
-    void signalSegmentComplete(); // Toggle pin to tell encoders that a segment is done
-    void clearSegmentComplete();
-
-    // Read encoder signal that a limit has been hit. 
-    void limitChanged(); 
-
-
-    int getLastSegNum(){
-        return last_seg_num;
-    }
+    int getLastSegNum(){ return last_seg_num; }
 
     bool isEmpty(){ return false; }
 
@@ -71,12 +53,6 @@ private:
     Config config;
     array<AxisConfig,N_AXES> axes_config;
     CurrentState current_state;
-
-    unsigned int n_axes=N_AXES; // Number of axes in use.
-    tmillis interrupt_delay=4;
-
-    bool debug_print = false;
-    bool debug_tick = false;
 
 
     bool is_stopped = false;

@@ -16,8 +16,13 @@ Config defaultConfig(uint8_t n_axes){
     return Config {
             n_axes, // uint8_t n_axes = 0;         // Number of axes
             4,      // uint8_t interrupt_delay = INTERRUPT_DELAY;    // How often interrupt is called, in microseconds
-            40,     // uint8_t segment_complete_pin = 0; // Pin on which to signal that a segment is complete
-            41,     // uint8_t limit_pin = 0; // Pin to recieve signals that the encoder foind a limit
+            20,     // uint8_t segment_complete_pin = 0; // Pin on which to signal that a segment is complete
+            21,     // uint8_t limit_pin = 0; // Pin to recieve signals that the encoder foind a limit
+            22, // uint8_t yellow_led_pin=0;
+            23, // uint8_t blue_led_pin=0;
+            24, // uint8_t running_led_pin=0;
+            25, // uint8_t empty_led_pin=0;
+            26, // uint8_t builtin_led_pin=0;
             false,  // bool debug_print = true;
             false,  // bool debug_tick = true;
     };

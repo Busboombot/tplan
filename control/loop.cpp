@@ -13,24 +13,42 @@
 
 using namespace std;
 
+void Loop::setup(){
 
+
+}
+
+#define SIGNAL_INTERVAL 500
 
 void Loop::loopOnce(){
-    static tmillis last_time = hw.millis();
+    static tmillis last_step_time = hw.millis();
+    static tmillis last_signal_time = hw.millis();
+
     tmillis t = hw.millis();
-    tmillis dt = t-last_time;
+
+    tmillis dt = t-last_step_time;
+
+    // The hardware update clears signal pins, so it should go first, so
+    // the signals will be on for a while.
+    hw.update();
+
+    if (t-last_signal_time > SIGNAL_INTERVAL){
+        hw.setEmptyLed(pl.empty());
+        hw.setRunningLed(running);
+    }
 
     mp.update(t, current_state);
-    hw.update();
-    ss.next(dt);
+
+    if(dt >= config.interrupt_delay) {
+        ss.next(dt);
+    }
 
     if(!mp.empty()){
         processMessage(mp.firstMessage());
         mp.pop();
     }
 
-
-    last_time = t;
+    last_step_time = t;
 
     /*
     // Blink the LED and toggle a debugging pin, to show we're not crashed.
@@ -64,16 +82,28 @@ void Loop::loopOnce(){
 
 void Loop::processMessage(Message &m) {
 
+
     switch(m.header.code){
+        case CommandCode::CONFIG:
+            config = *m.asConfig();
+            hw.setConfig(config);
+            ss.reloadJoints();
+            break;
+        case CommandCode::AXES:
+            hw.setAxisConfig(*m.asAxisConfig());
+            ss.reloadJoints();
+            if(m.asAxisConfig()->axis <N_AXES){
+                axes_config[m.asAxisConfig()->axis] = *m.asAxisConfig();
+            }
+            break;
+
         case CommandCode::RMOVE:
         case CommandCode::AMOVE:
         case CommandCode::JMOVE:
         case CommandCode::HMOVE:
+            processMove(m);
             break;
-        case CommandCode::AXES:
-            break;
-        case CommandCode::CONFIG:
-            break;
+
         case CommandCode::INFO:
             break;
 
@@ -83,32 +113,8 @@ void Loop::processMessage(Message &m) {
     }
 }
 
-void Loop::setConfig(Message& message){
 
 
-    auto cfg = message.asConfig();
-
-    hw.setConfig(*cfg);
-
-    n_axes = cfg->n_axes;
-    interrupt_delay = cfg->interrupt_delay;
-
-    debug_print = cfg->debug_print;
-    debug_tick = cfg->debug_tick;
-
-}
-
-/**
- * @brief Configure a stepper for an axis. Creates a new StepperInterface object for the axis
- *
- * @param as Axis configuration object
- * @param eeprom_write If true, write positions to the eeprom.
- */
-void Loop::setAxisConfig(Message &m){
-
-    auto as  = m.asAxisConfig();
-    hw.setAxisConfig(*as);
-}
 
 // Turn a move command into a move and add it to the planner
 void Loop::processMove(Message &mesg){
@@ -116,7 +122,7 @@ void Loop::processMove(Message &mesg){
     PacketHeader ph = mesg.header;
     auto mv = mesg.asMoves();
 
-    Move move(getConfig().n_axes, ph.seq, mv->segment_time, 0);
+    Move move(config.n_axes, ph.seq, mv->segment_time, 0);
 
     switch(ph.code){
         case CommandCode::RMOVE:
@@ -138,7 +144,7 @@ void Loop::processMove(Message &mesg){
         default: ;
     }
 
-    for (int axis = 0; axis < getConfig().n_axes; axis++){
+    for (int axis = 0; axis < config.n_axes; axis++){
         move.x[axis] = mv->x[axis];
         // FIXME! This position update will only work for relative moves
         current_state.planner_positions[axis] += mv->x[axis];
@@ -166,48 +172,7 @@ void limitChangedISR() {
 
 
 
-inline void Loop::signalSegmentComplete(){
-    /*
-  for(int i = 0; i < config.n_axes; i++){
-    current_state.positions[i] = sd.getState(i).getPosition();
-  }
 
-  auto& planner = sd.getPlanner();
-
-  current_state.queue_length = planner.getQueueSize();
-  current_state.queue_time = planner.getQueueTime();
-
-  sdp.sendDone(planner.getCurrentPhase().seq, current_state);
-
-  if(config.segment_complete_pin > 0){
-    digitalWriteFast(config.segment_complete_pin, HIGH);
-    segmentCompleteTimer.begin(clearSegmentCompleteISR,4); 
-  }
-     */
-}
-
-inline void Loop::clearSegmentComplete(){
-    /*
-  if(config.segment_complete_pin > 0){
-    digitalWriteFast(config.segment_complete_pin, LOW);
-  }
-  segmentCompleteTimer.end();
-     */
-}
-
-void Loop::limitChanged(){
-  //limitChanges++;
-}
-
-
-
-void Loop::setup(){
-
-        /*
-  cycleLeds();
-  start_usince(); // set the initial time for usince();
-         */
-}
 
 // Start the timers, if there are segments available. 
 void Loop::start(){ 

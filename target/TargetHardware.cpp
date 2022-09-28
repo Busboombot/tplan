@@ -45,29 +45,6 @@ void TargetHardware::signalError(bool v) {
 
 }
 
-void TargetHardware::signalSegmentComplete() {
-
-}
-
-void TargetHardware::setEmptyLed(PinVal value) {
-
-}
-
-void TargetHardware::setRunningLed(PinVal value) {
-
-}
-
-void TargetHardware::setBuiltinLed(PinVal value) {
-
-}
-
-void TargetHardware::setYLed(PinVal value) {
-
-}
-
-void TargetHardware::setBLed(PinVal value) {
-
-}
 
 tmillis TargetHardware::millis() {
     return 0;
