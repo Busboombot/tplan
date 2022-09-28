@@ -6,13 +6,7 @@
 
 #include "trj_move.h"
 
-using std::array;
-using std::cout;
-using std::endl;
-using std::setw;
-using std::left;
-using std::right;
-using std::ostream;
+using namespace std;
 
 
 ostream &operator<<( ostream &output, const Move &m ) {

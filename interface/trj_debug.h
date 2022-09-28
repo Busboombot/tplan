@@ -1,9 +1,15 @@
 #pragma once
 
-#include <Arduino.h>
+#include "trj_const.h"
+#include <string>
+#include <map>
+#include "trj_types.h"
+#include <streambuf>
+#include <ostream>
+#include <sstream>
+#include <string>
 
-extern Stream &debug_serial;
-
+using namespace std;
 
 //#define DEBUG_PIN_1 5
 //#define DEBUG_PIN_2 6
@@ -18,7 +24,7 @@ extern int debug_state_1;
 #else
 #define DEBUG_SET_1
 #define DEBUG_CLEAR_1
-#define DEBUG_TOG_1 
+#define DEBUG_TOG_1
 #endif
 
 #ifdef DEBUG_PIN_2
@@ -54,5 +60,5 @@ extern int debug_state_4;
 #define DEBUG_TOG_4
 #endif
 
+const std::map<CommandCode, string> &commandMap();
 
-void ser_printf(const char* fmt, ...);

@@ -1,11 +1,11 @@
-#include <Arduino.h>
-#include <stdarg.h>
-#include <stdio.h>
 
+#include <cstdarg>
+#include <cstdio>
+#include <map>
 #include "trj_debug.h"
+#include "trj_types.h"
 
-extern Stream &debug_serial;
-char printf_buffer[1024];
+extern char printf_buffer[1024];
 
 // Set or clear externally to turn printing off and on
 bool ser_printf_flag = true;
@@ -34,4 +34,35 @@ void ser_printf(const char* fmt, ...){
 #else
 void ser_printf(const char* fmt, ...){}
 #endif
+
+static std::map<CommandCode, string> cmdmap;
+
+const std::map<CommandCode,string>& commandMap() {
+    if(cmdmap.empty()) {
+        cmdmap[CommandCode::ACK] =      "ACK";
+        cmdmap[CommandCode::NACK] =     "NACK";
+        cmdmap[CommandCode::DONE] =     "DONE";
+        cmdmap[CommandCode::EMPTY] =    "EMPTY";
+        cmdmap[CommandCode::RMOVE] =    "RMOVE";
+        cmdmap[CommandCode::AMOVE] =    "AMOVE";
+        cmdmap[CommandCode::JMOVE] =    "JMOVE";
+        cmdmap[CommandCode::HMOVE] =    "HMOVE";
+        cmdmap[CommandCode::RUN] =      "RUN";
+        cmdmap[CommandCode::STOP] =     "STOP";
+        cmdmap[CommandCode::RESET] =    "RESET";
+        cmdmap[CommandCode::ZERO] =     "ZERO";
+        cmdmap[CommandCode::CONFIG] =   "CFG";
+        cmdmap[CommandCode::AXES] =     "AXES";
+        cmdmap[CommandCode::MESSAGE] =  "MESG";
+        cmdmap[CommandCode::ERROR] =    "ERR";
+        cmdmap[CommandCode::ECHO] =     "ECHO";
+        cmdmap[CommandCode::DEBUG] =    "DEBUG";
+        cmdmap[CommandCode::INFO] =     "INFO";
+        cmdmap[CommandCode::NOOP] =     "NOOP";
+        cmdmap[CommandCode::POSITIONS] ="POS";
+    }
+    return cmdmap;
+}
+
+
 

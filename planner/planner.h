@@ -7,30 +7,21 @@
 #include <array>
 #include <iostream>
 #include <iomanip>
-#include <math.h> // rint
+#include <cmath> // rint
 #include <initializer_list> 
-
-#include "trj_planner_const.h" // For N_AXES
-#include "trj_util.h"
-#include "trj_move.h"
-#include "trj_segment.h"
-#include "trj_joint.h"
-#include "trj_types.h"
-#include "trj_stepper.h"
-#include "trj_segstepper.h"
 #include "json.hpp"
 
+#include "trj_const.h" // For N_AXES
+#include "trj_util.h"
+#include "trj_types.h"
+#include "trj_joint.h"
+#include "planner_types.h"
+#include "stepper.h"
+#include "trj_segment.h"
 
-using std::array;
-using std::cout;
-using std::endl;
-using std::setw;
-using std::left;
-using std::right;
-using std::ostream;
+using namespace std;
 using json = nlohmann::json;
 
-class Segment;
 class Joint;
 class SegmentStepper;
 
@@ -63,8 +54,6 @@ public:
     void plan();
 
     bool isEmpty();
-
-    //SegmentStepper& getSegmentStepper();
 
 public:
 

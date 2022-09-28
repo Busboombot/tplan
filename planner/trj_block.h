@@ -5,13 +5,10 @@
 #include <map>
 #include <array>
 
-
-#include "trj_util.h"
-#include "trj_types.h"
-
 #include "json.hpp"
 
-
+#include "trj_util.h"
+#include "planner_types.h"
 
 using json = nlohmann::json;
 
@@ -19,7 +16,7 @@ using namespace std;
 using std::ostream;
 
 struct StepperPhase;
-class Segment;
+
 class Joint;
 class Planner;
 
@@ -28,13 +25,13 @@ class Block {
 
 public:
 
-    Block(trj_float_t x, const Joint& joint, Segment *segment) :
-            x(fabs(static_cast<double>(x))), joint(joint), segment(segment) {
+    Block(trj_float_t x, const Joint& joint) :
+            x(fabs(static_cast<double>(x))), joint(joint) {
         this->d = sign(x);
     }
 
-    Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint& joint, Segment *segment) :
-        Block(static_cast<double>(x), joint, segment){
+    Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint& joint) :
+        Block(static_cast<double>(x), joint){
         this->v_0 = v_0;
         this->v_1 = v_1;
     }
@@ -57,9 +54,6 @@ private:
     trj_float_t v_1=0;
 
     const Joint &joint;
-    Segment *segment;
-
-
 
 public:
 

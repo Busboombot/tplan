@@ -6,10 +6,11 @@
 
 #include "trj_util.h"
 #include "trj_block.h"
-#include "trj_move.h"
-#include "trj_joint.h"
 #include "trj_types.h"
+#include "trj_joint.h"
+#include "planner_types.h"
 #include "json.hpp"
+#include "stepper.h"
 
 
 using namespace std;
@@ -66,13 +67,12 @@ public:
 
     trj_float_t timeErr(); // RMS difference in times of blocks
 
-    friend Planner;
-    friend SegmentStepper;
-
-    friend ostream &operator<<( ostream &output, const Segment &s );
-
     json dump(std::string tag="", bool dump_joints=false) const;
 
     static trj_float_t boundaryError(const Segment& prior, const Segment &next);
+
+    friend Planner;
+    friend SegmentStepper;
+    friend ostream &operator<<( ostream &output, const Segment &s );
 
 };

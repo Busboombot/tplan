@@ -6,8 +6,8 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath> // rint
-#include "trj_planner_const.h"
-#include "trj_types.h"
+#include "trj_const.h"
+#include "planner_types.h"
 #include "json.hpp"
 
 using json = nlohmann::json;

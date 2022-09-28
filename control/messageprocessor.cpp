@@ -6,25 +6,74 @@
 #include "PacketSerial.h"
 #include "messageprocessor.h"
 
+#include <string>
+#include <vector>
+
+#ifdef TRJ_ENV_HOST
+#include <iostream>
+#endif
+
 FastCRC8 CRC8;
 
-char printf_buffer[2048];
+char printf_buffer[5000];
 
+// Singleton message proces for logging on the target.
+MessageProcessor *message_processor  = nullptr;
+
+
+void log(const char* str){
+    if(message_processor != nullptr){
+        message_processor->sendMessage(str);
+    }
+}
+
+void log(const string &str){
+    if(message_processor != nullptr){
+        message_processor->sendMessage(str);
+    }
+}
+
+void log(stringstream &str){
+    if(message_processor != nullptr){
+        message_processor->sendMessage(str);
+    }
+}
+
+void log_printf(const char *fmt, ...){
+
+    if(message_processor != nullptr){
+
+        va_list args;
+        va_start(args, fmt);
+        vsprintf(printf_buffer, fmt, args);
+        va_end(args);
+
+        message_processor->sendMessage(printf_buffer);
+    }
+
+}
 
 MessageProcessor::MessageProcessor(IPacketSerial &ps) : ps(ps) {}
 
-void MessageProcessor::update() {
+void MessageProcessor::updateCurrentState(CurrentState &current_state_) {
+    current_state = current_state_;
+}
+
+void MessageProcessor::update(tmillis t, CurrentState &current_state) {
+
+    updateCurrentState(current_state);
+
     ps.update();
 
-    if(!ps.empty()){ //
+    if (!ps.empty()) { //
         processPacket(ps.front().data(), ps.front().size());
         ps.pop();
     }
 }
 
-void MessageProcessor::updateAll() {
-    while(!ps.empty()){
-        update();
+void MessageProcessor::updateAll(tmillis t, CurrentState &current_state) {
+    while (!ps.empty()) {
+        update(t, current_state);
     }
 }
 
@@ -32,14 +81,6 @@ void MessageProcessor::setLastSegNum(int v) {
     lastSegNum = v;
 }
 
-// print to the print buffer
-void MessageProcessor::printf(const char *fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-    vsprintf(printf_buffer, fmt, args);
-    va_end(args);
-    sendMessage(printf_buffer);
-}
 
 uint8_t MessageProcessor::crc(size_t length) {
     auto *ph = (PacketHeader *) buffer;
@@ -66,15 +107,11 @@ void MessageProcessor::send(const uint8_t *payload, CommandCode code, uint16_t s
 
 }
 
-void MessageProcessor::sendMessage(const char *message_) {
-    send((const uint8_t *) message_, CommandCode::MESSAGE, lastSegNum, strlen(message_));
-}
-
-void MessageProcessor::sendEmpty(uint16_t seq, CurrentState &current_state) {
+void MessageProcessor::sendEmpty(uint16_t seq) {
     send((const uint8_t *) &current_state, CommandCode::EMPTY, seq, sizeof(current_state));
 }
 
-void MessageProcessor::sendDone(uint16_t seq, CurrentState &current_state) {
+void MessageProcessor::sendDone(uint16_t seq) {
     send((const uint8_t *) &current_state, CommandCode::DONE, seq, sizeof(current_state));
 }
 
@@ -82,19 +119,15 @@ void MessageProcessor::sendNack() {
     send(CommandCode::NACK, lastSegNum, 0);
 }
 
-void MessageProcessor::sendAck(uint16_t seq, CurrentState &current_state) {
-    send((const uint8_t *) &current_state, CommandCode::ACK, seq, sizeof(current_state));
-}
-
-// An ACK with no current state
 void MessageProcessor::sendAck(uint16_t seq) {
-    send(CommandCode::ACK, seq, 0);
+    send((const uint8_t *) &current_state, CommandCode::ACK, seq, sizeof(current_state));
 }
 
 // Mostly for testing
 void MessageProcessor::processPacket(PacketHeader ph, char *payload, size_t payload_size) {
-    processPacket(&ph, (const uint8_t *)payload, payload_size);
+    processPacket(&ph, (const uint8_t *) payload, payload_size);
 }
+
 void MessageProcessor::processPacket(PacketHeader *ph, const uint8_t *payload, size_t payload_size) {
 
     if (ph->code == CommandCode::NOOP) {
@@ -107,7 +140,6 @@ void MessageProcessor::processPacket(PacketHeader *ph, const uint8_t *payload, s
     messages.emplace_back(*ph, (char *) payload, payload_size);
     sendAck(ph->seq);
 }
-
 
 
 void MessageProcessor::processPacket(const uint8_t *buffer_, size_t size) {
@@ -127,14 +159,50 @@ void MessageProcessor::processPacket(const uint8_t *buffer_, size_t size) {
     processPacket(ph, payload, payload_size);
 }
 
+void MessageProcessor::sendMessage(const string &str) {
+
+#ifdef TRJ_ENV_HOST
+    cout << str;
+#else
+    send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
+#endif
+
+
+}
+
+void MessageProcessor::sendMessage(const char *message_) {
+    sendMessage(string(message_));
+}
+
+// print to the print buffer, or to cout
+void MessageProcessor::printf(const char *fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(printf_buffer, fmt, args);
+    va_end(args);
+
+    sendMessage(printf_buffer);
+}
+
+/**
+ * Send a string stream as a message, breaking it into lines
+ * @param ss
+ */
+void MessageProcessor::sendMessage(stringstream &ss) {
+
+    string line;
+    while (getline(ss, line, '\n')) {
+        sendMessage(line + '\n');
+    }
+}
 
 
 void MessageProcessor::pop() {
     messages.pop_front();
 }
 
-Message& MessageProcessor::firstMessage() {
-    return  messages.front();
+Message &MessageProcessor::firstMessage() {
+    return messages.front();
 }
 
 int MessageProcessor::availableMessages() {

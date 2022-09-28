@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <limits.h>
+#include <climits>
 #include <deque>
 #include <vector>
 #include "trj_const.h"
@@ -19,6 +19,13 @@ enum class MoveType {
 };
 
 using MoveArray = std::vector<int32_t>;
+
+
+using tmillis = u_int32_t;
+using tmicros = u_int32_t;
+using Pin = u_int8_t;
+using PinVal = u_int8_t;
+using AxisArray = std::array<PinVal , N_AXES>;
 
 
 typedef enum {
@@ -82,13 +89,16 @@ struct PacketHeader {
 // Payload of the move command
 struct Moves {
     uint32_t segment_time = 0; // total segment time, in microseconds // 4
-    int32_t x[N_AXES];
+    int32_t x[N_AXES] = {0};
+
+    friend ostream &operator<<( ostream &output, const Moves &m );
 }; // 8
+
 
 /**
  * @brief Track the current conditions for the queue and positions, as of the time
- * of ACKs and DONE messages. 
- * 
+ * of ACKs and DONE messages.
+ *
  */
 
 struct CurrentState {
@@ -96,35 +106,67 @@ struct CurrentState {
     uint32_t queue_time = 0;
     int32_t positions[N_AXES] = {0};
     int32_t planner_positions[N_AXES] = {0};
+
+    explicit CurrentState(): queue_time(0), queue_length(0){
+        for(int i=0; i< N_AXES; i++){
+            positions[i] = planner_positions[i] =  0;
+        }
+    }
+
+    CurrentState(int32_t queueLength, uint32_t queueTime, vector<int32_t> positions_,  vector<int32_t> ppositions_) :
+            queue_length(queueLength), queue_time(queueTime)
+    {
+
+        for(int i=0; i< N_AXES; i++){
+            positions[i] = (i<=positions_.size()) ? positions_[i] : 0;
+            planner_positions[i] = (i<=ppositions_.size()) ? ppositions_[i] : 0;
+        }
+    }
 };
+
+
+
+
 
 // Configuration record for one axis
 // 8 Bytes
-struct AxisConfig {
+typedef struct AxisConfig {
 
-    uint8_t axis;           // Axis number
+    uint8_t axis=0;           // Axis number
 
-    uint8_t step_pin;       // Step output, or quadture b
-    uint8_t direction_pin;  // Direction output, or quadrature b
-    uint8_t enable_pin;
+    uint8_t step_pin=0;       // Step output, or quadture b
+    uint8_t direction_pin=0;  // Direction output, or quadrature b
+    uint8_t enable_pin=0;
 
-    uint8_t step_high_value; // Whether step is HIGH or LOW when enabled. 
-    uint8_t direction_high_value;
-    uint8_t enable_high_value;
+    uint8_t step_high_value=0; // Whether step is HIGH or LOW when enabled.
+    uint8_t direction_high_value=0;
+    uint8_t enable_high_value=0;
 
-    uint8_t step_output_mode; // OUTPUT or OUTPUT_OPEN_DRAIN
-    uint8_t direction_output_mode;
-    uint8_t enable_output_mode;
+    uint8_t step_output_mode=0; // OUTPUT or OUTPUT_OPEN_DRAIN
+    uint8_t direction_output_mode=0;
+    uint8_t enable_output_mode=0;
 
-    uint8_t pad1;
-    uint8_t pad2;
+    uint8_t pad1=0xBE;
+    uint8_t pad2=0xEF;
 
-    uint32_t v_max;
-    uint32_t a_max;
-};
+    uint32_t v_max=0;
+    uint32_t a_max=0;
+
+    explicit AxisConfig(){};
+
+    AxisConfig(uint8_t axis, uint8_t stepPin, uint8_t directionPin, uint8_t enablePin, uint8_t stepHighValue,
+               uint8_t directionHighValue, uint8_t enableHighValue, uint8_t stepOutputMode, uint8_t directionOutputMode,
+               uint8_t enableOutputMode, uint32_t vMax, uint32_t aMax) :
+               axis(axis), step_pin(stepPin),direction_pin(directionPin),enable_pin(enablePin),step_high_value(stepHighValue),
+               direction_high_value(directionHighValue),enable_high_value(enableHighValue),step_output_mode(stepOutputMode),
+               direction_output_mode(directionOutputMode), enable_output_mode(enableOutputMode), v_max(vMax), a_max(aMax) {}
+
+    friend ostream &operator<<( ostream &output, const AxisConfig &ac );
+
+} AxisConfig;
 
 // Main Configuration class
-struct Config {
+typedef struct Config {
 
     uint8_t n_axes = 0;         // Number of axes
     uint8_t interrupt_delay = INTERRUPT_DELAY;    // How often interrupt is called, in microseconds
@@ -132,7 +174,10 @@ struct Config {
     uint8_t limit_pin = 0; // Pin to recieve signals that the encoder foind a limit
     bool debug_print = true;
     bool debug_tick = true;
-};
+
+
+    friend ostream &operator<<( ostream &output, const Config &c );
+} Config;
 
 
 typedef struct Message {
@@ -153,16 +198,59 @@ typedef struct Message {
 
     Message(vector<uint8_t> &v) : Message( (char*)v.data(), v.size()){}
 
+    Config *asConfig() const { return (Config *) buffer.data(); }
 
-    Config *asConfig() { return (Config *) &buffer[0]; }
+    AxisConfig * asAxisConfig() const { return (AxisConfig *)buffer.data(); }
 
-    AxisConfig *asAxisConfig() { return (AxisConfig *) &buffer[0]; }
+    Moves *asMoves() const { return (Moves *)buffer.data(); }
 
-    Moves *asMoves() { return (Moves *) &buffer[0]; }
+    CurrentState *asCurrentState() const { return (CurrentState *)buffer.data(); }
 
-    string asString() { return string((char *) &buffer[0]); }
+    string asString() const { return string( buffer.data(),buffer.size() ); }
 
     friend ostream &operator<<(ostream &output, const Message &s);
 
 } Message;
+
+
+
+/// A Move vector, which describes distances for all axes
+/**
+ * The Move Vector describes the distances to move for all
+ * axes, plus the maximum velocity for the whole vector.
+ * Note: The max velocity parameter is not currently used.
+*/
+
+struct Move {
+
+    uint32_t seq = 0;
+
+    MoveType move_type = MoveType::relative;
+
+    // Total Vector Time, in microseconds.
+    uint32_t t = 0;
+
+    // Distances
+    MoveArray x;
+
+    Move(int n_joints):seq(0), move_type(MoveType::relative), t(0), x(){
+        x.resize(n_joints);
+    }
+
+    Move(int n_joints, uint32_t seq, uint32_t t, int v): seq(seq), t(t), x(){
+        x.resize(n_joints);
+    }
+
+    Move(uint32_t seq, uint32_t t, MoveType move_type, MoveArray x): seq(seq), move_type(move_type), t(t), x(x){}
+
+    Move(uint32_t seq, uint32_t t, MoveType move_type, std::initializer_list<int> il):
+            seq(seq), move_type(move_type), t(t), x(MoveArray(il.begin(), il.end())){}
+
+    Move(uint32_t t, std::initializer_list<int> il): Move(0, t, MoveType::relative, il){}
+
+
+private:
+    friend std::ostream &operator<<( ostream &output, const Move &p );
+};
+
 

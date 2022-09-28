@@ -3,7 +3,7 @@
 
 #include "trj_segment.h"
 #include "trj_joint.h"
-#include "trj_planner.h"
+#include "planner.h"
 
 
 #include <catch2/catch_test_macros.hpp>

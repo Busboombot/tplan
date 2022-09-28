@@ -14,8 +14,9 @@
 #include <boost/program_options.hpp>
 
 #include "trj_joint.h"
-#include "trj_planner.h"
-
+#include "planner.h"
+#include "stepper.h"
+#include "HostHardware.h"
 
 using namespace std;
 namespace po = boost::program_options;
@@ -44,9 +45,8 @@ std::vector<int> extractIntegerWords(string str)
 }
 
 using Ints = vector<int>;
-using Moves = vector<Ints>;
 
-void loadData(vector<Joint> &joints, Moves &moves){
+void loadData(vector<Joint> &joints, vector<Ints> &moves){
 
     int n_joints;
     int line_n = 0;
@@ -66,7 +66,7 @@ void loadData(vector<Joint> &joints, Moves &moves){
 
 }
 
-Planner *makePlanner(vector<Joint> &joints, Moves &moves){
+Planner *makePlanner(vector<Joint> &joints, vector<Ints> &moves){
 
     Planner *planner = new Planner(joints);
     for(Ints &m : moves) {
@@ -76,53 +76,17 @@ Planner *makePlanner(vector<Joint> &joints, Moves &moves){
     return planner;
 }
 
-class ArrayStepper : public Stepper {
-
-public:
-
-    ArrayStepper(int axis, vector<int> &output) : Stepper(axis), output(output) { }
-
-    ~ArrayStepper() override {}
-
-    void writeStep() override {
-        Stepper::writeStep();
-        output[axis] = 1;
-        count += direction;
-        lastStep = 1;
-    }
-
-    void clearStep() override {
-        Stepper::clearStep();
-        output[axis] = 0;
-        lastStep = 0;
-    }
-
-    void setDirection(Direction direction_) override {
-        Stepper::setDirection(direction_);
-    }
-
-
-public:
-    vector<int> &output;
-    int lastStep = 0;
-    int count = 0;
-};
-
 
 void runSteppers(Planner &p, ostream &os){
 
     double dtime = 5./1e6; // 5 us
 
-    SegmentStepper ss(p);
+    HostHardware hh;
+    SegmentStepper ss(p, hh);
 
     auto steps = vector<int>(p.getJoints().size());
 
-    vector<StepperPtr> steppers;
-    steppers.push_back(std::make_shared<ArrayStepper>(0, steps));
-    steppers.push_back(std::make_shared<ArrayStepper>(1, steps));
-    steppers.push_back(std::make_shared<ArrayStepper>(2, steps));
 
-    ss.setSteppers(steppers);
 
     auto start = chrono::steady_clock::now();
 
@@ -139,7 +103,7 @@ void runSteppers(Planner &p, ostream &os){
 int main(int ac, char **av) {
 
     vector<Joint> joints;
-    Moves moves;
+    vector<Ints> moves;
 
     po::options_description desc("Allowed options");
     desc.add_options()

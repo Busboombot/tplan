@@ -11,14 +11,9 @@ if(NOT Boost_FOUND)
 endif()
 
 add_executable(planner planner.cpp )
-
-target_link_libraries(planner PUBLIC
-        ${Boost_LIBRARIES}
-        libplanner
-        )
-target_include_directories(planner PUBLIC
-        ${Boost_INCLUDE_DIRS}
-        )
+target_link_libraries(planner PUBLIC ${Boost_LIBRARIES} libplanner libhost libinterface )
+target_include_directories(planner PUBLIC ${libinterface_SOURCE_DIR} ${Boost_INCLUDE_DIRS} )
 
 add_executable(stepper stepper.cpp )
-target_link_libraries(stepper PRIVATE  libplanner)
+target_link_libraries(stepper PRIVATE  libplanner libhost libinterface libinterface)
+target_include_directories(stepper PUBLIC ${libinterface_SOURCE_DIR} ${Boost_INCLUDE_DIRS} )

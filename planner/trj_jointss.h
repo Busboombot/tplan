@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <cmath> // rint
 
-#include "trj_planner_const.h"
+#include "trj_const.h"
 #include "trj_joint.h"
 
 #pragma once

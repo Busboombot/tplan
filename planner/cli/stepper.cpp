@@ -12,13 +12,10 @@
 #include <vector>
 #include <sstream>
 #include <array>
-#include <list>
 
-#include "trj_joint.h"
-#include "trj_planner.h"
-#include "trj_stepper.h"
+#include "stepper.h"
+#include "HostHardware.h"
 
-#include <chrono>
 using namespace std;
 
 std::vector<int> extractIntegerWords(const string& str)
@@ -75,6 +72,8 @@ ostream &operator<<(ostream &output, const Segments &s) {
 int main() {
 
     Segments segments;
+    HostHardware hh;
+
     double dtime = 5./1e6; // 5 us
 
     /// Load all of the lines in to vectors
@@ -100,13 +99,19 @@ int main() {
 
     cout << segments << endl;
 
-    auto steppers = vector<StepperState>(n_axes);
+    auto steppers = hh.getSteppers();
+    vector<StepperState> stepStates;
+
+    for(Stepper &s : steppers){
+        stepStates.emplace_back(4/1e6,s);
+    }
+
 
     int seg_n = 0;
     for (Blocks &b: segments) {
 
-        for(int i =0; i < steppers.size(); i++){
-            steppers[i].loadPhases(b[i]);
+        for(int i =0; i < stepStates.size(); i++){
+            stepStates[i].loadPhases(b[i]);
         }
 
         int doneCount = 0;
@@ -115,7 +120,7 @@ int main() {
 
         do {
             int sn = 0;
-            for( auto &ss: steppers){
+            for( auto &ss: stepStates){
                 doneCount += ss.isDone();
                 dist[sn++] += ss.next(dtime);
             }

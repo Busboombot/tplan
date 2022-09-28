@@ -1,16 +1,15 @@
 
 
 #include <functional>   // std::function
-#include <cmath>       // rint,  abs, roundf
+#include <cmath>        // rint,  abs, roundf
 #include <algorithm>    // std::min
 #include <strstream>
 #include <sstream>
-#include <assert.h>
+#include <cassert>
 
 #include "trj_block.h"
+#include "stepper.h"
 #include "trj_joint.h"
-#include "trj_segment.h"
-#include "trj_stepper.h"
 
 using json = nlohmann::json;
 
@@ -91,7 +90,6 @@ void Block::set_zero() {
     v_0 = v_c = v_1 = 0;
 
 }
-
 
 tuple<trj_float_t, trj_float_t> Block::accel_xt(trj_float_t v_i, trj_float_t v_f) const {
     // Distance and time required to accelerate from v0 to v1 at

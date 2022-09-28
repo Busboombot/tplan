@@ -4,10 +4,10 @@
 
 #include <iostream>
 #include <vector>
-#include "trj_planner.h"
+#include "planner.h"
 #include "trj_segment.h"
 #include "trj_joint.h"
-#include "trj_types.h"
+#include "planner_types.h"
 #include "trj_util.h"
 
 using namespace std;
@@ -165,7 +165,7 @@ ostream &operator<<(ostream &output, const Planner &p) {
 
     output << blue_bg << "════  Joints ════" << creset << endl;
 
-    cout << "N Joints:  " << p.joints.size() << endl;
+    output << "N Joints:  " << p.joints.size() << endl;
 
     for (const Joint j: p.joints) {
         output << j ;

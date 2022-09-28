@@ -2,6 +2,8 @@
 #include <functional>
 #include <deque>
 #include <vector>
+#include <sstream>
+#include <string>
 
 #include "trj_const.h"
 #include "trj_types.h"
@@ -10,7 +12,6 @@
 
 using namespace std;
 
-using BufferPtr = const uint8_t*;
 
 class MessageProcessor  {
 
@@ -24,29 +25,32 @@ private:
 
   std::deque<Message> messages;
 
+  CurrentState current_state;
+
 public: 
 
   MessageProcessor(IPacketSerial &ps);
 
-  void update();
+  void update(tmillis t, CurrentState &current_state);
 
-  void updateAll();
+  void updateAll(tmillis t, CurrentState &current_state);
+
+  void updateCurrentState(CurrentState &current_state);
 
   void setLastSegNum(int v);
 
-  void sendAck(uint16_t seq, CurrentState &current_state);
-
-  // An ACK with no current state
   void sendAck(uint16_t seq);
 
   void sendNack();
 
-  void sendDone(uint16_t seq, CurrentState &current_state);
+  void sendDone(uint16_t seq);
 
-  void sendEmpty(uint16_t seq, CurrentState &current_state);
+  void sendEmpty(uint16_t seq);
  
   // Send a text message
   void sendMessage(const char *message_);
+  void sendMessage(const string &str);
+  void sendMessage(stringstream &ss);
 
   void printf(const char* fmt, ...);
 
@@ -77,3 +81,14 @@ private:
   void send(const uint8_t* payload, CommandCode code, uint16_t seq, size_t length);
 
 };
+
+// Singleton message proces for logging on the target.
+// THe logging functions will use this mp, if it is set
+extern MessageProcessor *message_processor;
+
+void log(const char* str);
+void log(const string &str);
+void log(stringstream &str);
+void log_printf(const char *fmt, ...);
+
+

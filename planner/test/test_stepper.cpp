@@ -4,12 +4,14 @@
 #include <numeric>
 #include <fstream>
 
+#include "catch2/catch_all.hpp"
 
 #include "trj_segment.h"
 #include "trj_joint.h"
-#include "trj_planner.h"
-#include "trj_stepper.h"
-#include "catch2/catch_all.hpp"
+#include "planner.h"
+#include "stepper.h"
+#include "HostHardware.h"
+
 
 
 #include "boost/filesystem.hpp"   // includes all needed Boost.Filesystem declarations
@@ -23,27 +25,28 @@ extern vector<Joint> get4Joints();
 extern std::vector<int> extractIntegerWords(const string& str);
 using Ints = vector<int>;
 
-class CoutStepper : public Stepper {
+
+class CoutStepper  {
+
+    Direction direction;
 
 public:
 
-    CoutStepper(int axis) : Stepper(axis) { }
+    CoutStepper(int axis)  { }
 
-    ~CoutStepper() override {}
+    ~CoutStepper()  {}
 
-    void writeStep() override {
-        Stepper::writeStep();
+    void writeStep()  {
         count += direction;
         lastStep = 1;
     }
 
-    void clearStep() override {
-        Stepper::clearStep();
+    void clearStep()  {
         lastStep = 0;
     }
 
-    void setDirection(Direction direction_) override {
-        Stepper::setDirection(direction_);
+    void setDirection(Direction direction_)  {
+        direction = direction_;
     }
 
 
@@ -54,6 +57,8 @@ public:
 
 #define csdc(p) ( std::dynamic_pointer_cast<CoutStepper>(p))
 
+extern Config defaultConfig(uint8_t n_axes);
+AxisConfig defaultAxisConfig(uint8_t axis);
 
 TEST_CASE("Basic Stepper Test", "[stepper]") {
 
@@ -61,6 +66,22 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
 
     vector<Joint> joints = get2Joints();
     Planner p(joints);
+    HostHardware hh;
+    SegmentStepper ss(p, hh);
+    array<int,2> acc{};
+
+    hh.setConfig(defaultConfig(2));
+    hh.setAxisConfig(defaultAxisConfig(0));
+    hh.setAxisConfig(defaultAxisConfig(1));
+
+    ss.reloadJoints();
+
+
+    for(StepperState const &ss: ss.getStepperStates()){
+        cout << ss <<endl;
+    }
+
+    cout << endl << endl;
 
     p.move({-1000, 5000});
     p.move({-500, 10000});
@@ -69,29 +90,14 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
     cout << " ============ " << endl;
     cout << p << endl;
 
-    SegmentStepper ss(p);
-    array<int,2> acc;
-
-    vector<StepperPtr> steppers;
-    steppers.push_back(std::make_shared<CoutStepper>(0 ));
-    steppers.push_back(std::make_shared<CoutStepper>(1));
-
-    ss.setSteppers(steppers);
-
     do {
         ss.next(dtime);
     } while (!p.empty());
-
 
     // Check that it doesn't crash after segments are exhausted.
     ss.next(dtime);
     ss.next(dtime);
     ss.next(dtime);
-
-    cout << "Final: 1:"<< csdc(steppers[0])->count<<" 2: "<< csdc(steppers[1])->count <<endl;
-
-    REQUIRE(csdc(steppers[0])->count == -501);
-    REQUIRE(csdc(steppers[1])->count == 0);
 
     cout << endl;
 
@@ -108,6 +114,10 @@ TEST_CASE("Stepper File Test", "[stepper]") {
             Joint(2, 5e3, 50e3)
     };
     Planner p(joints);
+    HostHardware hh;
+    hh.setPrintPins(true);
+
+
     fstream inputFile;
     array<int, 3> counts = {0};
     path inputFilePath = current_path().parent_path().parent_path().parent_path() / "test_data" / "stepper_file_test.txt";
@@ -124,7 +134,7 @@ TEST_CASE("Stepper File Test", "[stepper]") {
         inputFile.close(); //close the file object
 
         cout << "Loaded " << p.getQueueSize() << " moves,  Counts: "; for(int i=0; i < 3; i++) cout <<counts[i]<<" "; cout << endl;
-        //cout << p << endl;
+
 
     } else {
         cout << "Err: not opened:  "<< inputFilePath << endl;
@@ -135,14 +145,15 @@ TEST_CASE("Stepper File Test", "[stepper]") {
     // Run the steppers
     //
 
-    SegmentStepper ss(p);
+    SegmentStepper ss(p, hh);
 
-    vector<StepperPtr> steppers;
-    steppers.push_back(std::make_shared<CoutStepper>(0 ));
-    steppers.push_back(std::make_shared<CoutStepper>(1));
-    steppers.push_back(std::make_shared<CoutStepper>(2));
+    hh.setConfig(defaultConfig(3));
+    hh.setAxisConfig(defaultAxisConfig(0));
+    hh.setAxisConfig(defaultAxisConfig(1));
+    hh.setAxisConfig(defaultAxisConfig(2));
+    ss.reloadJoints();
 
-    ss.setSteppers(steppers);
+    cout << endl <<  endl ;;
 
     auto start = chrono::steady_clock::now();
 
@@ -152,8 +163,8 @@ TEST_CASE("Stepper File Test", "[stepper]") {
         if (++n_iter % 5'000'000 == 0){
             auto end  = chrono::steady_clock::now();
             auto diff = chrono::duration_cast<chrono::microseconds>(end - start);
-            cout << "Periods: "<< ss.getTotalPeriods()<<" ("<<double(diff.count()/double(ss.getTotalPeriods()))<<")" <<
-            "us/p Time: "<<ss.getTime() << " sec "<< endl;
+            //cout << "Periods: "<< ss.getTotalPeriods()<<" ("<<double(diff.count()/double(ss.getTotalPeriods()))<<")" <<
+            //"us/p Time: "<<ss.getTime() << " sec "<< endl;
         }
     } while (!p.empty());
 
@@ -163,6 +174,7 @@ TEST_CASE("Stepper File Test", "[stepper]") {
     ss.next(dtime);
     ss.next(dtime);
 
+    /*
     cout << "Final: 1:"<< csdc(steppers[0])->count<<
             " 2: "<< csdc(steppers[1])->count <<
             " 3: "<< csdc(steppers[2])->count << endl;
@@ -170,6 +182,7 @@ TEST_CASE("Stepper File Test", "[stepper]") {
     cout << "Total Periods: "<< ss.getTotalPeriods()<<" Time: "<<ss.getTime() << " sec "<< endl;
 
     cout << endl;
+     */
 
 
 }
