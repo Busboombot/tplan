@@ -6,8 +6,8 @@
 
 #include "catch2/catch_all.hpp"
 
-#include "trj_segment.h"
-#include "trj_joint.h"
+#include "segment.h"
+#include "joint.h"
 #include "planner.h"
 #include "stepper.h"
 #include "HostHardware.h"

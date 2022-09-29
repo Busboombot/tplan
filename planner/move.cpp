@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include "trj_move.h"
+#include "move.h"
 
 using namespace std;
 

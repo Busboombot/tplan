@@ -7,7 +7,7 @@
 
 #include "HostHardware.h"
 
-#include "trj_util.h"
+#include "../planner/util.h"
 
 using namespace std;
 using namespace std::chrono;

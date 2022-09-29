@@ -7,9 +7,9 @@
 #include <sstream>
 #include <cassert>
 
-#include "trj_block.h"
+#include "block.h"
 #include "stepper.h"
-#include "trj_joint.h"
+#include "joint.h"
 
 using json = nlohmann::json;
 

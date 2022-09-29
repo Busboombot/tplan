@@ -2,7 +2,7 @@
 #include <chrono>
 #include <thread>
 #include <unistd.h>
-#include "trj_util.h"
+#include "util.h"
 #include <iostream>
 #include <string>
 #include "col.h"
@@ -51,7 +51,7 @@ string yelgr  = col::make(col::yellow,  col::dark_gray, true, false, false);
 string creset = "\x1b[0m";
 string overwrite = "\033[F";
 
-// This crc8 is for determining when pin values change in HostHardware.cpp
+
 uint8_t crc8(vector<u_int8_t> data){
     u_int8_t crc = 0xff;
     size_t i, j;

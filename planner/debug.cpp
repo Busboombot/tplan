@@ -2,8 +2,8 @@
 #include <cstdarg>
 #include <cstdio>
 #include <map>
-#include "trj_debug.h"
-#include "trj_types.h"
+#include "debug.h"
+#include "types.h"
 
 extern char printf_buffer[1024];
 

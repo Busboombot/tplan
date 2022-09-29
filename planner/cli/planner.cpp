@@ -13,7 +13,7 @@
 
 #include <boost/program_options.hpp>
 
-#include "trj_joint.h"
+#include "joint.h"
 #include "planner.h"
 #include "stepper.h"
 #include "HostHardware.h"

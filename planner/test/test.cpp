@@ -3,7 +3,7 @@
 #include <string>
 #include <catch2/catch_test_macros.hpp>
 
-#include "trj_types.h"
+#include "types.h"
 
 #define CATCH_CONFIG_MAIN
 

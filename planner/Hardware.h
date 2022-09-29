@@ -1,7 +1,7 @@
 #pragma once
 
-#include "trj_types.h"
-#include "trj_const.h"
+#include "types.h"
+#include "const.h"
 #include <array>
 #include <map>
 

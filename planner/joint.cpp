@@ -3,7 +3,7 @@
 #include <vector>
 #include <array>
 #include <iostream>
-#include "trj_joint.h"
+#include "joint.h"
 
 
 std::ostream &operator<<(std::ostream &output, const Joint &j) {

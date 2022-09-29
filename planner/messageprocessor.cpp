@@ -1,47 +1,45 @@
 
-#include <stdarg.h>
-
-#include "trj_types.h"
-#include "FastCRC.h"
-#include "PacketSerial.h"
-#include "messageprocessor.h"
-
+#include <cstdarg>
 #include <string>
 #include <vector>
 
 #ifdef TRJ_ENV_HOST
+
 #include <iostream>
+
 #endif
 
-FastCRC8 CRC8;
+#include "types.h"
+#include "messageprocessor.h"
+#include "util.h"
 
 char printf_buffer[5000];
 
 // Singleton message proces for logging on the target.
-MessageProcessor *message_processor  = nullptr;
+MessageProcessor *message_processor = nullptr;
 
 
-void log(const char* str){
-    if(message_processor != nullptr){
+void log(const char *str) {
+    if (message_processor != nullptr) {
         message_processor->sendMessage(str);
     }
 }
 
-void log(const string &str){
-    if(message_processor != nullptr){
+void log(const string &str) {
+    if (message_processor != nullptr) {
         message_processor->sendMessage(str);
     }
 }
 
-void log(stringstream &str){
-    if(message_processor != nullptr){
+void log(stringstream &str) {
+    if (message_processor != nullptr) {
         message_processor->sendMessage(str);
     }
 }
 
-void log_printf(const char *fmt, ...){
+void log_printf(const char *fmt, ...) {
 
-    if(message_processor != nullptr){
+    if (message_processor != nullptr) {
 
         va_list args;
         va_start(args, fmt);
@@ -85,7 +83,8 @@ void MessageProcessor::setLastSegNum(int v) {
 uint8_t MessageProcessor::crc(size_t length) {
     auto *ph = (PacketHeader *) buffer;
     ph->crc = 0;
-    ph->crc = CRC8.smbus(buffer, length);
+    ph->crc = crc8({buffer, buffer+length});
+
     return ph->crc;
 }
 

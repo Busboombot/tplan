@@ -7,7 +7,7 @@
 
 #include "json.hpp"
 
-#include "trj_util.h"
+#include "util.h"
 #include "planner_types.h"
 
 using json = nlohmann::json;

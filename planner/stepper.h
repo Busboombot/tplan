@@ -2,7 +2,7 @@
 #include <utility>
 #include <vector>
 #include <array>
-#include "trj_util.h"
+#include "util.h"
 #include "Hardware.h"
 #include "planner_types.h"
 

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath> // rint
-#include "trj_const.h"
+#include "const.h"
 #include "planner_types.h"
 #include "json.hpp"
 

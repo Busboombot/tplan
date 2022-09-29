@@ -96,7 +96,6 @@ int blink_patterns[4][PATTERN_SIZE] = {
         {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},  // empty  & running: 1 per second
 };
 
-
 /**
  * @brief Blink the onboard LED and set the Empty and Running LEDs.
  *

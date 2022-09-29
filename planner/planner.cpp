@@ -5,10 +5,10 @@
 #include <iostream>
 #include <vector>
 #include "planner.h"
-#include "trj_segment.h"
-#include "trj_joint.h"
+#include "segment.h"
+#include "joint.h"
 #include "planner_types.h"
-#include "trj_util.h"
+#include "util.h"
 
 using namespace std;
 

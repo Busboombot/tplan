@@ -28,10 +28,9 @@ set( SOURCES_TESTS
 
 add_executable(test_planner ${SOURCES_TESTS} )
 
-target_link_libraries(test_planner PRIVATE Catch2::Catch2WithMain libplanner libhost libinterface ${Boost_LIBRARIES})
+target_link_libraries(test_planner PRIVATE Catch2::Catch2WithMain libplanner libhost  ${Boost_LIBRARIES})
 
 target_include_directories(test_planner PUBLIC
-        ${libinterface_SOURCE_DIR}
         ${Boost_INCLUDE_DIRS}
         )
 

@@ -11,13 +11,13 @@
 #include <initializer_list> 
 #include "json.hpp"
 
-#include "trj_const.h" // For N_AXES
-#include "trj_util.h"
-#include "trj_types.h"
-#include "trj_joint.h"
+#include "const.h" // For N_AXES
+#include "util.h"
+#include "types.h"
+#include "joint.h"
 #include "planner_types.h"
 #include "stepper.h"
-#include "trj_segment.h"
+#include "segment.h"
 
 using namespace std;
 using json = nlohmann::json;

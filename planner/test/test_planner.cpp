@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 
-#include "trj_segment.h"
-#include "trj_joint.h"
+#include "segment.h"
+#include "joint.h"
 #include "planner.h"
 
 

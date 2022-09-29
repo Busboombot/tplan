@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <cmath>
-#include "trj_types.h"
+#include "types.h"
 
 // Teensy 4.1 has very fast 32 float, but 64 bit floats  less so:
 // "The FPU performs 32 bit float and 64 bit double precision math in hardware.

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "trj_const.h"
+#include "const.h"
 #include <string>
 #include <map>
-#include "trj_types.h"
+#include "types.h"
 #include <streambuf>
 #include <ostream>
 #include <sstream>

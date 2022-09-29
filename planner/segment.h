@@ -4,10 +4,10 @@
 #include <vector>
 #include <iostream>
 
-#include "trj_util.h"
-#include "trj_block.h"
-#include "trj_types.h"
-#include "trj_joint.h"
+#include "util.h"
+#include "block.h"
+#include "types.h"
+#include "joint.h"
 #include "planner_types.h"
 #include "json.hpp"
 #include "stepper.h"

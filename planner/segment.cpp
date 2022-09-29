@@ -1,7 +1,7 @@
 #include <cmath> // abs
 
-#include "trj_segment.h"
-#include "trj_block.h"
+#include "segment.h"
+#include "block.h"
 
 using json = nlohmann::json;
 

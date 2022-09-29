@@ -5,8 +5,8 @@
 #include <catch2/catch_test_macros.hpp>
 #include "json.hpp"
 
-#include "trj_segment.h"
-#include "trj_joint.h"
+#include "segment.h"
+#include "joint.h"
 #include "planner_types.h"
 
 

@@ -2,7 +2,7 @@
 #include <deque>
 #include <iostream>
 #include <vector>
-#include "trj_types.h"
+#include "types.h"
 #include "ipacketserial.h"
 
 using namespace std;

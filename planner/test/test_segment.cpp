@@ -5,8 +5,8 @@
 #include <time.h>
 
 #include <catch2/catch_test_macros.hpp>
-#include "trj_segment.h"
-#include "trj_joint.h"
+#include "segment.h"
+#include "joint.h"
 
 using json = nlohmann::json;
 using namespace std;

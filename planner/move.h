@@ -6,5 +6,5 @@
 #include <iostream>
 #include <iomanip>
 
-#include "trj_types.h"
+#include "types.h"
 

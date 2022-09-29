@@ -6,7 +6,7 @@
 #include "messageprocessor.h"
 #include "planner.h"
 #include "Hardware.h"
-#include "trj_config.h"
+#include "config.h"
 #include "stepper.h"
 
 class StepperState;

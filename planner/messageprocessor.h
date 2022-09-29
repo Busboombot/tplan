@@ -5,8 +5,8 @@
 #include <sstream>
 #include <string>
 
-#include "trj_const.h"
-#include "trj_types.h"
+#include "const.h"
+#include "types.h"
 
 #include "ipacketserial.h"
 

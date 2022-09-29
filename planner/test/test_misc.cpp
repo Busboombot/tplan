@@ -7,7 +7,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 
-#include "trj_types.h"
+#include "types.h"
 #include "messageprocessor.h"
 #include "PacketSerial.h"
 #include "HostHardware.h"

@@ -1,5 +1,5 @@
-#include "trj_types.h"
-#include "trj_debug.h"
+#include "types.h"
+#include "debug.h"
 #include <iostream>
 #include <iomanip>
 

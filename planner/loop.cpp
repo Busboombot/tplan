@@ -1,19 +1,15 @@
 #include <sstream>
 #include <functional>
 #include <iostream>
-#include <limits.h>
+#include <climits>
 #include <vector>
 
 #include "loop.h"
-#include "trj_move.h"
-#include "messageprocessor.h"
-
-#include "trj_config.h"
-#include "trj_debug.h"
-#include "trj_types.h"
+#include "config.h"
+#include "types.h"
 
 #ifdef TRJ_ENV_HOST
-#include "HostHardware.h"
+
 #endif
 
 using namespace std;
