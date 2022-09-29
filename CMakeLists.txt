@@ -10,7 +10,7 @@ add_subdirectory(planner)
 add_subdirectory(test/unit)
 add_subdirectory(test/system)
 
-add_subdirectory(host)
+add_subdirectory(target/host)
 
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
