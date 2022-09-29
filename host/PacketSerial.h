@@ -67,6 +67,8 @@ public:
 
 public:
 
+    bool iqEmpty(){ return incoming.empty(); }
+
     deque<vector<uint8_t>> outgoing;
     deque<vector<uint8_t>> incoming;
 

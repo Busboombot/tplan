@@ -35,7 +35,8 @@ protected:
 
     int32_t queue_size=0;
     int32_t queue_time=0;
-    int32_t seg_num = 0;
+
+    unsigned int seg_num = 0;
 
     MoveArray plannerPosition;
     MoveArray completedPosition;
@@ -49,7 +50,7 @@ public:
 
     // Add a move, processing it into a Segment
     void move(const Move& move);
-    void move(const MoveArray& move);
+    void move(unsigned int seq_id, const MoveArray &move);
 
     void plan();
 
@@ -86,8 +87,6 @@ public:
     friend ostream &operator<<( ostream &output, const Planner &p );
 
     friend SegmentStepper;
-
-private:
 
 
 private:

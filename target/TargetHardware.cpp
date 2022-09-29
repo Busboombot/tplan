@@ -54,21 +54,6 @@ tmicros TargetHardware::micros() {
     return 0;
 }
 
-tmillis TargetHardware::millisSince(uint8_t tag) {
-    return 0;
-}
-
-tmicros TargetHardware::microsSince(uint8_t tag) {
-    return 0;
-}
-
-void TargetHardware::setMillisZero(uint8_t tag) {
-
-}
-
-void TargetHardware::setMicrosZero(uint8_t tag) {
-
-}
 
 void TargetHardware::delayMillis(uint32_t v) {
 

@@ -162,7 +162,7 @@ void MessageProcessor::processPacket(const uint8_t *buffer_, size_t size) {
 void MessageProcessor::sendMessage(const string &str) {
 
 #ifdef TRJ_ENV_HOST
-    cout << str;
+    cout << "|| " << str;
 #else
     send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
 #endif
@@ -208,6 +208,7 @@ Message &MessageProcessor::firstMessage() {
 int MessageProcessor::availableMessages() {
     return messages.size();
 }
+
 
 bool MessageProcessor::empty() {
     return messages.empty();

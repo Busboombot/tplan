@@ -58,7 +58,7 @@ public:
 #define csdc(p) ( std::dynamic_pointer_cast<CoutStepper>(p))
 
 extern Config defaultConfig(uint8_t n_axes);
-AxisConfig defaultAxisConfig(uint8_t axis);
+extern AxisConfig defaultAxisConfig(uint8_t axis);
 
 TEST_CASE("Basic Stepper Test", "[stepper]") {
 
@@ -83,9 +83,9 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
 
     cout << endl << endl;
 
-    p.move({-1000, 5000});
-    p.move({-500, 10000});
-    p.move({1000, -15000});
+    p.move(40,{-1000, 5000});
+    p.move(41, {-500, 10000});
+    p.move(42, {1000, -15000});
 
     cout << " ============ " << endl;
     cout << p << endl;
@@ -106,6 +106,8 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
 /* Read moves from a file */
 TEST_CASE("Stepper File Test", "[stepper]") {
 
+    return; // This test is really expensive.
+
     double dtime = 5. / 1e6; // 5 us
 
     vector<Joint> joints{
@@ -125,10 +127,12 @@ TEST_CASE("Stepper File Test", "[stepper]") {
 
     if (inputFile.is_open()) {
         cout << "Loading  "<< inputFilePath << endl;
+        int line_no = 0;
         for (std::string line; std::getline(inputFile, line);) {
             if (line[0] == ' ' || line[0] == '#') continue;
             Ints ints = extractIntegerWords(line); // Get all integers on a line
-            p.move({ints[0], ints[1], ints[2]});
+            p.move(line_no++, {ints[0], ints[1], ints[2]});
+
             for(int i=0; i < 3; i++) counts[i]+=ints[i];
         }
         inputFile.close(); //close the file object

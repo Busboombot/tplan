@@ -39,10 +39,10 @@ void Planner::setJoints(std::vector<Joint> joints_){
 }
 
 void Planner::move(const Move &move) {
-    this->move(move.x);
+    this->move( move.seq, move.x);
 }
 
-void Planner::move(const MoveArray &move) {
+void Planner::move(unsigned int seq_id, const MoveArray &move) {
 
     // Add the move into the planner position
     auto mi = move.begin();
@@ -51,8 +51,15 @@ void Planner::move(const MoveArray &move) {
         *ppi += *mi;
     }
 
+    // These id number shenanigans are probably a bad idea, but this
+    // makes things easier for legacy testing code.
+    if (seq_id > seg_num){
+        seg_num = seq_id;
+    } else {
+        seg_num++;
+    }
+
     segments.emplace_back(seg_num, joints, move);
-    seg_num++;
 
     auto last_idx = segments.size() -1;
     Segment *pre_prior = segments.size() >= 3 ? &segments[last_idx-2] : nullptr;
@@ -162,7 +169,14 @@ bool Planner::isEmpty() { return segments.size() == 0; }
 
 ostream &operator<<(ostream &output, const Planner &p) {
 
+    output << "[Planner " <<
+            " nj=" << p.joints.size()  <<
+            " ns=" << p.segments.size() <<
+            "]";
 
+    return output;
+
+    /*
     output << blue_bg << "════  Joints ════" << creset << endl;
 
     output << "N Joints:  " << p.joints.size() << endl;
@@ -179,6 +193,7 @@ ostream &operator<<(ostream &output, const Planner &p) {
     }
 
     return output;
+     */
 }
 
 json Planner::dump(const std::string& tag) const{

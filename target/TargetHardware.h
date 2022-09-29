@@ -20,13 +20,7 @@ public:
 
     tmicros micros() override;
 
-    tmillis millisSince(uint8_t tag) override;
 
-    tmicros microsSince(uint8_t tag) override;
-
-    void setMillisZero(uint8_t tag) override;
-
-    void setMicrosZero(uint8_t tag) override;
 
     void delayMillis(uint32_t v) override;
 
@@ -34,13 +28,6 @@ public:
 
     bool limitChanged() override;
 
-    void setConfig(const Config &c) override;
-
-    void setAxisConfig(const AxisConfig &ac) override;
-
-    Stepper getStepper(int axis) override;
-
-    vector<Stepper> getSteppers() override;
 
 };
 

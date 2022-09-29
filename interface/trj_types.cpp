@@ -45,11 +45,11 @@ ostream &operator<<( ostream &output, const CurrentState &cs ) {
     int32_t positions[N_AXES] = {0};
     int32_t planner_positions[N_AXES] = {0};
 
-    output << "ql="<<cs.queue_length<<" qt="<<cs.queue_time<<" (";
-    for(int i=0; i<N_AXES;i++) output<< cs.positions[i]<<" ";
+    output << "[CurrentState ql="<<cs.queue_length<<" qt="<<cs.queue_time<<" (";
+    for (int i = 0; i < N_AXES; i++) { output << cs.positions[i] << " "; }
     output << ") (";
-    for(int i=0; i<N_AXES;i++) output<< cs.planner_positions[i]<<" ";
-    output << ")";
+    for (int i = 0; i < N_AXES; i++) { output << cs.planner_positions[i] << " "; }
+    output << ")]";
     return output;
 }
 
@@ -98,7 +98,7 @@ ostream &operator<<( ostream &output,  const Message &m ){
 
     }
 
-    cout << "]";
+    output << "]";
     return output;
 
 }

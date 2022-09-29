@@ -20,7 +20,6 @@ enum class MoveType {
 
 using MoveArray = std::vector<int32_t>;
 
-
 using tmillis = u_int32_t;
 using tmicros = u_int32_t;
 using Pin = u_int8_t;
@@ -122,6 +121,8 @@ struct CurrentState {
             planner_positions[i] = (i<=ppositions_.size()) ? ppositions_[i] : 0;
         }
     }
+
+    friend ostream &operator<<( ostream &output, const CurrentState &c );
 };
 
 
@@ -151,17 +152,6 @@ typedef struct AxisConfig {
 
     uint32_t v_max=0;
     uint32_t a_max=0;
-
-
-    explicit AxisConfig(){};
-
-    AxisConfig(uint8_t axis, uint8_t stepPin, uint8_t directionPin, uint8_t enablePin, uint8_t stepHighValue,
-               uint8_t directionHighValue, uint8_t enableHighValue, uint8_t stepOutputMode, uint8_t directionOutputMode,
-               uint8_t enableOutputMode, uint32_t vMax, uint32_t aMax) :
-               axis(axis), step_pin(stepPin),direction_pin(directionPin),enable_pin(enablePin),step_high_value(stepHighValue),
-               direction_high_value(directionHighValue),enable_high_value(enableHighValue),step_output_mode(stepOutputMode),
-               direction_output_mode(directionOutputMode), enable_output_mode(enableOutputMode), v_max(vMax), a_max(aMax) {}
-
 
     friend ostream &operator<<( ostream &output, const AxisConfig &ac );
 
@@ -226,6 +216,8 @@ typedef struct Message {
  * The Move Vector describes the distances to move for all
  * axes, plus the maximum velocity for the whole vector.
  * Note: The max velocity parameter is not currently used.
+ *
+ * THis is not a move message. THe move message is Moves
 */
 
 struct Move {

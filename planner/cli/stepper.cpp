@@ -99,6 +99,7 @@ int main() {
 
     cout << segments << endl;
 
+    /*
     auto steppers = hh.getSteppers();
     vector<StepperState> stepStates;
 
@@ -137,4 +138,5 @@ int main() {
 
 
     return 0;
+     */
 }

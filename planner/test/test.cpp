@@ -46,10 +46,12 @@ AxisConfig defaultAxisConfig(uint8_t axis){
         0,              // uint8_t direction_output_mode=0;
         0,              // uint8_t enable_output_mode=0;
 
+        0xDE,
+        0XAD,
+
         10000,          // uint32_t v_max=0;
         100000         //  a_max=0;
     };
-
 }
 
 

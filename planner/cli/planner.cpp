@@ -70,7 +70,7 @@ Planner *makePlanner(vector<Joint> &joints, vector<Ints> &moves){
 
     Planner *planner = new Planner(joints);
     for(Ints &m : moves) {
-        planner->move(m);
+        planner->move(0,m);
     }
 
     return planner;

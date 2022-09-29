@@ -1,38 +1,76 @@
-#include "HostHardware.h"
-#include "iostream"
-#include "trj_util.h"
 #include <ratio>
+#include <chrono>
+#include <string>
+#include <sstream>
+#include <iostream>
 
+#include "HostHardware.h"
+
+#include "trj_util.h"
+
+using namespace std;
 using namespace std::chrono;
+
+HostHardware::HostHardware() : Hardware() {
+    t0 = steady_clock::now();
+}
 
 void HostHardware::update() {
 
 }
 
-void HostHardware::printPins(){
+void HostHardware::dumpPinCounts() {
 
-    u_int8_t crc = crc8(pins);
-    if (crc != pin_change_crc) {
-        cout << overwrite;
-        for (int i = 0; i < pins.size(); i++) {
-            auto v = pins[i];
-
-            if (v) {
-                cout << blue_bg << i << creset;
-            } else {
-                cout << i;
-            }
-        }
-        cout << endl;
-        pin_change_crc = crc;
+    for (auto &i: highCount) {
+        auto lc = lowCount[i.first];
+        auto mc = missCount[i.first];
+        cout << "Pin " << setw(3) << (int) i.first <<
+             " H: " << setw(3) << (int) i.second <<
+             " L: " << setw(3) << (int) lc <<
+             " M: " << setw(3) << (int) mc << endl;
     }
 
 }
 
-void HostHardware::writePin(Pin pin, PinVal value) {
-    if (pin < 255 && pin > pins.size()) {
-        pins.resize(pin, 0);
+void HostHardware::printPins() {
+    static string last;
+    stringstream ss;
 
+    for (int i = 0; i < pins.size(); i++) {
+        auto v = pins[i];
+
+        if (v) {
+            ss << blue_bg << (int) i << creset;
+            //ss << setw(3) << (int)i;
+        } else {
+            ss << (int) i;
+            //ss << "   ";
+        }
+    }
+
+    if (ss.str() != last) {
+        last = ss.str();
+        cout << setw(9) << micros() << " " << last << endl << flush;
+    }
+}
+
+void HostHardware::writePin(Pin pin, PinVal value) {
+
+    if (pin > 64) {
+        return;
+    }
+
+    if (pin >= pins.size()) {
+        pins.resize(pin, 0);
+    }
+
+    // Only record if there was a transition
+    if (value && pins[pin] == LOW) {
+        highCount[pin]++;
+    } else if ( !value && pins[pin] == HIGH) {
+        lowCount[pin]++;
+    } else {
+        missCount[pin]++;
     }
 
     pins[pin] = value;
@@ -60,28 +98,17 @@ void HostHardware::signalError(bool v) {
 }
 
 tmillis HostHardware::millis() {
-    return 0;
+    auto t1 = steady_clock::now();
+    return (tmillis) std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
+
 }
 
 tmicros HostHardware::micros() {
-    return 0;
-}
-
-tmillis HostHardware::millisSince(uint8_t tag) {
-    return 0;
-}
-
-tmicros HostHardware::microsSince(uint8_t tag) {
-    return 0;
-}
-
-void HostHardware::setMillisZero(uint8_t tag) {
+    auto t1 = steady_clock::now();
+    return (tmicros) std::chrono::duration_cast<std::chrono::microseconds>(t1 - t0).count();
 
 }
 
-void HostHardware::setMicrosZero(uint8_t tag) {
-
-}
 
 void HostHardware::delayMillis(uint32_t v) {
 

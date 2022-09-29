@@ -2,15 +2,14 @@
 #include <chrono>
 #include "Hardware.h"
 #include <vector>
-
+#include <map>
 using namespace std::chrono;
 
 class HostHardware : public virtual Hardware {
 
 public:
 
-    explicit HostHardware() : Hardware() {
-    }
+    explicit HostHardware();
 
     void update() override;
 
@@ -28,14 +27,6 @@ public:
 
     tmicros micros() override;
 
-    tmillis millisSince(uint8_t tag) override;
-
-    tmicros microsSince(uint8_t tag) override;
-
-    void setMillisZero(uint8_t tag) override;
-
-    void setMicrosZero(uint8_t tag) override;
-
     void delayMillis(uint32_t v) override;
 
     void delayMicros(uint32_t v) override;
@@ -46,13 +37,24 @@ public: // # local testing functions
 
     void printPins();
 
+    // Set to true to print out pin changes.
     void setPrintPins(bool v){print_pin_change = v;}
 
+    void dumpPinCounts();
+
 private:
+
+    // Timepoint when this object was constructed
+    steady_clock::time_point t0;
 
     bool print_pin_change = false;
     u_int8_t pin_change_crc = 0;
     steady_clock::time_point last_pin_change;
-    vector <PinVal> pins={0};
+
+    vector<PinVal> pins={0};
+    map<PinVal, int> highCount;
+    map<PinVal, int> lowCount;
+    map<PinVal, int> missCount;
+    map<PinVal, int> transCount;
 
 };

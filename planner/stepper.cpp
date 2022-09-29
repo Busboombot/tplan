@@ -62,11 +62,7 @@ int StepperState::next(double dtime) {
         delay_counter -= delay;
         steps_left -= 1;
         steps_stepped += 1;
-
         stepper.setStep();
-
-    } else {
-        stepper.clearStep();
     }
 
     double v = phase->vi + a * phase_t;
@@ -81,7 +77,7 @@ int StepperState::next(double dtime) {
 }
 
 
-Stepper StepperState::getStepper() {
+Stepper &StepperState::getStepper() {
     return stepper;
 }
 
@@ -94,7 +90,6 @@ SegmentStepper::SegmentStepper(Planner &planner, Hardware &hardware) : planner(p
 }
 
 void SegmentStepper::reloadJoints(){
-    auto steppers = hw.getSteppers();
 
     stepperStates.clear();
 
@@ -115,11 +110,11 @@ int SegmentStepper::next(double dtime) {
         auto bi = seg.blocks.begin();
         for(StepperState &ss: stepperStates){
             if(bi != seg.blocks.end()){
+
                 ss.loadPhases(bi->getStepperPhases());
                 bi++;
             }
         }
-
     }
 
     activeAxes = 0;
@@ -128,16 +123,28 @@ int SegmentStepper::next(double dtime) {
     }
 
     if (activeAxes == 0 && !planner.segments.empty()) {
+        last_complete_segment = planner.segments.front().getN();
         planner.segments.pop_front();
-        hw.signalSegmentComplete();
     }
 
     return (int) activeAxes;
 
 }
 
+void SegmentStepper::clearSteps(){
+    for(StepperState &ss: stepperStates){
+        ss.getStepper().clearStep();
+    }
+}
+
 const vector<StepperState> &SegmentStepper::getStepperStates() const {
     return stepperStates;
+}
+
+
+ostream &operator<<(ostream &output, const SegmentStepper &s){
+    output << "[SegStep last" <<s.getLastCompleteSegmentNumber() << " t="<< s.getTime() << "]";
+    return output;
 }
 
 ostream &operator<<(ostream &output, const Stepper &s) {
@@ -164,3 +171,5 @@ ostream &operator<<( ostream &output, const StepperState &ss ) {
 
     return output;
 }
+
+

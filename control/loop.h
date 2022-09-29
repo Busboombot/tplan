@@ -18,6 +18,8 @@ public:
 
     Loop(MessageProcessor &message_processor, Hardware &hardware, Planner &planner ) :
         mp(message_processor), hw(hardware), pl(planner), ss(SegmentStepper(planner, hardware))  {
+
+        last_step_time = hw.millis();
     }
 
     void setup();
@@ -28,8 +30,6 @@ public:
 
     void processMove(Message& message);
 
-    void stop();
-    void start();
 
     void reset();
     void zero();
@@ -38,25 +38,37 @@ public:
 
     int getLastSegNum(){ return last_seg_num; }
 
-    bool isEmpty(){ return false; }
-
     void printInfo();
 
+public:
+    Config &getConfig(){ return config; };
+    array<AxisConfig,N_AXES>& getAxesConfig(){ return axes_config;};
+    CurrentState &getCurrentState(){ return current_state; }
+    bool isPlannerEmpty(){ return pl.empty();}
+    bool isMessageEmpty(){ return mp.empty();}
+
+    friend ostream &operator<<(ostream &output, const Loop &p);
+
+    const SegmentStepper &getSegStepper() const { return ss; }
 
 private:
+
+    void setJoints();
 
     MessageProcessor &mp;
     Planner &pl;
     Hardware  &hw;
     SegmentStepper ss;
 
+
     Config config;
     array<AxisConfig,N_AXES> axes_config;
     CurrentState current_state;
 
-
     bool is_stopped = false;
     int last_seg_num = 0;
     bool running = false;
+    bool empty = true;
 
+    tmicros last_step_time;
 };

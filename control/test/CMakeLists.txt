@@ -18,13 +18,16 @@ endif()
 
 set( SOURCES_TESTS
         test.cpp
-)
+        test_loop.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES_TESTS} )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2WithMain libcontrol libhost libinterface  ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE Catch2::Catch2WithMain
+        libcontrol libhost libinterface libplanner
+        ${Boost_LIBRARIES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
+
         ${Boost_INCLUDE_DIRS}
         )
 

@@ -10,78 +10,72 @@
 
 #include "trj_config.h"
 #include "trj_debug.h"
+#include "trj_types.h"
+
+#ifdef TRJ_ENV_HOST
+#include "HostHardware.h"
+#endif
 
 using namespace std;
+const int UPDATE_TIMER = 1;
+const int UPDATE_INTERVAL = 500; // microseconds
 
 void Loop::setup(){
-
-
+    hw.setMillisZero(UPDATE_TIMER);
 }
 
-#define SIGNAL_INTERVAL 500
-
 void Loop::loopOnce(){
-    static tmillis last_step_time = hw.millis();
-    static tmillis last_signal_time = hw.millis();
 
-    tmillis t = hw.millis();
+    // Step is not using timer features b/c we also need dt
+    tmicros t = hw.micros();
+    tmicros dt = t-last_step_time;
 
-    tmillis dt = t-last_step_time;
+    //cout << "LoopOnce run="<<(bool)running << " empty="<<(int)empty << " dt="<<(int)dt << endl;
+    if(running && !empty ) {
 
-    // The hardware update clears signal pins, so it should go first, so
-    // the signals will be on for a while.
-    hw.update();
+        auto activeAxes = ss.next(dt);
 
-    if (t-last_signal_time > SIGNAL_INTERVAL){
-        hw.setEmptyLed(pl.empty());
+        if(activeAxes == 0){
+            hw.signalSegmentComplete();
+            cout << "Send Done" << endl;
+            mp.sendDone(ss.getLastCompleteSegmentNumber());
+
+            if(pl.isEmpty()){
+                cout << "Send Empty" << endl;
+                mp.sendEmpty(ss.getLastCompleteSegmentNumber());
+                empty = true;
+            }
+        }
+
+        last_step_time = t;
+    }
+
+    if(running) {
+        ss.clearSteps();
+    }
+
+    if(hw.millisSince(UPDATE_TIMER) > UPDATE_INTERVAL){
+        hw.update();
         hw.setRunningLed(running);
+
+        mp.update(t, current_state);
+
+        if(!mp.empty()) {
+            processMessage(mp.firstMessage());
+            mp.pop();
+        }
+
+        hw.setEmptyLed(pl.empty());
     }
-
-    mp.update(t, current_state);
-
-    if(dt >= config.interrupt_delay) {
-        ss.next(dt);
-    }
-
-    if(!mp.empty()){
-        processMessage(mp.firstMessage());
-        mp.pop();
-    }
-
-    last_step_time = t;
-
-    /*
-    // Blink the LED and toggle a debugging pin, to show we're not crashed.
-
-    if (running){
-      sd.update(); // Update the steppers
-
-      int seq = sd.checkIsDone();
-      if (seq >=0){
-
-          signalSegmentComplete();
-      }
-
-      if (sd.checkIsEmpty()){
-        disable();
-        sdp.sendEmpty(sd.getPlanner().getCurrentPhase().seq, current_state);
-      }
-    } else {
-
-    }
-
-    if(limitChanges > 0){
-      if(sd.getPlanner().getCurrentMoveType() == Move::MoveType::home){
-        reset();
-      }
-      limitChanges = 0;
-    }
-     */
-
 }
 
 void Loop::processMessage(Message &m) {
 
+#ifdef TRJ_ENV_HOST
+    stringstream strstr;
+    strstr << "Loop Message: " << m << endl;
+    mp.sendMessage(strstr);
+#endif
 
     switch(m.header.code){
         case CommandCode::CONFIG:
@@ -95,6 +89,7 @@ void Loop::processMessage(Message &m) {
             if(m.asAxisConfig()->axis <N_AXES){
                 axes_config[m.asAxisConfig()->axis] = *m.asAxisConfig();
             }
+            setJoints();
             break;
 
         case CommandCode::RMOVE:
@@ -102,6 +97,20 @@ void Loop::processMessage(Message &m) {
         case CommandCode::JMOVE:
         case CommandCode::HMOVE:
             processMove(m);
+            break;
+
+        case CommandCode::STOP:
+            running = false;
+            break;
+
+        case CommandCode::RUN:
+            running = true;
+            break;
+
+        case CommandCode::RESET:
+            break;
+
+        case CommandCode::ZERO:
             break;
 
         case CommandCode::INFO:
@@ -112,9 +121,6 @@ void Loop::processMessage(Message &m) {
             break;
     }
 }
-
-
-
 
 // Turn a move command into a move and add it to the planner
 void Loop::processMove(Message &mesg){
@@ -150,39 +156,26 @@ void Loop::processMove(Message &mesg){
         current_state.planner_positions[axis] += mv->x[axis];
     }
 
-    /*
-    auto &planner = sd.getPlanner();
-    current_state.queue_length = planner.getQueueSize();
-    current_state.queue_time = planner.getQueueTime();
+    empty = false;
 
-    sd.push(move);
-     */
+    current_state.queue_length = pl.getQueueSize();
+    current_state.queue_time = pl.getQueueTime();
+
+    pl.move(move);
+
+
 }
 
+void Loop::setJoints(){
+    vector<Joint> joints;
+    for(int i = 0; i < config.n_axes; i++){
+        joints.emplace_back(i, axes_config[i].v_max,  axes_config[i].a_max);
+    }
+
+    pl.setJoints(joints);
+}
 
 /**************************/
-
-
-//void clearSegmentCompleteISR(){ mainLoop.clearSegmentComplete();}
-
-void limitChangedISR() {
-  //mainLoop.limitChanged();
-}
-
-
-
-
-
-
-// Start the timers, if there are segments available. 
-void Loop::start(){ 
-  running = true;
-  
-}
-
-void Loop::stop(){ 
-  running = false;
-}
 
 /**
  * @brief Remove all of the segments from the queue
@@ -205,9 +198,36 @@ void Loop::disable() {
 
 
 
+#define rstss(ss) ss.str( std::string() ); ss.clear(); // reset the string stream
 
 void Loop::printInfo(){
+
+    stringstream ss;
+
+    ss << *this;
+    mp.sendMessage(ss);
+
+    rstss(ss)
+    ss << pl;
+    mp.sendMessage(ss);
+
+    rstss(ss)
+    ss << config;
+    mp.sendMessage(ss);
+
+    rstss(ss)
+    for(AxisConfig &as : axes_config){
+        ss << as <<endl;
+    }
+    mp.sendMessage(ss);
+
+    rstss(ss)
+    ss << current_state;
+    mp.sendMessage(ss);
+
   /*
+
+
 
   auto& planner = sd.getPlanner();
 
@@ -256,4 +276,18 @@ void Loop::printInfo(){
   }
 */
 }
+
+
+ostream &operator<<(ostream &output, const Loop &p) {
+
+    output << "[Loop " <<
+           " run=" << (int)p.running <<
+           " stop=" << (int)p.is_stopped <<
+           " empty=" << (int)p.empty <<
+           " lseg=" << (int)p.last_seg_num <<
+           "]";
+
+    return output;
+}
+
 

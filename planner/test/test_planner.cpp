@@ -39,9 +39,9 @@ TEST_CASE("Basic Planner Test", "[planner]"){
 
     Planner p(joints);
 
-    p.move({1000,1000});
-    p.move({1000,1000});
-    p.move({1000,1000});
+    p.move(1,{1000, 1000});
+    p.move(2,{1000, 1000});
+    p.move(3,{1000, 1000});
 
 
     cout <<" ============ " << endl;
@@ -54,8 +54,8 @@ TEST_CASE("Large Small Planner Test", "[planner]"){
 
     Planner p(joints);
 
-    p.move({1000,1});
-    p.move({1,1000});
+    p.move(10,{1000, 1});
+    p.move(11,{1, 1000});
 
     cout <<" ============ " << endl;
     cout << p << endl;

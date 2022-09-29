@@ -3,19 +3,27 @@
 #include "trj_types.h"
 #include "trj_const.h"
 #include <array>
+#include <map>
 
 class Stepper;
 
 class StepperState;
 
+using  millimap = map<uint8_t,tmillis>;
+using  micromap = map<uint8_t,tmicros>;
+
 class Hardware {
+
 
 private:
     int n_axes = 0;
     Config config;
     vector<AxisConfig> axes;
-    vector<Stepper> steppers;
+
     Stepper *default_stepper;
+
+    millimap millis_0; // Base time for millis since
+    micromap micros_0; // Base time for micros since
 
 public:
 
@@ -57,13 +65,13 @@ public:
 
     virtual tmicros micros() = 0;
 
-    virtual tmillis millisSince(uint8_t tag) = 0;
+    tmillis millisSince(uint8_t tag);
 
-    virtual tmicros microsSince(uint8_t tag) = 0;
+    tmicros microsSince(uint8_t tag);
 
-    virtual void setMillisZero(uint8_t tag) = 0;
+    void setMillisZero(uint8_t tag);
 
-    virtual void setMicrosZero(uint8_t tag) = 0;
+    void setMicrosZero(uint8_t tag);
 
     virtual void delayMillis(uint32_t v) = 0;
 
@@ -77,7 +85,6 @@ public:
 
     virtual Stepper getStepper(int axis);
 
-    virtual vector<Stepper> getSteppers();
 };
 
 /**
@@ -93,6 +100,8 @@ protected:
 
     Hardware *hw;
     int8_t axis;
+
+protected:
 
     Pin step_pin = -1;
     Pin direction_pin = -1;
@@ -125,7 +134,7 @@ public:
     void setStep() { hw->writePin(step_pin, HIGH); }
 
     // Set the step pin for this axis to LOW
-    void clearStep() { hw->writePin(step_pin, LOW); }
+    void clearStep() { hw->writePin(step_pin, LOW);}
 
     void enable() { hw->writePin(enable_pin, enable_val); }
 
@@ -144,6 +153,8 @@ public:
     }
 
     void setDirection(int dir) { setDirection(static_cast<Direction>(dir)); };
+
+    int8_t getAxis() const { return axis; }
 
     friend ostream &operator<<(ostream &output, const Stepper &s);
 

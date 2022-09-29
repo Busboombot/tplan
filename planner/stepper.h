@@ -55,7 +55,7 @@ public:
 
     inline int isDone() const { return done ? 1 : 0; };
 
-    Stepper getStepper();
+    Stepper &getStepper();
 
     friend ostream &operator<<( ostream &output, const StepperState &ss );
 };
@@ -70,13 +70,16 @@ public:
 
     int next(double dtime);
 
-    unsigned long getTotalPeriods() const { return totalPeriods; }
+    void clearSteps();
 
-    unsigned long getActiveAxes() const { return activeAxes;}
-
+    int getActiveAxes() const { return activeAxes;}
     double getTime() const { return time; }
 
+    uint32_t getLastCompleteSegmentNumber() const { return last_complete_segment;}
+
     const vector<StepperState> &getStepperStates() const;
+
+    friend ostream &operator<<(ostream &output, const SegmentStepper &s);
 
 private:
 
@@ -84,9 +87,13 @@ private:
     Hardware &hw;
     vector<StepperState> stepperStates;
 
-    unsigned long totalPeriods = 0;
+    uint32_t last_complete_segment;
 
-    unsigned long activeAxes = 0;
+
+
+
+private:
+    int activeAxes = 0;
     double time;
 
 };
