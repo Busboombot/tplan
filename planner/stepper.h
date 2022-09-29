@@ -32,6 +32,8 @@ private:
     double delay = 0;
     double delay_counter= 0;
 
+    int clear_counter = 0;
+
     double a;
 
     bool done = false;

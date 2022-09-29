@@ -42,7 +42,15 @@ public: // # local testing functions
 
     void dumpPinCounts();
 
+    // Increment internal time
+    void stepTime(tmicros dt);
+
+    void useSystemTime(bool v=true){use_system_time = v;}
+
 private:
+
+    bool use_system_time = false;
+    tmicros hw_time=0;
 
     // Timepoint when this object was constructed
     steady_clock::time_point t0;

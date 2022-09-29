@@ -27,37 +27,6 @@ int sign(double x) {
 }
 
 
-#ifdef TRJ_ENV_HOST
-void delay(uint32_t ms){
-    this_thread::sleep_for(chrono::milliseconds(ms));
-
-}
-void delayMicroseconds(uint32_t us){
-    this_thread::sleep_for(chrono::microseconds(us));
-
-}
-
-
-steadyClock::time_point usince_start =  steadyClock::now();
-void start_usince(){
-    usince_start =  steadyClock::now();
-}
-
-uint32_t usince(){
-    auto elapsed = steadyClock::now() - usince_start;
-    return (uint32_t)(elapsed.count()/1000);
-}
-#else
-
-uint32_t  usince_start =  micros();
-void start_usince(){
-     usince_start =  micros();
-}
-
-uint32_t usince(){
-    return  micros() - usince_start;
-}
-#endif
 
 vector<string> splitString(const string& str){
     vector<string> tokens;

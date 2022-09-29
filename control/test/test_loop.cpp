@@ -21,6 +21,11 @@ extern void pushAxisConfig(MockPacketSerial &mps, int axis);
 extern void pushMove(MockPacketSerial &mps, CommandCode cmd, Moves m);
 extern void pushMessage(MockPacketSerial &mps, CommandCode cmd);
 
+using sclock = std::chrono::system_clock;
+using sec = std::chrono::duration<double>;
+using us = std::chrono::duration<double, std::micro>;
+
+
 TEST_CASE("Basic Loop Test", "[loop]"){
 
     CurrentState current_state;
@@ -36,6 +41,7 @@ TEST_CASE("Basic Loop Test", "[loop]"){
     pushAxisConfig(mps, 1);
     pushAxisConfig(mps, 2);
 
+    hw.useSystemTime(true);
     while(!mps.iqEmpty()) loop.loopOnce();
 
     loop.printInfo();
@@ -48,18 +54,27 @@ TEST_CASE("Basic Loop Test", "[loop]"){
     REQUIRE(loop.getAxesConfig()[2].step_pin == 9);
     REQUIRE(loop.getAxesConfig()[3].step_pin == 0); // This axis is unconfigured
 
+    pushMove(mps, CommandCode::RMOVE, {0, {10000,10,1000}});
+    pushMove(mps, CommandCode::RMOVE, {0, {-10000,20,-1000}});
     pushMessage(mps, CommandCode::RUN);
-    pushMove(mps, CommandCode::RMOVE, {0, {1000,10,10}});
-    pushMove(mps, CommandCode::RMOVE, {0, {-1000,20,-10}});
+
     cout << loop <<  pl << endl;
-    while(!mps.iqEmpty()) loop.loopOnce(); // Load the message processor
+    while(!mps.iqEmpty()) loop.loopOnce(); // Load the message processor. w/o this, pl will be empty for next loop
 
     cout << loop << pl << endl;
-
+    hw.useSystemTime(false);
     //hw.setPrintPins(true)
+    const auto t0 = sclock::now();
+
+    int n = 0;
     while(!pl.empty()){
+        hw.stepTime(1); // Step 1 micro second per loop
+        n++;
         loop.loopOnce();
     }
+    const sec dt = sclock::now() - t0;
+
+    std::cout << "Loop time: " << n/dt.count() << " loop/sec" << endl;
 
     cout << loop  << pl << loop.getSegStepper() << endl;
 

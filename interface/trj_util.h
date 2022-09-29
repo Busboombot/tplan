@@ -4,28 +4,12 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdint> 
-#include <math.h> 
+#include <cmath>
 #include <chrono>
 #include <stdexcept>
 #include <vector>
 
 using namespace std;
-
-typedef chrono::milliseconds ms;
-typedef chrono::microseconds us;
-typedef chrono::steady_clock steadyClock;
-typedef chrono::duration<uint64_t, micro> duration;
-
-
-
-long micros();
-void start_usince();
-uint32_t usince();
-
-#ifdef TRJ_ENV_HOST
-void delay(uint32_t ms);
-void delayMicroseconds(uint32_t us);
-#endif
 
 extern int here_count;
 #define HERE(x) cout << "!!!HERE!!! " << x << " " << here_count++ << endl;

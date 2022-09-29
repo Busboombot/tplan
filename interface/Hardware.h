@@ -49,15 +49,6 @@ public:
 
     virtual void signalSegmentComplete() { writePin(config.segment_complete_pin, HIGH); }
 
-    void setEmptyLed(PinVal value) { writePin(config.empty_led_pin, value); }
-
-    void setRunningLed(PinVal value) { writePin(config.running_led_pin, value); }
-
-    void setBuiltinLed(PinVal value) { writePin(config.builtin_led_pin, value); }
-
-    void setYLed(PinVal value) { writePin(config.yellow_led_pin, value); }
-
-    void setBLed(PinVal value) { writePin(config.blue_led_pin, value); }
 
     double getDTime() { return (((double) config.interrupt_delay) / TIMEBASE); }
 
@@ -85,6 +76,23 @@ public:
 
     virtual Stepper getStepper(int axis);
 
+    // LEDS
+
+    void cycleLeds();
+
+    void blink(bool running, bool empty);
+
+    void setEmptyLed(PinVal value) { writePin(config.empty_led_pin, value); }
+
+    void setRunningLed(PinVal value) { writePin(config.running_led_pin, value); }
+
+    void setBuiltinLed(PinVal value) { writePin(config.builtin_led_pin, value); }
+
+    void setYLed(PinVal value) { writePin(config.yellow_led_pin, value); }
+
+    void setBLed(PinVal value) { writePin(config.blue_led_pin, value); }
+
+
 };
 
 /**
@@ -110,6 +118,8 @@ protected:
     PinVal enable_val = HIGH;
     PinVal cw_dir_val = HIGH; // Pin value for CW direction“
 
+    PinVal step_state;
+
 public:
 
     explicit Stepper(Hardware *hardware) :
@@ -131,10 +141,17 @@ public:
     /**
      * @brief Set the step pin for this axis to HIGH
      */
-    void setStep() { hw->writePin(step_pin, HIGH); }
+    void setStep() { hw->writePin(step_pin, HIGH); step_state = 1; }
 
     // Set the step pin for this axis to LOW
-    void clearStep() { hw->writePin(step_pin, LOW);}
+    void clearStep() {
+        // We clear the step pin regularly, so it may be more efficient to avoid setting it
+        // when it is already unset.
+        if (step_state != 0) {
+            hw->writePin(step_pin, LOW);
+            step_state = 0;
+        }
+    }
 
     void enable() { hw->writePin(enable_pin, enable_val); }
 

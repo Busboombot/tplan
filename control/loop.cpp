@@ -18,7 +18,7 @@
 
 using namespace std;
 const int UPDATE_TIMER = 1;
-const int UPDATE_INTERVAL = 500; // microseconds
+const int UPDATE_INTERVAL = 10; // milliseconds
 
 void Loop::setup(){
     hw.setMillisZero(UPDATE_TIMER);
@@ -30,10 +30,9 @@ void Loop::loopOnce(){
     tmicros t = hw.micros();
     tmicros dt = t-last_step_time;
 
-    //cout << "LoopOnce run="<<(bool)running << " empty="<<(int)empty << " dt="<<(int)dt << endl;
     if(running && !empty ) {
 
-        auto activeAxes = ss.next(dt);
+        auto activeAxes = ss.next(float(dt)/float(TIMEBASE) );
 
         if(activeAxes == 0){
             hw.signalSegmentComplete();
@@ -50,11 +49,8 @@ void Loop::loopOnce(){
         last_step_time = t;
     }
 
-    if(running) {
-        ss.clearSteps();
-    }
-
     if(hw.millisSince(UPDATE_TIMER) > UPDATE_INTERVAL){
+
         hw.update();
         hw.setRunningLed(running);
 
@@ -65,7 +61,9 @@ void Loop::loopOnce(){
             mp.pop();
         }
 
-        hw.setEmptyLed(pl.empty());
+        hw.blink(running, empty);
+
+        hw.setMillisZero(UPDATE_TIMER);
     }
 }
 

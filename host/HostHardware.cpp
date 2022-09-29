@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <thread>
 
 #include "HostHardware.h"
 
@@ -98,26 +99,44 @@ void HostHardware::signalError(bool v) {
 }
 
 tmillis HostHardware::millis() {
-    auto t1 = steady_clock::now();
-    return (tmillis) std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
+    if (use_system_time) {
+        auto t1 = steady_clock::now();
+        return (tmillis) std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
+    } else {
+        return hw_time/1000;
+    }
 
 }
 
 tmicros HostHardware::micros() {
-    auto t1 = steady_clock::now();
-    return (tmicros) std::chrono::duration_cast<std::chrono::microseconds>(t1 - t0).count();
-
+    if (use_system_time) {
+        auto t1 = steady_clock::now();
+        return (tmicros) std::chrono::duration_cast<std::chrono::microseconds>(t1 - t0).count();
+    } else {
+        return hw_time;
+    }
 }
 
-
 void HostHardware::delayMillis(uint32_t v) {
-
+    if (use_system_time) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(v));
+    } else {
+        hw_time += (v*1000);
+    }
 }
 
 void HostHardware::delayMicros(uint32_t v) {
-
+    if (use_system_time) {
+        std::this_thread::sleep_for(std::chrono::microseconds (v));
+    } else {
+        hw_time += v;
+    }
 }
 
 bool HostHardware::limitChanged() {
     return false;
+}
+
+void HostHardware::stepTime(tmicros dt){
+    hw_time += dt;
 }

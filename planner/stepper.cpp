@@ -58,11 +58,19 @@ int StepperState::next(double dtime) {
         }
     }
 
-    if (delay_counter > delay) {
+    if(clear_counter == 0) {
+        stepper.clearStep();
+        clear_counter = -1;
+    } else if (delay_counter > delay) {
+        // else if so if the step gets cleared , it doesn't get immediately re-set,
+        // to soon for the stepper driver to notice.
         delay_counter -= delay;
         steps_left -= 1;
         steps_stepped += 1;
         stepper.setStep();
+        clear_counter = 1;
+    }  else if(clear_counter > 0){
+        clear_counter--;
     }
 
     double v = phase->vi + a * phase_t;
@@ -82,14 +90,11 @@ Stepper &StepperState::getStepper() {
 }
 
 
-
-
-
 SegmentStepper::SegmentStepper(Planner &planner, Hardware &hardware) : planner(planner), hw(hardware) {
     reloadJoints();
 }
 
-void SegmentStepper::reloadJoints(){
+void SegmentStepper::reloadJoints() {
 
     stepperStates.clear();
 
@@ -108,8 +113,8 @@ int SegmentStepper::next(double dtime) {
         Segment &seg = planner.segments.front();
 
         auto bi = seg.blocks.begin();
-        for(StepperState &ss: stepperStates){
-            if(bi != seg.blocks.end()){
+        for (StepperState &ss: stepperStates) {
+            if (bi != seg.blocks.end()) {
 
                 ss.loadPhases(bi->getStepperPhases());
                 bi++;
@@ -131,8 +136,8 @@ int SegmentStepper::next(double dtime) {
 
 }
 
-void SegmentStepper::clearSteps(){
-    for(StepperState &ss: stepperStates){
+void SegmentStepper::clearSteps() {
+    for (StepperState &ss: stepperStates) {
         ss.getStepper().clearStep();
     }
 }
@@ -142,32 +147,32 @@ const vector<StepperState> &SegmentStepper::getStepperStates() const {
 }
 
 
-ostream &operator<<(ostream &output, const SegmentStepper &s){
-    output << "[SegStep last" <<s.getLastCompleteSegmentNumber() << " t="<< s.getTime() << "]";
+ostream &operator<<(ostream &output, const SegmentStepper &s) {
+    output << "[SegStep last=" << (int) s.getLastCompleteSegmentNumber() << " t=" << s.getTime() << "]";
     return output;
 }
 
 ostream &operator<<(ostream &output, const Stepper &s) {
     output << "[Stepper #"
-           << (int)s.axis << " "
-           << (int)s.step_pin << " "
-            << (int)s.direction_pin << " "
-           << (int)s.enable_pin << " "
+           << (int) s.axis << " "
+           << (int) s.step_pin << " "
+           << (int) s.direction_pin << " "
+           << (int) s.enable_pin << " "
 
-           << " adr=" << (void*)&s
+           << " adr=" << (void *) &s
            << " ]";
     return output;
 }
 
-ostream &operator<<( ostream &output, const StepperState &ss ) {
-    output << "[StepSt " << (int)ss.stepper.axis <<
-            " sp=" << (int)ss.stepper.step_pin <<
-            " dp=" << (int)ss.stepper.direction_pin <<
-            " sl=" << ss.steps_left <<
-            " ss=" << ss.steps_stepped <<
-            " ssadr=" << (void*)&ss <<
-            " stadr=" << (void*)&ss.stepper <<
-            "]";
+ostream &operator<<(ostream &output, const StepperState &ss) {
+    output << "[StepSt " << (int) ss.stepper.axis <<
+           " sp=" << (int) ss.stepper.step_pin <<
+           " dp=" << (int) ss.stepper.direction_pin <<
+           " sl=" << ss.steps_left <<
+           " ss=" << ss.steps_stepped <<
+           " ssadr=" << (void *) &ss <<
+           " stadr=" << (void *) &ss.stepper <<
+           "]";
 
     return output;
 }

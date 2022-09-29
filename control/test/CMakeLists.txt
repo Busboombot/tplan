@@ -18,7 +18,7 @@ endif()
 
 set( SOURCES_TESTS
         test.cpp
-        test_loop.cpp)
+        test_loop.cpp test_misc.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES_TESTS} )
 

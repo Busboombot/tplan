@@ -13,7 +13,6 @@ Hardware::Hardware() {
 }
 
 
-
 void Hardware::setConfig(const Config &c) {
     config = c;
     axes.resize(config.n_axes);
@@ -68,5 +67,58 @@ void Hardware::setMillisZero(uint8_t tag) {
 
 void Hardware::setMicrosZero(uint8_t tag) {
     micros_0[tag] = micros();
+}
+
+
+void Hardware::cycleLeds(){
+
+    std::vector<int> pins{config.builtin_led_pin,config.empty_led_pin,
+                          config.running_led_pin, config.yellow_led_pin,config.blue_led_pin };
+
+    bool tog = true;
+    // Cycle thorugh the LEDs
+    for (int i = 0; i < 4; i++){
+        for(int p: pins){
+            writePin(p, tog);
+            delayMillis(75);
+        }
+        tog = !tog;
+    }
+}
+
+#define PATTERN_SIZE 20
+#define BASE_DELAY 2000/PATTERN_SIZE // Pattern runs over 2,000 ms
+
+int blink_patterns[4][PATTERN_SIZE] = {
+        {1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0},  // !empty & !running: 4 fast blinks
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0},  // !empty & running: continuous fast blink
+        {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0},  // empty  & !running: long, slow blink
+        {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},  // empty  & running: 1 per second
+};
+
+
+/**
+ * @brief Blink the onboard LED and set the Empty and Running LEDs.
+ *
+ * @param running
+ * @param empty
+ */
+void Hardware::blink(bool running, bool empty){
+
+    static int pattern_index = 0;
+    static int db_print = 0;
+    static unsigned long last = millis();
+
+    int pattern = ((int)empty)<<1 | ((int)running);
+
+    setEmptyLed(empty);
+    setRunningLed(running);
+
+    if( (millis() - last) > BASE_DELAY  ){
+
+        pattern_index = (pattern_index+1)%PATTERN_SIZE;
+        setBuiltinLed(blink_patterns[pattern][pattern_index]);
+        last = millis();
+    }
 }
 
