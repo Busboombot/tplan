@@ -35,14 +35,14 @@ add_library( ${PROJECT_NAME}
         util.cpp
         util.h
         version.h
-        FastCRC/src/FastCRCsw.cpp
-        FastCRC/src/FastCRChw.cpp
         )
 
 configure_file(version.h.in version.h)
 target_compile_definitions(${PROJECT_NAME} PUBLIC "TRJ_ENV_HOST")
 target_compile_definitions(${PROJECT_NAME} PUBLIC INTERRUPT_DELAY=4)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE libfastcrc)
 target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}
-        FastCRC/src
+        ${libfastcrc_SOURCE_DIR}/src
         )

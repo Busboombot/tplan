@@ -1,7 +1,9 @@
-
+#include <cstring>
 #include <cstdarg>
 #include <string>
 #include <vector>
+#include <cstdio>
+
 
 #ifdef TRJ_ENV_HOST
 
@@ -14,10 +16,12 @@
 #include "util.h"
 #include "FastCRC.h"
 
+using namespace std;
+
 char printf_buffer[5000];
 FastCRC8 CRC8;
 
-// Singleton message proces for logging on the target.
+// Singleton message proces for logging on the teensy.
 MessageProcessor *message_processor = nullptr;
 
 

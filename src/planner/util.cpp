@@ -5,7 +5,7 @@
 #include "util.h"
 #include <iostream>
 #include <string>
-#include "col.h"
+
 #include <vector>
 
 using namespace std;
@@ -43,6 +43,8 @@ vector<string> splitString(const string& str){
 }
 
 
+#ifdef TRJ_ENV_HOST
+#include "col.h"
 string yellow = col::make(col::yellow, col::def, false, false, false);
 string green  = col::make(col::green,  col::def, false, false, false);
 string blue  = col::make(col::blue,  col::def, false, false, false);
@@ -50,8 +52,15 @@ string blue_bg  = col::make(col::light_yellow,  col::light_blue, true, false, fa
 string yelgr  = col::make(col::yellow,  col::dark_gray, true, false, false);
 string creset = "\x1b[0m";
 string overwrite = "\033[F";
-
-
+#else
+string yellow = "";
+string green  = "";
+string blue  = "";
+string blue_bg  = "";
+string yelgr  = "";
+string creset = "";
+string overwrite = "";
+#endif
 
 
 

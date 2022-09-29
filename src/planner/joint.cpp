@@ -1,6 +1,3 @@
-#include <cstdint>
-#include <deque>
-#include <vector>
 #include <array>
 #include <iostream>
 #include "joint.h"
@@ -13,6 +10,7 @@ std::ostream &operator<<(std::ostream &output, const Joint &j) {
 
 }
 
+#ifdef TRJ_ENV_HOST
 json Joint::dump() const{
 
     json j;
@@ -22,5 +20,9 @@ json Joint::dump() const{
     j["a_max"] = a_max;
 
     return j;
-
 }
+#else
+json Joint::dump() const{
+    return string("");
+}
+#endif

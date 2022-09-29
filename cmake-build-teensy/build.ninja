@@ -1,0 +1,1203 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: trajectory
+# Configurations: Release
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Release
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/eric/Documents/proj/tplan/cmake-build-teensy/
+
+#############################################
+# Utility command for Experimental
+
+build Experimental: phony CMakeFiles/Experimental
+
+
+#############################################
+# Utility command for Nightly
+
+build Nightly: phony CMakeFiles/Nightly
+
+
+#############################################
+# Utility command for Continuous
+
+build Continuous: phony CMakeFiles/Continuous
+
+
+#############################################
+# Utility command for NightlyMemoryCheck
+
+build NightlyMemoryCheck: phony CMakeFiles/NightlyMemoryCheck
+
+
+#############################################
+# Utility command for NightlyStart
+
+build NightlyStart: phony CMakeFiles/NightlyStart
+
+
+#############################################
+# Utility command for NightlyUpdate
+
+build NightlyUpdate: phony CMakeFiles/NightlyUpdate
+
+
+#############################################
+# Utility command for NightlyConfigure
+
+build NightlyConfigure: phony CMakeFiles/NightlyConfigure
+
+
+#############################################
+# Utility command for NightlyBuild
+
+build NightlyBuild: phony CMakeFiles/NightlyBuild
+
+
+#############################################
+# Utility command for NightlyTest
+
+build NightlyTest: phony CMakeFiles/NightlyTest
+
+
+#############################################
+# Utility command for NightlyCoverage
+
+build NightlyCoverage: phony CMakeFiles/NightlyCoverage
+
+
+#############################################
+# Utility command for NightlyMemCheck
+
+build NightlyMemCheck: phony CMakeFiles/NightlyMemCheck
+
+
+#############################################
+# Utility command for NightlySubmit
+
+build NightlySubmit: phony CMakeFiles/NightlySubmit
+
+
+#############################################
+# Utility command for ExperimentalStart
+
+build ExperimentalStart: phony CMakeFiles/ExperimentalStart
+
+
+#############################################
+# Utility command for ExperimentalUpdate
+
+build ExperimentalUpdate: phony CMakeFiles/ExperimentalUpdate
+
+
+#############################################
+# Utility command for ExperimentalConfigure
+
+build ExperimentalConfigure: phony CMakeFiles/ExperimentalConfigure
+
+
+#############################################
+# Utility command for ExperimentalBuild
+
+build ExperimentalBuild: phony CMakeFiles/ExperimentalBuild
+
+
+#############################################
+# Utility command for ExperimentalTest
+
+build ExperimentalTest: phony CMakeFiles/ExperimentalTest
+
+
+#############################################
+# Utility command for ExperimentalCoverage
+
+build ExperimentalCoverage: phony CMakeFiles/ExperimentalCoverage
+
+
+#############################################
+# Utility command for ExperimentalMemCheck
+
+build ExperimentalMemCheck: phony CMakeFiles/ExperimentalMemCheck
+
+
+#############################################
+# Utility command for ExperimentalSubmit
+
+build ExperimentalSubmit: phony CMakeFiles/ExperimentalSubmit
+
+
+#############################################
+# Utility command for ContinuousStart
+
+build ContinuousStart: phony CMakeFiles/ContinuousStart
+
+
+#############################################
+# Utility command for ContinuousUpdate
+
+build ContinuousUpdate: phony CMakeFiles/ContinuousUpdate
+
+
+#############################################
+# Utility command for ContinuousConfigure
+
+build ContinuousConfigure: phony CMakeFiles/ContinuousConfigure
+
+
+#############################################
+# Utility command for ContinuousBuild
+
+build ContinuousBuild: phony CMakeFiles/ContinuousBuild
+
+
+#############################################
+# Utility command for ContinuousTest
+
+build ContinuousTest: phony CMakeFiles/ContinuousTest
+
+
+#############################################
+# Utility command for ContinuousCoverage
+
+build ContinuousCoverage: phony CMakeFiles/ContinuousCoverage
+
+
+#############################################
+# Utility command for ContinuousMemCheck
+
+build ContinuousMemCheck: phony CMakeFiles/ContinuousMemCheck
+
+
+#############################################
+# Utility command for ContinuousSubmit
+
+build ContinuousSubmit: phony CMakeFiles/ContinuousSubmit
+
+
+#############################################
+# Utility command for doc_doxygen
+
+build doc_doxygen: phony CMakeFiles/doc_doxygen
+
+
+#############################################
+# Utility command for test
+
+build CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build test: phony CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Custom command for CMakeFiles/Experimental
+
+build CMakeFiles/Experimental | ${cmake_ninja_workdir}CMakeFiles/Experimental: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D Experimental
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/Nightly
+
+build CMakeFiles/Nightly | ${cmake_ninja_workdir}CMakeFiles/Nightly: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D Nightly
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/Continuous
+
+build CMakeFiles/Continuous | ${cmake_ninja_workdir}CMakeFiles/Continuous: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D Continuous
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyMemoryCheck
+
+build CMakeFiles/NightlyMemoryCheck | ${cmake_ninja_workdir}CMakeFiles/NightlyMemoryCheck: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyMemoryCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyStart
+
+build CMakeFiles/NightlyStart | ${cmake_ninja_workdir}CMakeFiles/NightlyStart: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyStart
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyUpdate
+
+build CMakeFiles/NightlyUpdate | ${cmake_ninja_workdir}CMakeFiles/NightlyUpdate: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyUpdate
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyConfigure
+
+build CMakeFiles/NightlyConfigure | ${cmake_ninja_workdir}CMakeFiles/NightlyConfigure: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyConfigure
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyBuild
+
+build CMakeFiles/NightlyBuild | ${cmake_ninja_workdir}CMakeFiles/NightlyBuild: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyBuild
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyTest
+
+build CMakeFiles/NightlyTest | ${cmake_ninja_workdir}CMakeFiles/NightlyTest: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyTest
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyCoverage
+
+build CMakeFiles/NightlyCoverage | ${cmake_ninja_workdir}CMakeFiles/NightlyCoverage: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyCoverage
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyMemCheck
+
+build CMakeFiles/NightlyMemCheck | ${cmake_ninja_workdir}CMakeFiles/NightlyMemCheck: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlyMemCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlySubmit
+
+build CMakeFiles/NightlySubmit | ${cmake_ninja_workdir}CMakeFiles/NightlySubmit: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D NightlySubmit
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalStart
+
+build CMakeFiles/ExperimentalStart | ${cmake_ninja_workdir}CMakeFiles/ExperimentalStart: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalStart
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalUpdate
+
+build CMakeFiles/ExperimentalUpdate | ${cmake_ninja_workdir}CMakeFiles/ExperimentalUpdate: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalUpdate
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalConfigure
+
+build CMakeFiles/ExperimentalConfigure | ${cmake_ninja_workdir}CMakeFiles/ExperimentalConfigure: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalConfigure
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalBuild
+
+build CMakeFiles/ExperimentalBuild | ${cmake_ninja_workdir}CMakeFiles/ExperimentalBuild: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalBuild
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalTest
+
+build CMakeFiles/ExperimentalTest | ${cmake_ninja_workdir}CMakeFiles/ExperimentalTest: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalTest
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalCoverage
+
+build CMakeFiles/ExperimentalCoverage | ${cmake_ninja_workdir}CMakeFiles/ExperimentalCoverage: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalCoverage
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalMemCheck
+
+build CMakeFiles/ExperimentalMemCheck | ${cmake_ninja_workdir}CMakeFiles/ExperimentalMemCheck: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalMemCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalSubmit
+
+build CMakeFiles/ExperimentalSubmit | ${cmake_ninja_workdir}CMakeFiles/ExperimentalSubmit: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ExperimentalSubmit
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousStart
+
+build CMakeFiles/ContinuousStart | ${cmake_ninja_workdir}CMakeFiles/ContinuousStart: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousStart
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousUpdate
+
+build CMakeFiles/ContinuousUpdate | ${cmake_ninja_workdir}CMakeFiles/ContinuousUpdate: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousUpdate
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousConfigure
+
+build CMakeFiles/ContinuousConfigure | ${cmake_ninja_workdir}CMakeFiles/ContinuousConfigure: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousConfigure
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousBuild
+
+build CMakeFiles/ContinuousBuild | ${cmake_ninja_workdir}CMakeFiles/ContinuousBuild: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousBuild
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousTest
+
+build CMakeFiles/ContinuousTest | ${cmake_ninja_workdir}CMakeFiles/ContinuousTest: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousTest
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousCoverage
+
+build CMakeFiles/ContinuousCoverage | ${cmake_ninja_workdir}CMakeFiles/ContinuousCoverage: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousCoverage
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousMemCheck
+
+build CMakeFiles/ContinuousMemCheck | ${cmake_ninja_workdir}CMakeFiles/ContinuousMemCheck: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousMemCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousSubmit
+
+build CMakeFiles/ContinuousSubmit | ${cmake_ninja_workdir}CMakeFiles/ContinuousSubmit: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest -D ContinuousSubmit
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/doc_doxygen
+
+build CMakeFiles/doc_doxygen | ${cmake_ninja_workdir}CMakeFiles/doc_doxygen: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy && /usr/local/bin/doxygen /Users/eric/Documents/proj/tplan/cmake-build-teensy/config-file.doxygen
+  DESC = Generating API documentation with Doxygen
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/eric/Documents/proj/tplan/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for test
+
+build src/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build src/test: phony src/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/edit_cache: phony src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/eric/Documents/proj/tplan/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target libplanner
+
+
+#############################################
+# Order-only phony target for libplanner
+
+build cmake_object_order_depends_target_libplanner: phony || cmake_object_order_depends_target_libfastcrc
+
+build src/planner/CMakeFiles/libplanner.dir/Hardware.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/Hardware.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/Hardware.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/block.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/block.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/block.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/debug.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/debug.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/debug.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/joint.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/joint.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/joint.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/loop.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/loop.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/loop.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/messageprocessor.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/messageprocessor.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/messageprocessor.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/move.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/move.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/move.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/planner.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/planner.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/planner.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/segment.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/segment.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/segment.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/stepper.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/stepper.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/stepper.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/types.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/types.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/types.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+build src/planner/CMakeFiles/libplanner.dir/util.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/util.cpp || cmake_object_order_depends_target_libplanner
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/planner/CMakeFiles/libplanner.dir/util.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target libplanner
+
+
+#############################################
+# Link the static library src/planner/liblibplanner.a
+
+build src/planner/liblibplanner.a: CXX_STATIC_LIBRARY_LINKER__libplanner_Release src/planner/CMakeFiles/libplanner.dir/Hardware.cpp.o src/planner/CMakeFiles/libplanner.dir/block.cpp.o src/planner/CMakeFiles/libplanner.dir/debug.cpp.o src/planner/CMakeFiles/libplanner.dir/joint.cpp.o src/planner/CMakeFiles/libplanner.dir/loop.cpp.o src/planner/CMakeFiles/libplanner.dir/messageprocessor.cpp.o src/planner/CMakeFiles/libplanner.dir/move.cpp.o src/planner/CMakeFiles/libplanner.dir/planner.cpp.o src/planner/CMakeFiles/libplanner.dir/segment.cpp.o src/planner/CMakeFiles/libplanner.dir/stepper.cpp.o src/planner/CMakeFiles/libplanner.dir/types.cpp.o src/planner/CMakeFiles/libplanner.dir/util.cpp.o || src/FastCRC/liblibfastcrc.a
+  ARCH_FLAGS = -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = src/planner/CMakeFiles/libplanner.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/planner/liblibplanner.a
+  TARGET_PDB = libplanner.a.dbg
+
+
+#############################################
+# Utility command for test
+
+build src/planner/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/planner && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build src/planner/test: phony src/planner/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/planner/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/planner && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/planner/edit_cache: phony src/planner/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/planner/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/planner && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/planner/rebuild_cache: phony src/planner/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/eric/Documents/proj/tplan/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target libfastcrc
+
+
+#############################################
+# Order-only phony target for libfastcrc
+
+build cmake_object_order_depends_target_libfastcrc: phony || src/FastCRC/CMakeFiles/libfastcrc.dir
+
+build src/FastCRC/CMakeFiles/libfastcrc.dir/src/FastCRCsw.cpp.o: CXX_COMPILER__libfastcrc_Release /Users/eric/Documents/proj/tplan/src/FastCRC/src/FastCRCsw.cpp || cmake_object_order_depends_target_libfastcrc
+  DEP_FILE = src/FastCRC/CMakeFiles/libfastcrc.dir/src/FastCRCsw.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  OBJECT_DIR = src/FastCRC/CMakeFiles/libfastcrc.dir
+  OBJECT_FILE_DIR = src/FastCRC/CMakeFiles/libfastcrc.dir/src
+
+build src/FastCRC/CMakeFiles/libfastcrc.dir/src/FastCRChw.cpp.o: CXX_COMPILER__libfastcrc_Release /Users/eric/Documents/proj/tplan/src/FastCRC/src/FastCRChw.cpp || cmake_object_order_depends_target_libfastcrc
+  DEP_FILE = src/FastCRC/CMakeFiles/libfastcrc.dir/src/FastCRChw.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  OBJECT_DIR = src/FastCRC/CMakeFiles/libfastcrc.dir
+  OBJECT_FILE_DIR = src/FastCRC/CMakeFiles/libfastcrc.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target libfastcrc
+
+
+#############################################
+# Link the static library src/FastCRC/liblibfastcrc.a
+
+build src/FastCRC/liblibfastcrc.a: CXX_STATIC_LIBRARY_LINKER__libfastcrc_Release src/FastCRC/CMakeFiles/libfastcrc.dir/src/FastCRCsw.cpp.o src/FastCRC/CMakeFiles/libfastcrc.dir/src/FastCRChw.cpp.o
+  ARCH_FLAGS = -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = src/FastCRC/CMakeFiles/libfastcrc.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/FastCRC/liblibfastcrc.a
+  TARGET_PDB = libfastcrc.a.dbg
+
+
+#############################################
+# Utility command for test
+
+build src/FastCRC/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/FastCRC && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build src/FastCRC/test: phony src/FastCRC/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/FastCRC/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/FastCRC && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/FastCRC/edit_cache: phony src/FastCRC/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/FastCRC/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/FastCRC && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/FastCRC/rebuild_cache: phony src/FastCRC/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/eric/Documents/proj/tplan/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target libhost
+
+
+#############################################
+# Order-only phony target for libhost
+
+build cmake_object_order_depends_target_libhost: phony || src/target/host/CMakeFiles/libhost.dir
+
+build src/target/host/CMakeFiles/libhost.dir/HostHardware.cpp.o: CXX_COMPILER__libhost_Release /Users/eric/Documents/proj/tplan/src/target/host/HostHardware.cpp || cmake_object_order_depends_target_libhost
+  DEFINES = -DTRJ_ENV_HOST
+  DEP_FILE = src/target/host/CMakeFiles/libhost.dir/HostHardware.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner
+  OBJECT_DIR = src/target/host/CMakeFiles/libhost.dir
+  OBJECT_FILE_DIR = src/target/host/CMakeFiles/libhost.dir
+
+build src/target/host/CMakeFiles/libhost.dir/host.cpp.o: CXX_COMPILER__libhost_Release /Users/eric/Documents/proj/tplan/src/target/host/host.cpp || cmake_object_order_depends_target_libhost
+  DEFINES = -DTRJ_ENV_HOST
+  DEP_FILE = src/target/host/CMakeFiles/libhost.dir/host.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner
+  OBJECT_DIR = src/target/host/CMakeFiles/libhost.dir
+  OBJECT_FILE_DIR = src/target/host/CMakeFiles/libhost.dir
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target libhost
+
+
+#############################################
+# Link the static library src/target/host/liblibhost.a
+
+build src/target/host/liblibhost.a: CXX_STATIC_LIBRARY_LINKER__libhost_Release src/target/host/CMakeFiles/libhost.dir/HostHardware.cpp.o src/target/host/CMakeFiles/libhost.dir/host.cpp.o
+  ARCH_FLAGS = -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = src/target/host/CMakeFiles/libhost.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/target/host/liblibhost.a
+  TARGET_PDB = libhost.a.dbg
+
+
+#############################################
+# Utility command for test
+
+build src/target/host/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/target/host && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build src/target/host/test: phony src/target/host/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/target/host/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/target/host && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/target/host/edit_cache: phony src/target/host/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/target/host/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/target/host && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/target/host/rebuild_cache: phony src/target/host/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/eric/Documents/proj/tplan/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_planner
+
+
+#############################################
+# Order-only phony target for test_planner
+
+build cmake_object_order_depends_target_test_planner: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
+
+build src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_basic.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_block.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_lib.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_lib.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_lib.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_loop.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_misc.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_misc.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_misc.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_mp.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_planner.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_segment.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+build src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_stepper.cpp || cmake_object_order_depends_target_test_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_planner
+
+
+#############################################
+# Link the executable src/test/unit/test_planner
+
+build src/test/unit/test_planner src/test/unit/test_planner_tests-b12d07c.cmake | ${cmake_ninja_workdir}src/test/unit/test_planner_tests-b12d07c.cmake: CXX_EXECUTABLE_LINKER__test_planner_Release src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_lib.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_misc.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o | /usr/local/lib/libCatch2Main.a src/planner/liblibplanner.a src/target/host/liblibhost.a /usr/local/lib/libboost_system-mt.dylib /usr/local/lib/libboost_filesystem-mt.dylib /usr/local/lib/libCatch2.a src/FastCRC/liblibfastcrc.a /usr/local/lib/libboost_atomic-mt.dylib || src/FastCRC/liblibfastcrc.a src/planner/liblibplanner.a src/target/host/liblibhost.a
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LINK_LIBRARIES = /usr/local/lib/libCatch2Main.a  src/planner/liblibplanner.a  src/target/host/liblibhost.a  /usr/local/lib/libboost_system-mt.dylib  /usr/local/lib/libboost_filesystem-mt.dylib  /usr/local/lib/libCatch2.a  src/FastCRC/liblibfastcrc.a  /usr/local/lib/libboost_atomic-mt.dylib
+  OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  POST_BUILD = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -D TEST_TARGET=test_planner -D TEST_EXECUTABLE=/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit/test_planner -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit -D TEST_SPEC= -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_LIST=test_planner_TESTS -D TEST_REPORTER= -D TEST_OUTPUT_DIR= -D TEST_OUTPUT_PREFIX= -D TEST_OUTPUT_SUFFIX= -D TEST_DL_PATHS= -D CTEST_FILE=/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit/test_planner_tests-b12d07c.cmake -P /usr/local/lib/cmake/Catch2/CatchAddTests.cmake
+  PRE_LINK = :
+  RESTAT = 1
+  TARGET_FILE = src/test/unit/test_planner
+  TARGET_PDB = test_planner.dbg
+
+
+#############################################
+# Utility command for test
+
+build src/test/unit/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build src/test/unit/test: phony src/test/unit/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/test/unit/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/test/unit/edit_cache: phony src/test/unit/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/test/unit/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/test/unit/rebuild_cache: phony src/test/unit/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/eric/Documents/proj/tplan/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target planner
+
+
+#############################################
+# Order-only phony target for planner
+
+build cmake_object_order_depends_target_planner: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
+
+build src/test/system/CMakeFiles/planner.dir/planner.cpp.o: CXX_COMPILER__planner_Release /Users/eric/Documents/proj/tplan/src/test/system/planner.cpp || cmake_object_order_depends_target_planner
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/system/CMakeFiles/planner.dir/planner.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  OBJECT_DIR = src/test/system/CMakeFiles/planner.dir
+  OBJECT_FILE_DIR = src/test/system/CMakeFiles/planner.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target planner
+
+
+#############################################
+# Link the executable src/test/system/planner
+
+build src/test/system/planner: CXX_EXECUTABLE_LINKER__planner_Release src/test/system/CMakeFiles/planner.dir/planner.cpp.o | /usr/local/lib/libboost_program_options-mt.dylib /usr/local/lib/libboost_filesystem-mt.dylib /usr/local/lib/libboost_system-mt.dylib src/planner/liblibplanner.a src/target/host/liblibhost.a /usr/local/lib/libboost_atomic-mt.dylib src/FastCRC/liblibfastcrc.a || src/FastCRC/liblibfastcrc.a src/planner/liblibplanner.a src/target/host/liblibhost.a
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LINK_LIBRARIES = /usr/local/lib/libboost_program_options-mt.dylib  /usr/local/lib/libboost_filesystem-mt.dylib  /usr/local/lib/libboost_system-mt.dylib  src/planner/liblibplanner.a  src/target/host/liblibhost.a  /usr/local/lib/libboost_atomic-mt.dylib  src/FastCRC/liblibfastcrc.a
+  OBJECT_DIR = src/test/system/CMakeFiles/planner.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/test/system/planner
+  TARGET_PDB = planner.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target stepper
+
+
+#############################################
+# Order-only phony target for stepper
+
+build cmake_object_order_depends_target_stepper: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
+
+build src/test/system/CMakeFiles/stepper.dir/stepper.cpp.o: CXX_COMPILER__stepper_Release /Users/eric/Documents/proj/tplan/src/test/system/stepper.cpp || cmake_object_order_depends_target_stepper
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/system/CMakeFiles/stepper.dir/stepper.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/usr/local/include -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
+  OBJECT_DIR = src/test/system/CMakeFiles/stepper.dir
+  OBJECT_FILE_DIR = src/test/system/CMakeFiles/stepper.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target stepper
+
+
+#############################################
+# Link the executable src/test/system/stepper
+
+build src/test/system/stepper: CXX_EXECUTABLE_LINKER__stepper_Release src/test/system/CMakeFiles/stepper.dir/stepper.cpp.o | src/planner/liblibplanner.a src/target/host/liblibhost.a src/FastCRC/liblibfastcrc.a || src/FastCRC/liblibfastcrc.a src/planner/liblibplanner.a src/target/host/liblibhost.a
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LINK_LIBRARIES = src/planner/liblibplanner.a  src/target/host/liblibhost.a  src/FastCRC/liblibfastcrc.a
+  OBJECT_DIR = src/test/system/CMakeFiles/stepper.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/test/system/stepper
+  TARGET_PDB = stepper.dbg
+
+
+#############################################
+# Utility command for test
+
+build src/test/system/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/system && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build src/test/system/test: phony src/test/system/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/test/system/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/system && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/test/system/edit_cache: phony src/test/system/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/test/system/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/system && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/test/system/rebuild_cache: phony src/test/system/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+build libfastcrc: phony src/FastCRC/liblibfastcrc.a
+
+build libhost: phony src/target/host/liblibhost.a
+
+build liblibfastcrc.a: phony src/FastCRC/liblibfastcrc.a
+
+build liblibhost.a: phony src/target/host/liblibhost.a
+
+build liblibplanner.a: phony src/planner/liblibplanner.a
+
+build libplanner: phony src/planner/liblibplanner.a
+
+build planner: phony src/test/system/planner
+
+build stepper: phony src/test/system/stepper
+
+build test_planner: phony src/test/unit/test_planner
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy
+
+build all: phony doc_doxygen src/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src
+
+build src/all: phony src/planner/all src/FastCRC/all src/target/host/all src/test/unit/all src/test/system/all
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/FastCRC
+
+build src/FastCRC/all: phony src/FastCRC/liblibfastcrc.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/planner
+
+build src/planner/all: phony src/planner/liblibplanner.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/target/host
+
+build src/target/host/all: phony src/target/host/liblibhost.a
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/system
+
+build src/test/system/all: phony src/test/system/planner src/test/system/stepper
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/unit
+
+build src/test/unit/all: phony src/test/unit/test_planner
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../config-file.in.doxygen ../src/CMakeLists.txt ../src/FastCRC/CMakeLists.txt ../src/planner/CMakeLists.txt ../src/planner/version.h.in ../src/target/host/CMakeLists.txt ../src/test/system/CMakeLists.txt ../src/test/unit/CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTest.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestTargets.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestUseLaunchers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/DartConfiguration.tcl.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindBoost.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.79.0.cmake /usr/local/lib/cmake/Catch2/Catch.cmake /usr/local/lib/cmake/Catch2/Catch2Config.cmake /usr/local/lib/cmake/Catch2/Catch2ConfigVersion.cmake /usr/local/lib/cmake/Catch2/Catch2Targets-release.cmake /usr/local/lib/cmake/Catch2/Catch2Targets.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config-version.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-shared.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config-version.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-static.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config-version.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-static.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config-version.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-static.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build ../CMakeLists.txt ../config-file.in.doxygen ../src/CMakeLists.txt ../src/FastCRC/CMakeLists.txt ../src/planner/CMakeLists.txt ../src/planner/version.h.in ../src/target/host/CMakeLists.txt ../src/test/system/CMakeLists.txt ../src/test/unit/CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTest.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestTargets.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestUseLaunchers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/DartConfiguration.tcl.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindBoost.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.79.0.cmake /usr/local/lib/cmake/Catch2/Catch.cmake /usr/local/lib/cmake/Catch2/Catch2Config.cmake /usr/local/lib/cmake/Catch2/Catch2ConfigVersion.cmake /usr/local/lib/cmake/Catch2/Catch2Targets-release.cmake /usr/local/lib/cmake/Catch2/Catch2Targets.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config-version.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-shared.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config-version.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-static.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config-version.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-static.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config-version.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-static.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all

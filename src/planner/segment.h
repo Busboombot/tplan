@@ -9,12 +9,18 @@
 #include "types.h"
 #include "joint.h"
 #include "planner_types.h"
-#include "json.hpp"
+
 #include "stepper.h"
 
 
 using namespace std;
+
+#ifdef TRJ_ENV_HOST
+#include "json.hpp"
 using json = nlohmann::json;
+#else
+using json = string;
+#endif
 
 class Planner;
 class SegmentStepper;
@@ -29,11 +35,12 @@ class Segment {
 private:
 
     uint32_t n;
+    const vector<Joint>& joints;
     trj_float_t t;
     MoveType moveType = MoveType::none;
 
     vector<Block> blocks;
-    const vector<Joint>& joints;
+
     MoveArray moves;
 
     u_long n_joints;

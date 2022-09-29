@@ -27,7 +27,7 @@ void Hardware::setAxisConfig(const AxisConfig &ac) {
 
 Stepper Hardware::getStepper(int axis) {
 
-    if (axis < axes.size()) {
+    if ((size_t)axis < axes.size()) {
         AxisConfig &ac = axes[axis];
         return {this, (int8_t) ac.axis, ac.step_pin, ac.direction_pin, ac.enable_pin};
     } else {
@@ -42,20 +42,21 @@ void Hardware::update() {
 
 
 tmillis Hardware::millisSince(uint8_t tag) {
-    auto v = millis_0[tag];
 
-    try {
+    if(millis_0.find(tag)!=millis_0.end()) {
         return millis()-millis_0.at(tag);
-    } catch (out_of_range& e) {
+    } else {
         setMillisZero(tag);
         return millisSince(tag);
     }
+
 }
 
 tmicros Hardware::microsSince(uint8_t tag) {
-    try {
+
+    if(micros_0.find(tag)!=micros_0.end()){
         return micros()-micros_0.at(tag);
-    } catch (out_of_range& e) {
+    } else {
         setMicrosZero(tag);
         return microsSince(tag);
     }
@@ -105,7 +106,7 @@ int blink_patterns[4][PATTERN_SIZE] = {
 void Hardware::blink(bool running, bool empty){
 
     static int pattern_index = 0;
-    static int db_print = 0;
+
     static unsigned long last = millis();
 
     int pattern = ((int)empty)<<1 | ((int)running);

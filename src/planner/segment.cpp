@@ -3,7 +3,6 @@
 #include "segment.h"
 #include "block.h"
 
-using json = nlohmann::json;
 
 ostream &operator<<(ostream &output, const Segment &s) {
 
@@ -42,7 +41,7 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& mov
 
 void Segment::setBv(vector<int> v_0_, vector<int> v_1_) {
 
-    for (int i = 0; i < blocks.size(); i++) {
+    for (size_t i = 0; i < blocks.size(); i++) {
         blocks[i].setBv(v_0_[i], v_1_[i], nullptr, nullptr);
     }
 }
@@ -57,7 +56,7 @@ trj_float_t Segment::boundaryError(const Segment& prior, const Segment &next) {
 
     trj_float_t sumsq = 0;
 
-    for( int i = 0; i < prior.joints.size(); i++ ){
+    for( size_t i = 0; i < prior.joints.size(); i++ ){
         sumsq += pow(prior.blocks[i].getV1() - next.blocks[i].getV0(),2);
     }
 
@@ -90,7 +89,7 @@ void Segment::plan(trj_float_t t_, int v_0_, int v_1_, Segment *prior, Segment *
             mt = fmax(lower_bound_time, time());
         }
 
-        for(int i=0; i<blocks.size(); i++) {
+        for(size_t i=0; i<blocks.size(); i++) {
             Block &b = blocks[i];
             if (prior != nullptr) prior_block = &prior->blocks[i];
             if (next != nullptr) next_block = &next->blocks[i];
@@ -177,6 +176,12 @@ VelocityVector Segment::getV1() {
     return vv;
 }
 
+const vector<Joint> &Segment::getJoints() const {
+    return joints;
+}
+
+#ifdef TRJ_ENV_HOST
+using json = nlohmann::json;
 json Segment::dump(std::string tag, bool dump_joints) const{
 
     vector<json> o;
@@ -203,8 +208,11 @@ json Segment::dump(std::string tag, bool dump_joints) const{
 
     return j;
 }
-
-const vector<Joint> &Segment::getJoints() const {
-    return joints;
+#else
+using json = std::string;
+json Segment::dump(std::string tag, bool dump_joints) const{
+    return string("");
 }
+#endif
+
 

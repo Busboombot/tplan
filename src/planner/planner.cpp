@@ -110,7 +110,7 @@ void Planner::plan(){
         current->plan(NAN, BV_PRIOR, BV_NAN, prior);
 
         bends = 0;
-        for (int i = 0; i < joints.size(); i++){
+        for (size_t i = 0; i < joints.size(); i++){
             Block &cb = current->blocks[i];
             Block &pb = prior->blocks[i];
 
@@ -154,7 +154,7 @@ double Planner::boundary_error(Segment &p, Segment &c){
 
     double sq_err = 0;
 
-    for(int i = 0; i < joints.size(); i++ ){
+    for(size_t i = 0; i < joints.size(); i++ ){
         sq_err =pow( (p.blocks[i].v_1 - c.blocks[i].v_0) ,2);
     }
 
@@ -196,6 +196,7 @@ ostream &operator<<(ostream &output, const Planner &p) {
      */
 }
 
+#ifdef TRJ_ENV_HOST
 json Planner::dump(const std::string& tag) const{
 
     json j;
@@ -216,5 +217,10 @@ json Planner::dump(const std::string& tag) const{
 
     return j;
 }
+#else
+json Planner::dump(const std::string& tag) const{
+    return string("");
+}
+#endif
 
 

@@ -82,7 +82,7 @@ private:
 
 };
 
-// Singleton message proces for logging on the target.
+// Singleton message proces for logging on the teensy.
 // THe logging functions will use this mp, if it is set
 extern MessageProcessor *message_processor;
 

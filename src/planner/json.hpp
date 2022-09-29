@@ -23926,7 +23926,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
         // wrapper for "add" operation; add value at ptr
         const auto operation_add = [&result](json_pointer & ptr, basic_json val)
         {
-            // adding to the root of the target document means replacing it
+            // adding to the root of the teensy document means replacing it
             if (ptr.empty())
             {
                 result = val;
@@ -24100,7 +24100,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
 
                     // The move operation is functionally identical to a
                     // "remove" operation on the "from" location, followed
-                    // immediately by an "add" operation at the target
+                    // immediately by an "add" operation at the teensy
                     // location with the value that was just removed.
                     operation_remove(from_ptr);
                     operation_add(ptr, v);
@@ -24116,7 +24116,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
                     basic_json const v = result.at(from_ptr);
 
                     // The copy is functionally identical to an "add"
-                    // operation at the target location using the value
+                    // operation at the teensy location using the value
                     // specified in the "from" member.
                     operation_add(ptr, v);
                     break;

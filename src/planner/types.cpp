@@ -40,11 +40,6 @@ ostream &operator<<( ostream &output, const Config &c ) {
 
 ostream &operator<<( ostream &output, const CurrentState &cs ) {
 
-    int32_t queue_length = 0;
-    uint32_t queue_time = 0;
-    int32_t positions[N_AXES] = {0};
-    int32_t planner_positions[N_AXES] = {0};
-
     output << "[CurrentState ql="<<cs.queue_length<<" qt="<<cs.queue_time<<" (";
     for (int i = 0; i < N_AXES; i++) { output << cs.positions[i] << " "; }
     output << ") (";

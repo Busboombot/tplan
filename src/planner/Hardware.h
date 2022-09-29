@@ -6,11 +6,11 @@
 #include <map>
 
 class Stepper;
-
 class StepperState;
 
-using  millimap = map<uint8_t,tmillis>;
-using  micromap = map<uint8_t,tmicros>;
+
+using  millimap = std::map<uint8_t,tmillis>;
+using  micromap = std::map<uint8_t,tmicros>;
 
 class Hardware {
 

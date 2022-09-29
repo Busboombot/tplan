@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <cmath> // rint
 #include <initializer_list> 
-#include "json.hpp"
+
 
 #include "const.h" // For N_AXES
 #include "util.h"
@@ -19,8 +19,15 @@
 #include "stepper.h"
 #include "segment.h"
 
-using namespace std;
+#ifdef TRJ_ENV_HOST
+#include "json.hpp"
 using json = nlohmann::json;
+#else
+using json = string;
+#endif
+
+
+using namespace std;
 
 class Joint;
 class SegmentStepper;

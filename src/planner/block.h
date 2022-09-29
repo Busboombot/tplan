@@ -5,12 +5,16 @@
 #include <map>
 #include <array>
 
-#include "json.hpp"
 
 #include "util.h"
 #include "planner_types.h"
 
+#ifdef TRJ_ENV_HOST
+#include "json.hpp"
 using json = nlohmann::json;
+#else
+using json = string;
+#endif
 
 using namespace std;
 using std::ostream;

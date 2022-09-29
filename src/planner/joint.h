@@ -8,9 +8,14 @@
 #include <cmath> // rint
 #include "const.h"
 #include "planner_types.h"
-#include "json.hpp"
 
+
+#ifdef TRJ_ENV_HOST
+#include "json.hpp"
 using json = nlohmann::json;
+#else
+using json = std::string;
+#endif
 
 class Joint {
 
@@ -34,7 +39,7 @@ public:
     trj_float_t max_discontinuity;
     trj_float_t max_at;
 
-    friend std::__1::ostream &operator<<(std::__1::ostream &output, const Joint &j );
+    friend ostream &operator<<(ostream &output, const Joint &j );
 
     json dump() const;
 

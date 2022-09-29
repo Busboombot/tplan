@@ -4,7 +4,7 @@ set (CMAKE_CXX_STANDARD 11)
 
 project(libhost VERSION 0.1)
 
-set(SOURCES PacketSerial.h HostHardware.cpp HostHardware.h host.cpp host.h)
+set(SOURCES PacketSerial.h HostHardware.cpp HostHardware.h host.cpp host.h )
 
 add_library( ${PROJECT_NAME} ${SOURCES})
 

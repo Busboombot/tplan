@@ -1,13 +1,14 @@
 #pragma once
 
 #include <cstdint>
+#include <stdint.h>
 #include <climits>
 #include <deque>
 #include <vector>
-#include "const.h"
-
+#include <array>
 #include <iostream>
 
+#include "const.h"
 using namespace std;
 
 enum class MoveType {
@@ -20,10 +21,10 @@ enum class MoveType {
 
 using MoveArray = std::vector<int32_t>;
 
-using tmillis = u_int32_t;
-using tmicros = u_int32_t;
-using Pin = u_int8_t;
-using PinVal = u_int8_t;
+using tmillis = uint32_t;
+using tmicros = uint32_t;
+using Pin = uint8_t;
+using PinVal = uint8_t;
 using AxisArray = std::array<PinVal , N_AXES>;
 
 
@@ -106,7 +107,7 @@ struct CurrentState {
     int32_t positions[N_AXES] = {0};
     int32_t planner_positions[N_AXES] = {0};
 
-    explicit CurrentState(): queue_time(0), queue_length(0){
+    explicit CurrentState():  queue_length(0), queue_time(0){
         for(int i=0; i< N_AXES; i++){
             positions[i] = planner_positions[i] =  0;
         }
@@ -116,7 +117,7 @@ struct CurrentState {
             queue_length(queueLength), queue_time(queueTime)
     {
 
-        for(int i=0; i< N_AXES; i++){
+        for(size_t i=0; i< N_AXES; i++){
             positions[i] = (i<=positions_.size()) ? positions_[i] : 0;
             planner_positions[i] = (i<=ppositions_.size()) ? ppositions_[i] : 0;
         }

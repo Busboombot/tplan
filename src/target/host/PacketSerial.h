@@ -7,14 +7,6 @@
 
 using namespace std;
 
-class Stream {
-
-public:
-    Stream()= default;
-    deque<Message> messages;
-
-};
-
 typedef void (*PacketHandlerFunctionWithSender)(const void* sender, const uint8_t* buffer, size_t size);
 
 

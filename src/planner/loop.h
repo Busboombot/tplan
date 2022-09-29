@@ -56,8 +56,9 @@ private:
     void setJoints();
 
     MessageProcessor &mp;
-    Planner &pl;
     Hardware  &hw;
+    Planner &pl;
+
     SegmentStepper ss;
 
 

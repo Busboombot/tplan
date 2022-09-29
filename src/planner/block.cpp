@@ -3,7 +3,6 @@
 #include <functional>   // std::function
 #include <cmath>        // rint,  abs, roundf
 #include <algorithm>    // std::min
-#include <strstream>
 #include <sstream>
 #include <cassert>
 
@@ -11,12 +10,12 @@
 #include "stepper.h"
 #include "joint.h"
 
-using json = nlohmann::json;
+using namespace std;
 
 trj_float_t plan_err_f(trj_float_t x, trj_float_t t, trj_float_t v_0,
                        trj_float_t v_c, trj_float_t v_1, trj_float_t a) {
 
-    trj_float_t t_a, t_d, x_a, x_d, t_c, x_c, t_ad, x_ad;
+    trj_float_t t_c, x_c, t_ad, x_ad;
 
     t_ad = (fabs(v_c - v_0) + fabs(v_c - v_1)) / a;
     x_ad = fabs((pow(v_0, 2) - pow(v_c, 2)) / (2. * a)) +
@@ -28,20 +27,7 @@ trj_float_t plan_err_f(trj_float_t x, trj_float_t t, trj_float_t v_0,
     return x - (x_ad + x_c);
 }
 
-trj_float_t plan_ramp_err_f(trj_float_t x, trj_float_t v_0, trj_float_t v_c, trj_float_t v_1, trj_float_t a) {
 
-    trj_float_t t_a, t_d, x_a, x_d, t_c, x_c, t, x_err;
-
-    t_a = fabs(v_0 - v_1) / a;  // Time to change from v0 to v1 at max acceleration
-    x_a = (v_0 + v_1) / 2 * t_a;
-
-    t_c = t - t_a;
-
-    x_c = v_c * t_c;
-    x_err = x - (x_a + x_c);
-
-    return x_err;
-}
 
 /**
  * @brief Use a binary search to find the value of v_c that produces an value for
@@ -96,7 +82,7 @@ tuple<trj_float_t, trj_float_t> Block::accel_xt(trj_float_t v_i, trj_float_t v_f
     // acceleration a
 
     if (v_i == v_f) {
-        return {0, 0};
+        return tuple<trj_float_t, trj_float_t>(0, 0);
     }
 
 
@@ -104,7 +90,7 @@ tuple<trj_float_t, trj_float_t> Block::accel_xt(trj_float_t v_i, trj_float_t v_f
     trj_float_t x_ = fabs((v_i + v_f) / 2 * t_);
 
 
-    return {x_, t_};
+    return tuple<trj_float_t, trj_float_t>(x_, t_);
 
 }
 
@@ -125,7 +111,7 @@ tuple<trj_float_t, trj_float_t> Block::accel_acd(trj_float_t v_0_, trj_float_t v
     tie(x1, t1) = accel_xt(v_0_, v_c_);
     tie(x2, t2) = accel_xt(v_c_, v_1_);
 
-    return {x1 + x2, t1 + t2};
+    return tuple<trj_float_t, trj_float_t>(x1 + x2, t1 + t2);
 
 }
 
@@ -146,7 +132,8 @@ trj_float_t Block::area() {
     x_c = v_c * t_c;
 
     if (round(x_c) < 0 or t_c_ < 0) {
-        throw std::runtime_error("Negative x_c");
+        return 0;
+        //throw std::runtime_error("Negative x_c");
     }
 
     return x_ad + x_c;
@@ -402,6 +389,7 @@ trj_float_t Block::getV1() const {
     return v_1;
 }
 
+#ifdef TRJ_ENV_HOST
 json Block::dump(std::string tag) const {
 
     json m;
@@ -425,8 +413,12 @@ json Block::dump(std::string tag) const {
     m["v_1"] = v_1;
 
     return m;
-
 }
+#else
+json Block::dump(std::string tag) const{
+    return string("");
+}
+#endif
 
 
 

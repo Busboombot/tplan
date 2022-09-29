@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.23)
 
 project (trajectory VERSION 0.1.0)
 
+include(CTest)
+find_package(Catch2 3 REQUIRED)
+include(Catch)
+
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
     # set input and output files
@@ -21,4 +25,6 @@ if (DOXYGEN_FOUND)
 else (DOXYGEN_FOUND)
     message("Doxygen need to be installed to generate the doxygen documentation")
 endif (DOXYGEN_FOUND)
+
+add_subdirectory(src)
 

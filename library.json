@@ -1,0 +1,27 @@
+{
+  "name": "tplan",
+  "version": "0.1.0",
+  "description": "A velocity trajectory planner and step generator for robots.",
+  "keywords": "stepper, planner, 6 axis",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/Busboombot/tplan"
+  },
+  "authors":
+  [
+    {
+      "name": "Eric Busboom",
+      "email": "eric@busbsoom.org",
+      "url": "https://ericbusboom.com",
+       "maintainer": true
+    }
+ 
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Busboombot/tplan",
+  "dependencies": {
+  },
+  "frameworks": "Arduino",
+  "platforms": "*"
+}
