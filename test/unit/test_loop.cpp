@@ -14,17 +14,7 @@
 
 #include "loop.h"
 
-extern Config defaultConfig(uint8_t n_axes);
-extern AxisConfig defaultAxisConfig(uint8_t axis);
-extern void pushConfig(MockPacketSerial &mps, int axes, int period);
-extern void pushAxisConfig(MockPacketSerial &mps, int axis);
-extern void pushMove(MockPacketSerial &mps, CommandCode cmd, Moves m);
-extern void pushMessage(MockPacketSerial &mps, CommandCode cmd);
-
-using sclock = std::chrono::system_clock;
-using sec = std::chrono::duration<double>;
-using us = std::chrono::duration<double, std::micro>;
-
+#include "test.h"
 
 TEST_CASE("Basic Loop Test", "[loop]"){
 

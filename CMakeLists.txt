@@ -7,8 +7,8 @@ find_package(Catch2 3 REQUIRED)
 include(Catch)
 
 add_subdirectory(planner)
-add_subdirectory(planner/test)
-add_subdirectory(planner/cli)
+add_subdirectory(test/unit)
+add_subdirectory(test/system)
 
 add_subdirectory(host)
 

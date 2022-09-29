@@ -11,6 +11,7 @@
 #include "messageprocessor.h"
 #include "PacketSerial.h"
 #include "HostHardware.h"
+#include "joint.h"
 
 #define CATCH_CONFIG_MAIN
 
@@ -82,4 +83,49 @@ void pushMove(MockPacketSerial &mps, CommandCode cmd, Moves m){
 void pushMessage(MockPacketSerial &mps, CommandCode cmd){
     mps.push(PacketHeader(seq_id++, cmd), (char *) 0, 0);
 }
+
+
+std::vector<int> extractIntegerWords(const string& str)
+{
+    stringstream ss(str);
+    std::vector<int> result;
+
+    string temp;
+    int found;
+    while (!ss.eof()) {
+
+        ss >> temp;
+
+        if (stringstream(temp) >> found)
+            result.push_back(found);
+
+        temp = "";
+    }
+
+    return result;
+}
+
+vector<Move> get2Moves(){
+    return std::vector<Move>{
+            Move( 0, {10000,100}),
+            Move( 0, {10000,100})
+    };
+}
+
+vector<Joint> get2Joints(){
+    return std::vector<Joint>{
+            Joint(0, 5e3, 50e3),
+            Joint(1, 5e3, 50e3)
+    };
+}
+
+vector<Joint> get4Joints(){
+    return std::vector<Joint>{
+            Joint(0, 5e3, 50e3),
+            Joint(1, 5e3, 50e3),
+            Joint(2, 5e3, 50e3),
+            Joint(3, 5e3, 50e3)
+    };
+}
+
 

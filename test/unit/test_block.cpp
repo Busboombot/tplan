@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-
-
-#include <catch2/catch_test_macros.hpp>
+#include "test.h"
 #include "json.hpp"
 
 #include "segment.h"

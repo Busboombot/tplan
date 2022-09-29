@@ -10,10 +10,10 @@ if(NOT Boost_FOUND)
     message(FATAL_ERROR "Could not find boost!")
 endif()
 
-add_executable(planner planner.cpp )
+add_executable(planner planner.cpp)
 target_link_libraries(planner PUBLIC ${Boost_LIBRARIES} libplanner libhost  )
 target_include_directories(planner PUBLIC ${Boost_INCLUDE_DIRS} )
 
-add_executable(stepper stepper.cpp )
+add_executable(stepper stepper.cpp)
 target_link_libraries(stepper PRIVATE  libplanner libhost )
 target_include_directories(stepper PUBLIC  ${Boost_INCLUDE_DIRS} )

@@ -4,6 +4,8 @@
 #include <numeric>
 #include <fstream>
 
+#include "test.h"
+
 #include "catch2/catch_all.hpp"
 
 #include "segment.h"
@@ -49,16 +51,12 @@ public:
         direction = direction_;
     }
 
-
 public:
     int lastStep = 0;
     int count = 0;
 };
 
 #define csdc(p) ( std::dynamic_pointer_cast<CoutStepper>(p))
-
-extern Config defaultConfig(uint8_t n_axes);
-extern AxisConfig defaultAxisConfig(uint8_t axis);
 
 TEST_CASE("Basic Stepper Test", "[stepper]") {
 

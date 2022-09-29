@@ -20,10 +20,13 @@ set( SOURCES_TESTS
         test.cpp
         test_basic.cpp
         test_block.cpp
-        test_segment.cpp
+        test_lib.cpp
+        test_loop.cpp
+        test_misc.cpp
+        test_mp.cpp
         test_planner.cpp
+        test_segment.cpp
         test_stepper.cpp
-
 )
 
 add_executable(test_planner ${SOURCES_TESTS} )
