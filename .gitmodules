@@ -1,0 +1,3 @@
+[submodule "planner/FastCRC"]
+	path = planner/FastCRC
+	url = https://github.com/FrankBoesing/FastCRC.git
