@@ -3,5 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/mock/PacketSerial" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/planner/FastCRC" vcs="Git" />
   </component>
 </project>

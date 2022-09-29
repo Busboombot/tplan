@@ -52,19 +52,6 @@ string creset = "\x1b[0m";
 string overwrite = "\033[F";
 
 
-uint8_t crc8(vector<u_int8_t> data){
-    u_int8_t crc = 0xff;
-    size_t i, j;
-    for(u_int8_t d: data){
-        crc ^= d;
-        for (j = 0; j < 8; j++) {
-            if ((crc & 0x80) != 0)
-                crc = (uint8_t)((crc << 1) ^ 0x31);
-            else
-                crc <<= 1;
-        }
-    }
-    return crc;
-}
+
 
 

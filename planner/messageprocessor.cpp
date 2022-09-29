@@ -12,8 +12,10 @@
 #include "types.h"
 #include "messageprocessor.h"
 #include "util.h"
+#include "FastCRC.h"
 
 char printf_buffer[5000];
+FastCRC8 CRC8;
 
 // Singleton message proces for logging on the target.
 MessageProcessor *message_processor = nullptr;
@@ -83,7 +85,7 @@ void MessageProcessor::setLastSegNum(int v) {
 uint8_t MessageProcessor::crc(size_t length) {
     auto *ph = (PacketHeader *) buffer;
     ph->crc = 0;
-    ph->crc = crc8({buffer, buffer+length});
+    ph->crc = CRC8.smbus(buffer, length);
 
     return ph->crc;
 }

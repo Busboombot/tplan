@@ -11,7 +11,7 @@
 #include "messageprocessor.h"
 #include "PacketSerial.h"
 #include "HostHardware.h"
-
+#include "util.h"
 #include "loop.h"
 
 
@@ -72,4 +72,12 @@ TEST_CASE("Hardware Time Test", "[scratch]") {
         hw.stepTime(1);
         loop.loopOnce();
     }
+}
+
+TEST_CASE("CRC Test", "[scratch]") {
+
+    vector<u_int8_t> data = {1,2,3,4,5,6};
+
+    cout << (int)crc8<u_int8_t>(data) << endl;
+    cout << (int)crc8<int>({'a','b','c','d','e','f'}) << endl;
 }
