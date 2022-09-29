@@ -10,5 +10,5 @@ add_library( ${PROJECT_NAME} ${SOURCES})
 
 #configure_file(version.h.in version.h)
 target_compile_definitions(${PROJECT_NAME} PUBLIC "TRJ_ENV_HOST")
-target_include_directories(${PROJECT_NAME} PUBLIC ${libinterface_SOURCE_DIR} ../..)
+target_include_directories(${PROJECT_NAME} PUBLIC ${libplanner_SOURCE_DIR}  )
 

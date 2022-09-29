@@ -12,8 +12,8 @@ endif()
 
 add_executable(planner planner.cpp)
 target_link_libraries(planner PUBLIC ${Boost_LIBRARIES} libplanner libhost  )
-target_include_directories(planner PUBLIC ${Boost_INCLUDE_DIRS} )
+target_include_directories(planner PUBLIC  ${libhost_SOURCE_DIR} ${Boost_INCLUDE_DIRS} )
 
 add_executable(stepper stepper.cpp)
 target_link_libraries(stepper PRIVATE  libplanner libhost )
-target_include_directories(stepper PUBLIC  ${Boost_INCLUDE_DIRS} )
+target_include_directories(stepper PUBLIC  ${libhost_SOURCE_DIR} ${Boost_INCLUDE_DIRS} )

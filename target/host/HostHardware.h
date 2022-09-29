@@ -1,8 +1,8 @@
 #pragma once
 #include <chrono>
-#include "../planner/Hardware.h"
 #include <vector>
 #include <map>
+#include "Hardware.h"
 using namespace std::chrono;
 
 class HostHardware : public virtual Hardware {
