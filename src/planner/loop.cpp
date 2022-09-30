@@ -21,6 +21,7 @@ void Loop::setup(){
 }
 
 void Loop::loopOnce(){
+    static int loop_tick = 0;
 
     // Step is not using timer features b/c we also need dt
     tmicros t = hw.micros();
@@ -46,6 +47,9 @@ void Loop::loopOnce(){
     }
 
     if(hw.millisSince(UPDATE_TIMER) > UPDATE_INTERVAL){
+        //if (loop_tick++ % 100 == 0){
+        //    logf("Update in loopOnce(%d)", loop_tick);
+        //}
 
         hw.update();
         hw.setRunningLed(running);
@@ -65,25 +69,19 @@ void Loop::loopOnce(){
 
 void Loop::processMessage(Message &m) {
 
-#ifdef TRJ_ENV_HOST
+
     stringstream strstr;
     strstr << "Loop Message: " << m << endl;
-    mp.sendMessage(strstr);
-#endif
+    log(strstr);
+
 
     switch(m.header.code){
         case CommandCode::CONFIG:
-            config = *m.asConfig();
-            hw.setConfig(config);
-            ss.reloadJoints();
+            setConfig(*m.asConfig());
+
             break;
         case CommandCode::AXES:
-            hw.setAxisConfig(*m.asAxisConfig());
-            ss.reloadJoints();
-            if(m.asAxisConfig()->axis <N_AXES){
-                axes_config[m.asAxisConfig()->axis] = *m.asAxisConfig();
-            }
-            setJoints();
+            setAxisConfig(*m.asAxisConfig());
             break;
 
         case CommandCode::RMOVE:
@@ -108,6 +106,7 @@ void Loop::processMessage(Message &m) {
             break;
 
         case CommandCode::INFO:
+            printInfo();
             break;
 
         default:
@@ -167,6 +166,19 @@ void Loop::setJoints(){
     }
 
     pl.setJoints(joints);
+}
+
+void Loop::setConfig(const Config& config){
+    hw.setConfig(config);
+    ss.reloadJoints();
+}
+void Loop::setAxisConfig(const AxisConfig& ac){
+    hw.setAxisConfig(ac);
+    ss.reloadJoints();
+    if(ac.axis <N_AXES){
+        axes_config[ac.axis] = ac;
+    }
+    setJoints();
 }
 
 /**************************/

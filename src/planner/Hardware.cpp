@@ -4,7 +4,10 @@
 
 using namespace std;
 
+const size_t BLINK_TIMER = 200;
+
 Hardware::Hardware() {
+
     default_stepper = new Stepper(this);
 
     Config c = Config();
@@ -44,7 +47,7 @@ void Hardware::update() {
 tmillis Hardware::millisSince(uint8_t tag) {
 
     if(millis_0.find(tag)!=millis_0.end()) {
-        return millis()-millis_0.at(tag);
+        return this->millis()-millis_0.at(tag);
     } else {
         setMillisZero(tag);
         return millisSince(tag);
@@ -63,11 +66,11 @@ tmicros Hardware::microsSince(uint8_t tag) {
 }
 
 void Hardware::setMillisZero(uint8_t tag) {
-    millis_0[tag] = millis();
+    millis_0[tag] = this->millis();
 }
 
 void Hardware::setMicrosZero(uint8_t tag) {
-    micros_0[tag] = micros();
+    micros_0[tag] = this->micros();
 }
 
 
@@ -105,20 +108,17 @@ int blink_patterns[4][PATTERN_SIZE] = {
  */
 void Hardware::blink(bool running, bool empty){
 
-    static int pattern_index = 0;
-
-    static unsigned long last = millis();
-
     int pattern = ((int)empty)<<1 | ((int)running);
 
     setEmptyLed(empty);
     setRunningLed(running);
 
-    if( (millis() - last) > BASE_DELAY  ){
+    if(millisSince(BLINK_TIMER) >= BASE_DELAY){
 
-        pattern_index = (pattern_index+1)%PATTERN_SIZE;
-        setBuiltinLed(blink_patterns[pattern][pattern_index]);
-        last = millis();
+        blink_index = (blink_index+1)%PATTERN_SIZE;
+
+        setBuiltinLed(blink_patterns[pattern][blink_index]);
+        setMillisZero(BLINK_TIMER);
     }
 }
 

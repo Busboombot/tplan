@@ -25,6 +25,8 @@ private:
     millimap millis_0; // Base time for millis since
     micromap micros_0; // Base time for micros since
 
+    size_t blink_index = 0;
+
 public:
 
     Hardware();
@@ -38,6 +40,8 @@ public:
     virtual void clearPin(Pin pin) { writePin(pin, LOW); }
 
     virtual void writePin(Pin pin, PinVal value) = 0;
+
+    virtual void setPinMode(Pin, PinVal){}
 
     virtual int readPin(Pin pin) = 0;
 

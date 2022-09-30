@@ -2,5 +2,5 @@
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}/../src/planner/")
 include_directories("${CMAKE_CURRENT_LIST_DIR}/lib/Hardware")
-include_directories("${CMAKE_CURRENT_LIST_DIR}/.pio/libdeps/teensy40/FastCRC")
-include_directories("${CMAKE_CURRENT_LIST_DIR}/.pio/libdeps/teensy40/PacketSerial/src")
+include_directories("${CMAKE_CURRENT_LIST_DIR}/lib/FastCRC")
+include_directories("${CMAKE_CURRENT_LIST_DIR}/lib/PacketSerial/src")

@@ -27,6 +27,8 @@ using Pin = uint8_t;
 using PinVal = uint8_t;
 using AxisArray = std::array<PinVal , N_AXES>;
 
+using MessageBuffer = vector<uint8_t>;
+
 
 typedef enum {
     CCW = -1,  ///< Clockwise
@@ -66,7 +68,7 @@ enum class CommandCode : uint8_t {
 
     NOOP = 99,  // Does nothing, but get ACKED
 
-    POSITIONS = 101,  // Position report. ( Unused)
+    POSITIONS = 80,  // Position report. ( Unused)
 
 };
 

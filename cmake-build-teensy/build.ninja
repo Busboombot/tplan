@@ -858,7 +858,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o: CXX_COMPILER__test_p
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
@@ -866,7 +866,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o: CXX_COMPILER__
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
@@ -874,39 +874,39 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o: CXX_COMPILER__
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
-build src/test/unit/CMakeFiles/test_planner.dir/test_lib.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_lib.cpp || cmake_object_order_depends_target_test_planner
+build src/test/unit/CMakeFiles/test_planner.dir/__/test_lib.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/test_lib.cpp || cmake_object_order_depends_target_test_planner
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
-  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_lib.cpp.o.d
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/__/test_lib.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
-  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir/__
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_loop.cpp || cmake_object_order_depends_target_test_planner
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
-build src/test/unit/CMakeFiles/test_planner.dir/test_misc.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_misc.cpp || cmake_object_order_depends_target_test_planner
+build src/test/unit/CMakeFiles/test_planner.dir/__/devel/test_misc.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/devel/test_misc.cpp || cmake_object_order_depends_target_test_planner
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
-  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_misc.cpp.o.d
+  DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/__/devel/test_misc.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
-  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
+  OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir/__/devel
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_mp.cpp || cmake_object_order_depends_target_test_planner
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
@@ -914,7 +914,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o: CXX_COMPILER
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
@@ -922,7 +922,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o: CXX_COMPILER
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
@@ -930,7 +930,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o: CXX_COMPILER
   DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
-  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
@@ -942,7 +942,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o: CXX_COMPILER
 #############################################
 # Link the executable src/test/unit/test_planner
 
-build src/test/unit/test_planner src/test/unit/test_planner_tests-b12d07c.cmake | ${cmake_ninja_workdir}src/test/unit/test_planner_tests-b12d07c.cmake: CXX_EXECUTABLE_LINKER__test_planner_Release src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_lib.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_misc.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o | /usr/local/lib/libCatch2Main.a src/planner/liblibplanner.a src/target/host/liblibhost.a /usr/local/lib/libboost_system-mt.dylib /usr/local/lib/libboost_filesystem-mt.dylib /usr/local/lib/libCatch2.a src/FastCRC/liblibfastcrc.a /usr/local/lib/libboost_atomic-mt.dylib || src/FastCRC/liblibfastcrc.a src/planner/liblibplanner.a src/target/host/liblibhost.a
+build src/test/unit/test_planner src/test/unit/test_planner_tests-b12d07c.cmake | ${cmake_ninja_workdir}src/test/unit/test_planner_tests-b12d07c.cmake: CXX_EXECUTABLE_LINKER__test_planner_Release src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o src/test/unit/CMakeFiles/test_planner.dir/__/test_lib.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o src/test/unit/CMakeFiles/test_planner.dir/__/devel/test_misc.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o | /usr/local/lib/libCatch2Main.a src/planner/liblibplanner.a src/target/host/liblibhost.a /usr/local/lib/libboost_system-mt.dylib /usr/local/lib/libboost_filesystem-mt.dylib /usr/local/lib/libCatch2.a src/FastCRC/liblibfastcrc.a /usr/local/lib/libboost_atomic-mt.dylib || src/FastCRC/liblibfastcrc.a src/planner/liblibplanner.a src/target/host/liblibhost.a
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
   LINK_LIBRARIES = /usr/local/lib/libCatch2Main.a  src/planner/liblibplanner.a  src/target/host/liblibhost.a  /usr/local/lib/libboost_system-mt.dylib  /usr/local/lib/libboost_filesystem-mt.dylib  /usr/local/lib/libCatch2.a  src/FastCRC/liblibfastcrc.a  /usr/local/lib/libboost_atomic-mt.dylib
   OBJECT_DIR = src/test/unit/CMakeFiles/test_planner.dir
@@ -1096,6 +1096,97 @@ build src/test/system/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 build src/test/system/rebuild_cache: phony src/test/system/CMakeFiles/rebuild_cache.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /Users/eric/Documents/proj/tplan/src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for EXECUTABLE target test_devel
+
+
+#############################################
+# Order-only phony target for test_devel
+
+build cmake_object_order_depends_target_test_devel: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
+
+build src/test/devel/CMakeFiles/test_devel.dir/test.cpp.o: CXX_COMPILER__test_devel_Release /Users/eric/Documents/proj/tplan/src/test/devel/test.cpp || cmake_object_order_depends_target_test_devel
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/devel/CMakeFiles/test_devel.dir/test.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/devel/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
+  OBJECT_DIR = src/test/devel/CMakeFiles/test_devel.dir
+  OBJECT_FILE_DIR = src/test/devel/CMakeFiles/test_devel.dir
+
+build src/test/devel/CMakeFiles/test_devel.dir/test_blink.cpp.o: CXX_COMPILER__test_devel_Release /Users/eric/Documents/proj/tplan/src/test/devel/test_blink.cpp || cmake_object_order_depends_target_test_devel
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/devel/CMakeFiles/test_devel.dir/test_blink.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/devel/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
+  OBJECT_DIR = src/test/devel/CMakeFiles/test_devel.dir
+  OBJECT_FILE_DIR = src/test/devel/CMakeFiles/test_devel.dir
+
+build src/test/devel/CMakeFiles/test_devel.dir/__/test_lib.cpp.o: CXX_COMPILER__test_devel_Release /Users/eric/Documents/proj/tplan/src/test/test_lib.cpp || cmake_object_order_depends_target_test_devel
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEP_FILE = src/test/devel/CMakeFiles/test_devel.dir/__/test_lib.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/devel/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
+  OBJECT_DIR = src/test/devel/CMakeFiles/test_devel.dir
+  OBJECT_FILE_DIR = src/test/devel/CMakeFiles/test_devel.dir/__
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target test_devel
+
+
+#############################################
+# Link the executable src/test/devel/test_devel
+
+build src/test/devel/test_devel src/test/devel/test_devel_tests-b12d07c.cmake | ${cmake_ninja_workdir}src/test/devel/test_devel_tests-b12d07c.cmake: CXX_EXECUTABLE_LINKER__test_devel_Release src/test/devel/CMakeFiles/test_devel.dir/test.cpp.o src/test/devel/CMakeFiles/test_devel.dir/test_blink.cpp.o src/test/devel/CMakeFiles/test_devel.dir/__/test_lib.cpp.o | /usr/local/lib/libCatch2Main.a src/planner/liblibplanner.a src/target/host/liblibhost.a /usr/local/lib/libboost_system-mt.dylib /usr/local/lib/libboost_filesystem-mt.dylib /usr/local/lib/libCatch2.a src/FastCRC/liblibfastcrc.a /usr/local/lib/libboost_atomic-mt.dylib || src/FastCRC/liblibfastcrc.a src/planner/liblibplanner.a src/target/host/liblibhost.a
+  FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
+  LINK_LIBRARIES = /usr/local/lib/libCatch2Main.a  src/planner/liblibplanner.a  src/target/host/liblibhost.a  /usr/local/lib/libboost_system-mt.dylib  /usr/local/lib/libboost_filesystem-mt.dylib  /usr/local/lib/libCatch2.a  src/FastCRC/liblibfastcrc.a  /usr/local/lib/libboost_atomic-mt.dylib
+  OBJECT_DIR = src/test/devel/CMakeFiles/test_devel.dir
+  POST_BUILD = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -D TEST_TARGET=test_devel -D TEST_EXECUTABLE=/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel/test_devel -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel -D TEST_SPEC= -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_LIST=test_devel_TESTS -D TEST_REPORTER= -D TEST_OUTPUT_DIR= -D TEST_OUTPUT_PREFIX= -D TEST_OUTPUT_SUFFIX= -D TEST_DL_PATHS= -D CTEST_FILE=/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel/test_devel_tests-b12d07c.cmake -P /usr/local/lib/cmake/Catch2/CatchAddTests.cmake
+  PRE_LINK = :
+  RESTAT = 1
+  TARGET_FILE = src/test/devel/test_devel
+  TARGET_PDB = test_devel.dbg
+
+
+#############################################
+# Utility command for test
+
+build src/test/devel/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel && /Applications/CLion.app/Contents/bin/cmake/mac/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build src/test/devel/test: phony src/test/devel/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/test/devel/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build src/test/devel/edit_cache: phony src/test/devel/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/test/devel/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/eric/Documents/proj/tplan -B/Users/eric/Documents/proj/tplan/cmake-build-teensy
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/test/devel/rebuild_cache: phony src/test/devel/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
 # Target aliases.
 
 build libfastcrc: phony src/FastCRC/liblibfastcrc.a
@@ -1114,6 +1205,8 @@ build planner: phony src/test/system/planner
 
 build stepper: phony src/test/system/stepper
 
+build test_devel: phony src/test/devel/test_devel
+
 build test_planner: phony src/test/unit/test_planner
 
 # =============================================================================
@@ -1131,7 +1224,7 @@ build all: phony doc_doxygen src/all
 #############################################
 # Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src
 
-build src/all: phony src/planner/all src/FastCRC/all src/target/host/all src/test/unit/all src/test/system/all
+build src/all: phony src/planner/all src/FastCRC/all src/target/host/all src/test/unit/all src/test/system/all src/test/devel/all
 
 # =============================================================================
 
@@ -1157,6 +1250,13 @@ build src/target/host/all: phony src/target/host/liblibhost.a
 # =============================================================================
 
 #############################################
+# Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel
+
+build src/test/devel/all: phony src/test/devel/test_devel
+
+# =============================================================================
+
+#############################################
 # Folder: /Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/system
 
 build src/test/system/all: phony src/test/system/planner src/test/system/stepper
@@ -1175,14 +1275,14 @@ build src/test/unit/all: phony src/test/unit/test_planner
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../config-file.in.doxygen ../src/CMakeLists.txt ../src/FastCRC/CMakeLists.txt ../src/planner/CMakeLists.txt ../src/planner/version.h.in ../src/target/host/CMakeLists.txt ../src/test/system/CMakeLists.txt ../src/test/unit/CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTest.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestTargets.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestUseLaunchers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/DartConfiguration.tcl.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindBoost.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.79.0.cmake /usr/local/lib/cmake/Catch2/Catch.cmake /usr/local/lib/cmake/Catch2/Catch2Config.cmake /usr/local/lib/cmake/Catch2/Catch2ConfigVersion.cmake /usr/local/lib/cmake/Catch2/Catch2Targets-release.cmake /usr/local/lib/cmake/Catch2/Catch2Targets.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config-version.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-shared.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config-version.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-static.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config-version.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-static.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config-version.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-static.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../config-file.in.doxygen ../src/CMakeLists.txt ../src/FastCRC/CMakeLists.txt ../src/planner/CMakeLists.txt ../src/planner/version.h.in ../src/target/host/CMakeLists.txt ../src/test/devel/CMakeLists.txt ../src/test/system/CMakeLists.txt ../src/test/unit/CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTest.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestTargets.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestUseLaunchers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/DartConfiguration.tcl.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindBoost.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.79.0.cmake /usr/local/lib/cmake/Catch2/Catch.cmake /usr/local/lib/cmake/Catch2/Catch2Config.cmake /usr/local/lib/cmake/Catch2/Catch2ConfigVersion.cmake /usr/local/lib/cmake/Catch2/Catch2Targets-release.cmake /usr/local/lib/cmake/Catch2/Catch2Targets.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config-version.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-shared.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config-version.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-static.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config-version.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-static.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config-version.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-static.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../config-file.in.doxygen ../src/CMakeLists.txt ../src/FastCRC/CMakeLists.txt ../src/planner/CMakeLists.txt ../src/planner/version.h.in ../src/target/host/CMakeLists.txt ../src/test/system/CMakeLists.txt ../src/test/unit/CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTest.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestTargets.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestUseLaunchers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/DartConfiguration.tcl.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindBoost.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.79.0.cmake /usr/local/lib/cmake/Catch2/Catch.cmake /usr/local/lib/cmake/Catch2/Catch2Config.cmake /usr/local/lib/cmake/Catch2/Catch2ConfigVersion.cmake /usr/local/lib/cmake/Catch2/Catch2Targets-release.cmake /usr/local/lib/cmake/Catch2/Catch2Targets.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config-version.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-shared.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config-version.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-static.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config-version.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-static.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config-version.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-static.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../config-file.in.doxygen ../src/CMakeLists.txt ../src/FastCRC/CMakeLists.txt ../src/planner/CMakeLists.txt ../src/planner/version.h.in ../src/target/host/CMakeLists.txt ../src/test/devel/CMakeLists.txt ../src/test/system/CMakeLists.txt ../src/test/unit/CMakeLists.txt /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTest.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestTargets.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/CTestUseLaunchers.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/DartConfiguration.tcl.in /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindBoost.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindDoxygen.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfig.cmake /usr/local/lib/cmake/Boost-1.79.0/BoostConfigVersion.cmake /usr/local/lib/cmake/BoostDetectToolset-1.79.0.cmake /usr/local/lib/cmake/Catch2/Catch.cmake /usr/local/lib/cmake/Catch2/Catch2Config.cmake /usr/local/lib/cmake/Catch2/Catch2ConfigVersion.cmake /usr/local/lib/cmake/Catch2/Catch2Targets-release.cmake /usr/local/lib/cmake/Catch2/Catch2Targets.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config-version.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/boost_atomic-config.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-shared.cmake /usr/local/lib/cmake/boost_atomic-1.79.0/libboost_atomic-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config-version.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/boost_filesystem-config.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-mt-static.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-shared.cmake /usr/local/lib/cmake/boost_filesystem-1.79.0/libboost_filesystem-variant-static.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config-version.cmake /usr/local/lib/cmake/boost_headers-1.79.0/boost_headers-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config-version.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/boost_program_options-config.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-mt-static.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-shared.cmake /usr/local/lib/cmake/boost_program_options-1.79.0/libboost_program_options-variant-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config-version.cmake /usr/local/lib/cmake/boost_system-1.79.0/boost_system-config.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-mt-static.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-shared.cmake /usr/local/lib/cmake/boost_system-1.79.0/libboost_system-variant-static.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
 
 
 #############################################

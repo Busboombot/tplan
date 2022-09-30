@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "test.h"
+#include "../test.h"
 #include "joint.h"
 #include "planner.h"
 

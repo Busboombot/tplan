@@ -11,6 +11,10 @@
 
 #endif
 
+#ifdef TRJ_ENV_ARDUINO
+#include "Arduino.h"
+#endif
+
 #include "types.h"
 #include "messageprocessor.h"
 #include "util.h"
@@ -22,28 +26,30 @@ char printf_buffer[5000];
 FastCRC8 CRC8;
 
 // Singleton message proces for logging on the teensy.
+// This should be assigned in the module where the MessageProcessor,
+// usually in main()
 MessageProcessor *message_processor = nullptr;
 
 
 void log(const char *str) {
     if (message_processor != nullptr) {
-        message_processor->sendMessage(str);
+        message_processor->log(str);
     }
 }
 
 void log(const string &str) {
     if (message_processor != nullptr) {
-        message_processor->sendMessage(str);
+        message_processor->log(str);
     }
 }
 
 void log(stringstream &str) {
     if (message_processor != nullptr) {
-        message_processor->sendMessage(str);
+        message_processor->log(str);
     }
 }
 
-void log_printf(const char *fmt, ...) {
+void logf(const char *fmt, ...) {
 
     if (message_processor != nullptr) {
 
@@ -52,7 +58,7 @@ void log_printf(const char *fmt, ...) {
         vsprintf(printf_buffer, fmt, args);
         va_end(args);
 
-        message_processor->sendMessage(printf_buffer);
+        message_processor->log(printf_buffer);
     }
 
 }
@@ -69,8 +75,8 @@ void MessageProcessor::update(tmillis t, CurrentState &current_state) {
 
     ps.update();
 
-    if (!ps.empty()) { //
-        processPacket(ps.front().data(), ps.front().size());
+    if (!ps.empty()) {
+        processPacket(ps.front());
         ps.pop();
     }
 }
@@ -86,7 +92,7 @@ void MessageProcessor::setLastSegNum(int v) {
 }
 
 
-uint8_t MessageProcessor::crc(size_t length) {
+uint8_t MessageProcessor::crc(const uint8_t *buffer, size_t length) {
     auto *ph = (PacketHeader *) buffer;
     ph->crc = 0;
     ph->crc = CRC8.smbus(buffer, length);
@@ -102,7 +108,7 @@ void MessageProcessor::send(CommandCode code, uint16_t seq, size_t length) {
     auto *ph = (PacketHeader *) &buffer;
     ph->code = code;
     ph->seq = seq;
-    crc(length + sizeof(PacketHeader));
+    crc(buffer, length + sizeof(PacketHeader));
     send(length);
 }
 
@@ -125,6 +131,7 @@ void MessageProcessor::sendNack() {
 }
 
 void MessageProcessor::sendAck(uint16_t seq) {
+    logf("ACK %d", seq);
     send((const uint8_t *) &current_state, CommandCode::ACK, seq, sizeof(current_state));
 }
 
@@ -147,15 +154,14 @@ void MessageProcessor::processPacket(PacketHeader *ph, const uint8_t *payload, s
 }
 
 
-void MessageProcessor::processPacket(const uint8_t *buffer_, size_t size) {
+void MessageProcessor::processPacket(const MessageBuffer &mb) {
 
-    auto *ph = (PacketHeader *) buffer_;
-
-    auto payload = (const uint8_t *) (((const uint8_t *) buffer_) + sizeof(PacketHeader));
-    size_t payload_size = size - sizeof(PacketHeader);
+    auto *ph = (PacketHeader *) mb.data();
+    auto payload = (const uint8_t *) ( mb.data() + sizeof(PacketHeader));
+    size_t payload_size = mb.size() - sizeof(PacketHeader);
 
     uint8_t that_crc = ph->crc;
-    crc(size); // Calc crc on buffer, put back into ph. 
+    crc(mb.data(), mb.size()); // Calc crc on buffer, put back into ph. Note that crc() changes data in place, which is bad.
     if (that_crc != ph->crc) {
         sendNack();
         return;
@@ -179,15 +185,6 @@ void MessageProcessor::sendMessage(const char *message_) {
     sendMessage(string(message_));
 }
 
-// print to the print buffer, or to cout
-void MessageProcessor::printf(const char *fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-    vsprintf(printf_buffer, fmt, args);
-    va_end(args);
-
-    sendMessage(printf_buffer);
-}
 
 /**
  * Send a string stream as a message, breaking it into lines
@@ -200,6 +197,66 @@ void MessageProcessor::sendMessage(stringstream &ss) {
         sendMessage(line + '\n');
     }
 }
+
+// print to the print buffer, or to cout, or to the debug
+// serial if it is attached.
+void MessageProcessor::printf(const char *fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(printf_buffer, fmt, args);
+    va_end(args);
+
+    sendMessage(printf_buffer);
+}
+
+
+void MessageProcessor::log(const string &str) {
+
+#ifdef TRJ_DEBUG
+#ifdef TRJ_DEBUG_SERIAL
+    TRJ_DEBUG_SERIAL.print((str+"\r\n").c_str());
+#elif defined(TRJ_ENV_HOST)
+    send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
+#endif
+#endif
+
+
+}
+
+void MessageProcessor::log(const char *message_) {
+    log(string(message_));
+}
+
+
+/**
+ * Send a string stream as a message, breaking it into lines
+ * @param ss
+ */
+void MessageProcessor::log(stringstream &ss) {
+
+    if(ss.str().find('\n') == std::string::npos){
+        log(ss.str());
+    } else {
+
+        string line;
+        while (getline(ss, line, '\n')) {
+            log(line);
+        }
+    }
+}
+
+// print to the print buffer, or to cout, or to the debug
+// serial if it is attached.
+void MessageProcessor::logf(const char *fmt, ...) {
+
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(printf_buffer, fmt, args);
+    va_end(args);
+
+    log(printf_buffer);
+}
+
 
 
 void MessageProcessor::pop() {

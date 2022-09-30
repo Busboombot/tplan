@@ -1,4 +1,5 @@
 #pragma once
+
 #include <functional>
 #include <deque>
 #include <vector>
@@ -13,72 +14,82 @@
 using namespace std;
 
 
-class MessageProcessor  {
+class MessageProcessor {
 
 private:
 
-  IPacketSerial &ps;
+    IPacketSerial &ps;
 
-  uint8_t buffer[MESSAGE_BUF_SIZE]; // Outgoing message buffer
+    uint8_t buffer[MESSAGE_BUF_SIZE]; // Outgoing message buffer
 
-  int lastSegNum=0;
+    int lastSegNum = 0;
 
-  std::deque<Message> messages;
+    std::deque<Message> messages;
 
-  CurrentState current_state;
+    CurrentState current_state;
 
-public: 
+public:
 
-  MessageProcessor(IPacketSerial &ps);
+    MessageProcessor(IPacketSerial &ps);
 
-  void update(tmillis t, CurrentState &current_state);
+    void update(tmillis t, CurrentState &current_state);
 
-  void updateAll(tmillis t, CurrentState &current_state);
+    void updateAll(tmillis t, CurrentState &current_state);
 
-  void updateCurrentState(CurrentState &current_state);
+    void updateCurrentState(CurrentState &current_state);
 
-  void setLastSegNum(int v);
+    void setLastSegNum(int v);
 
-  void sendAck(uint16_t seq);
+    void sendAck(uint16_t seq);
 
-  void sendNack();
+    void sendNack();
 
-  void sendDone(uint16_t seq);
+    void sendDone(uint16_t seq);
 
-  void sendEmpty(uint16_t seq);
- 
-  // Send a text message
-  void sendMessage(const char *message_);
-  void sendMessage(const string &str);
-  void sendMessage(stringstream &ss);
+    void sendEmpty(uint16_t seq);
 
-  void printf(const char* fmt, ...);
+    // Send a text message
+    void sendMessage(const char *message_);
 
-  // Remove a message from the queue
-  void pop();
+    void sendMessage(const string &str);
 
-  Message& firstMessage();
+    void sendMessage(stringstream &ss);
 
-  int availableMessages();
+    void printf(const char *fmt, ...);
 
-  bool empty();
+    void log(const char *message_);
 
-  // Perform operation for each type of message recieved
-  void processPacket(const uint8_t* buffer_, size_t size);
+    void log(const string &str);
 
-  void processPacket(PacketHeader *ph, const uint8_t *payload, size_t payload_size);
+    void log(stringstream &ss);
 
-  void processPacket(PacketHeader ph, char *payload, size_t payload_size);
+    void logf(const char *fmt, ...);
+
+    // Remove a message from the queue
+    void pop();
+
+    Message &firstMessage();
+
+    int availableMessages();
+
+    bool empty();
+
+    // Perform operation for each type of message recieved
+    void processPacket(const MessageBuffer &messageBuffer);
+
+    void processPacket(PacketHeader *ph, const uint8_t *payload, size_t payload_size);
+
+    void processPacket(PacketHeader ph, char *payload, size_t payload_size);
 
 private:
 
-  uint8_t crc(size_t length);
+    uint8_t crc(const uint8_t *buffer, size_t length);
 
-  void send(size_t length);
+    void send(size_t length);
 
-  void send(CommandCode code, uint16_t seq, size_t length);
+    void send(CommandCode code, uint16_t seq, size_t length);
 
-  void send(const uint8_t* payload, CommandCode code, uint16_t seq, size_t length);
+    void send(const uint8_t *payload, CommandCode code, uint16_t seq, size_t length);
 
 };
 
@@ -86,9 +97,12 @@ private:
 // THe logging functions will use this mp, if it is set
 extern MessageProcessor *message_processor;
 
-void log(const char* str);
+void log(const char *str);
+
 void log(const string &str);
+
 void log(stringstream &str);
-void log_printf(const char *fmt, ...);
+
+void logf(const char *fmt, ...);
 
 

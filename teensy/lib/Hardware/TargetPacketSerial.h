@@ -9,6 +9,7 @@
 #include "types.h"
 #include "ipacketserial.h"
 #include "PacketSerial.h"
+#include "messageprocessor.h"
 
 using namespace std;
 
@@ -16,13 +17,8 @@ class TargetPacketSerial : public PacketSerial, public virtual IPacketSerial {
 
 public:
 
-    TargetPacketSerial() {
-        setStream(&Serial);
-
-        PacketSerial::setPacketHandler([](const void* sender, const uint8_t* buffer, size_t size) {
-            ((TargetPacketSerial*)sender)->push(buffer,size);
-        });
-
+    TargetPacketSerial(Stream* serial) {
+        setStream(serial);
     }
 
     size_t available() override {
@@ -34,10 +30,12 @@ public:
     }
 
     void pop() override {
+        log("TargetPacketSerial: pop");
         incoming.pop_front();
     }
 
-    vector<uint8_t> &front() override {
+    MessageBuffer &front() override {
+        log("TargetPacketSerial: read front");
         return incoming.front();
     }
 
@@ -46,22 +44,11 @@ public:
         outgoing.emplace_back(buffer, buffer+size);
     }
 
-    // Incoming send, push a message to simulate incomming messages.
-    void push(const uint8_t *buffer, size_t size)  {
-        incoming.emplace_back(buffer, buffer+size);
-
-    }
-
-    void push(PacketHeader ph, char *payload, size_t payload_size){
-        uint8_t buffer[MESSAGE_BUF_SIZE];
-        memcpy(buffer, &ph, sizeof(ph));
-        memcpy(((char*)buffer)+(size_t)sizeof(ph), payload, payload_size);
-
-        push(buffer, payload_size+sizeof(ph));
-    }
 
     void update() override {
+
         PacketSerial::update();
+
         if (!outgoing.empty()){
             auto b = outgoing.front();
             PacketSerial::send(b.data(), b.size());
@@ -69,11 +56,19 @@ public:
         }
     }
 
+    void handlePacket(const uint8_t *buffer, size_t size) override {
+        incoming.emplace_back(buffer, buffer+size);
+        logf("Incoming size %d", incoming.size());
+    }
+
+
 public:
 
-    bool iqEmpty(){ return incoming.empty(); }
+    bool iqEmpty() const{ return incoming.empty(); }
 
-    deque<vector<uint8_t>> outgoing;
-    deque<vector<uint8_t>> incoming;
+    deque<MessageBuffer> outgoing;
+    deque<MessageBuffer> incoming;
+
+
 
 };

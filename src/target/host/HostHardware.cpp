@@ -62,7 +62,7 @@ void HostHardware::writePin(Pin pin, PinVal value) {
     }
 
     if (pin >= pins.size()) {
-        pins.resize(pin, 0);
+        pins.resize(pin+1, 0);
     }
 
     // Only record if there was a transition

@@ -4,11 +4,16 @@
 class TargetHardware: public virtual Hardware {
 
 public:
+
+    TargetHardware();
+
     void update() override;
 
     void writePin(PinVal pin, PinVal value) override;
 
     int readPin(PinVal pin) override;
+
+    void setPinMode(Pin pin, PinVal val) override;
 
     void signalRunning(bool v) override;
 
@@ -20,14 +25,15 @@ public:
 
     tmicros micros() override;
 
-
-
     void delayMillis(uint32_t v) override;
 
     void delayMicros(uint32_t v) override;
 
     bool limitChanged() override;
 
+    void setConfig(const Config &c) override;
+
+    void setAxisConfig(const AxisConfig &ac) override;
 
 };
 

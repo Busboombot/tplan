@@ -51,6 +51,9 @@ public:
 
     const SegmentStepper &getSegStepper() const { return ss; }
 
+    void setConfig(const Config& config);
+    void setAxisConfig(const AxisConfig& ac);
+
 private:
 
     void setJoints();

@@ -6,4 +6,5 @@ add_subdirectory(FastCRC)
 add_subdirectory(target/host)
 add_subdirectory(test/unit)
 add_subdirectory(test/system)
+add_subdirectory(test/devel)
 
