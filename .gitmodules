@@ -1,0 +1,4 @@
+[submodule "python/tplan_client"]
+	path = python/tplan_client
+	url = https://github.com/Busboombot/tplan_client.git
+	branch = master
