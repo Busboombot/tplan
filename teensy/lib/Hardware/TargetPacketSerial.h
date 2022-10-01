@@ -30,12 +30,10 @@ public:
     }
 
     void pop() override {
-        log("TargetPacketSerial: pop");
         incoming.pop_front();
     }
 
     MessageBuffer &front() override {
-        log("TargetPacketSerial: read front");
         return incoming.front();
     }
 
@@ -58,7 +56,6 @@ public:
 
     void handlePacket(const uint8_t *buffer, size_t size) override {
         incoming.emplace_back(buffer, buffer+size);
-        logf("Incoming size %d", incoming.size());
     }
 
 

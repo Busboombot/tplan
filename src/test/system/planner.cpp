@@ -72,12 +72,10 @@ Planner *makePlanner(vector<Joint> &joints, vector<Ints> &moves){
     for(Ints &m : moves) {
         planner->move(0,m);
     }
-
     return planner;
 }
 
-
-void runSteppers(Planner &p, ostream &os){
+void runSteppers(Planner &p, ostream &os, bool drop){
 
     double dtime = 5./1e6; // 5 us
 
@@ -86,15 +84,27 @@ void runSteppers(Planner &p, ostream &os){
 
     auto steps = vector<int>(p.getJoints().size());
 
-
-
-    auto start = chrono::steady_clock::now();
-
-    int n_iter = 0;
     double time = 0;
+    string step_string(p.getJoints().size()*2, ' ');
+    int sm;
+
     do {
         ss.next(dtime);
-        cout << time << " "; for(int &i : steps) cout << i << " "; cout << endl;
+
+        sm = 0;
+        auto si = step_string.begin();
+        for(StepperState &stst : ss.getStepperStates()){
+            Stepper &stp = stst.getStepper();
+            si++;
+            *si = stp.getStepState() ? '1' : '0';
+            si++;
+            sm += stp.getStepState();
+        }
+
+        if(!drop || sm > 0 ) {
+            os << time << " " << step_string << endl;
+        }
+
         time += dtime;
     } while (!p.empty());
 
@@ -110,6 +120,7 @@ int main(int ac, char **av) {
             ("help,h", "produce help message")
             ("planner,p",  "Load moves into the planner and print it. ")
             ("stepper,s",  "Load moves into the planner run steppers ")
+            ("drop,d",  "When stepping, don't print lines that are all zero ")
             ("json,j",  "Output JSON ")
             ;
 
@@ -140,12 +151,15 @@ int main(int ac, char **av) {
             cout << j << endl;
         } else {
             cout << *planner << endl;
+            for(const Segment &s: planner->getSegments()){
+                cout << s << endl;
+            }
         }
     } else if(vm.count("stepper")){
         if (vm.count("json")){
 
         } else {
-            runSteppers(*planner, cout);
+            runSteppers(*planner, cout, vm.count("drop")>0);
         }
     }
 

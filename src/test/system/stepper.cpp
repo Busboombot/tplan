@@ -1,5 +1,5 @@
 /* Read integers in text from stdin, construct steppers
- * and step out steps.
+ * and print put the stepper blocks
  *
  * Each row of the input is one stepper phase for multiple axes, with
  * the line consisting of 1 or more groups of three numbers, eah representing

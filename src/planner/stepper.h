@@ -31,7 +31,6 @@ private:
     double phase_t = 0;
     double delay = 0;
     double delay_counter= 0;
-
     int clear_counter = 0;
 
     double a;
@@ -79,7 +78,7 @@ public:
 
     uint32_t getLastCompleteSegmentNumber() const { return last_complete_segment;}
 
-    const vector<StepperState> &getStepperStates() const;
+    vector<StepperState> &getStepperStates();
 
     friend ostream &operator<<(ostream &output, const SegmentStepper &s);
 

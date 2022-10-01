@@ -27,15 +27,13 @@ int main (){
 
 #ifdef TRJ_DEBUG_SERIAL
     TRJ_DEBUG_SERIAL.begin(115200);
+    TRJ_DEBUG_SERIAL.println("Starting");
 #endif
 
     hw.setMillisZero(101);
     while (true){
         loop.loopOnce();
 
-        if(hw.millisSince(101)>1500){
-            hw.setMillisZero(101);
-        }
 
     }
 

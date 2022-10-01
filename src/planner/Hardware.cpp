@@ -1,5 +1,5 @@
 #include "Hardware.h"
-#include <iostream>
+#include "messageprocessor.h"
 #include <algorithm>
 
 using namespace std;
@@ -73,7 +73,16 @@ void Hardware::setMicrosZero(uint8_t tag) {
     micros_0[tag] = this->micros();
 }
 
+bool Hardware::everyMs(uint8_t tag, tmillis interval){
 
+    if(millisSince(tag) > interval){
+        setMillisZero(tag);
+        return true;
+    } else {
+        return false;
+    }
+
+}
 void Hardware::cycleLeds(){
 
     std::vector<int> pins{config.builtin_led_pin,config.empty_led_pin,
@@ -108,17 +117,14 @@ int blink_patterns[4][PATTERN_SIZE] = {
  */
 void Hardware::blink(bool running, bool empty){
 
-    int pattern = ((int)empty)<<1 | ((int)running);
+    int pattern_idx = ((int)empty) << 1 | ((int)running);
 
     setEmptyLed(empty);
     setRunningLed(running);
 
-    if(millisSince(BLINK_TIMER) >= BASE_DELAY){
-
+    if(everyMs(BLINK_TIMER, BASE_DELAY)){
         blink_index = (blink_index+1)%PATTERN_SIZE;
-
-        setBuiltinLed(blink_patterns[pattern][blink_index]);
-        setMillisZero(BLINK_TIMER);
+        setBuiltinLed(blink_patterns[pattern_idx][blink_index]);
     }
 }
 

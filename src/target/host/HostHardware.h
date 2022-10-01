@@ -58,7 +58,7 @@ private:
     bool print_pin_change = false;
     u_int8_t pin_change_crc = 0;
     steady_clock::time_point last_pin_change;
-
+public: // Public b/c this object is for testing.
     vector<PinVal> pins={0};
     map<PinVal, int> highCount;
     map<PinVal, int> lowCount;

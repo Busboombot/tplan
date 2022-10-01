@@ -131,7 +131,6 @@ void MessageProcessor::sendNack() {
 }
 
 void MessageProcessor::sendAck(uint16_t seq) {
-    logf("ACK %d", seq);
     send((const uint8_t *) &current_state, CommandCode::ACK, seq, sizeof(current_state));
 }
 

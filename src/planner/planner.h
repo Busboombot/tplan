@@ -34,19 +34,6 @@ class SegmentStepper;
 
 class Planner {
 
-protected:
-
-    std::vector<Joint> joints; // Joint configuration
-
-    std::deque<Segment> segments;
-
-    int32_t queue_size=0;
-    int32_t queue_time=0;
-
-    unsigned int seg_num = 0;
-
-    MoveArray plannerPosition;
-    MoveArray completedPosition;
 
 public:
 
@@ -62,8 +49,6 @@ public:
     void plan();
 
     bool isEmpty();
-
-public:
 
     // Fpr passing in to set_bv for boundaries you don't want to change.
     VelocityVector V_NAN = {NAN, NAN, NAN, NAN, NAN, NAN, NAN, NAN};
@@ -89,17 +74,29 @@ public:
 
     const Joint &getJoint(int i){ return joints[i];}
 
+    const deque<Segment> &getSegments() const;
+
     json dump(const std::string& tag="") const;
 
     friend ostream &operator<<( ostream &output, const Planner &p );
 
     friend SegmentStepper;
 
-
 private:
 
-    double boundary_error(Segment &p, Segment &c);
+    std::vector<Joint> joints; // Joint configuration
 
+    std::deque<Segment> segments;
+
+    int32_t queue_size=0;
+    int32_t queue_time=0;
+
+    unsigned int seg_num = 0;
+
+    MoveArray plannerPosition;
+    MoveArray completedPosition;
+
+    double boundary_error(Segment &p, Segment &c);
 
 
 };

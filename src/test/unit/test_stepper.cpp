@@ -74,7 +74,6 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
 
     ss.reloadJoints();
 
-
     for(StepperState const &ss: ss.getStepperStates()){
         cout << ss <<endl;
     }
@@ -90,12 +89,20 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
 
     do {
         ss.next(dtime);
+
     } while (!p.empty());
 
     // Check that it doesn't crash after segments are exhausted.
     ss.next(dtime);
     ss.next(dtime);
     ss.next(dtime);
+
+    hh.dumpPinCounts();
+
+    REQUIRE(hh.highCount[3] == 2501);
+    REQUIRE(hh.lowCount[3] == 2500);
+    REQUIRE(hh.highCount[6] == 30000);
+    REQUIRE(hh.lowCount[6] == 29999);
 
     cout << endl;
 

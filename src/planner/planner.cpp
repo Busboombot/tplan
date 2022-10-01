@@ -10,6 +10,8 @@
 #include "planner_types.h"
 #include "util.h"
 
+#include "messageprocessor.h" // for logf
+
 using namespace std;
 
 int here_count = 0; // for the HERE macro, in trj_util
@@ -47,9 +49,11 @@ void Planner::move(unsigned int seq_id, const MoveArray &move) {
     // Add the move into the planner position
     auto mi = move.begin();
     auto ppi = plannerPosition.begin();
-    for (; mi != move.end() && ppi != plannerPosition.end(); mi++, ppi++){
+
+    for (;mi != move.end() && ppi != plannerPosition.end(); mi++, ppi++){
         *ppi += *mi;
     }
+
 
     // These id number shenanigans are probably a bad idea, but this
     // makes things easier for legacy testing code.
@@ -217,6 +221,11 @@ json Planner::dump(const std::string& tag) const{
 
     return j;
 }
+
+const deque<Segment> &Planner::getSegments() const {
+    return segments;
+}
+
 #else
 json Planner::dump(const std::string& tag) const{
     return string("");

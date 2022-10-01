@@ -21,7 +21,6 @@ void Loop::setup(){
 }
 
 void Loop::loopOnce(){
-    static int loop_tick = 0;
 
     // Step is not using timer features b/c we also need dt
     tmicros t = hw.micros();
@@ -33,11 +32,11 @@ void Loop::loopOnce(){
 
         if(activeAxes == 0){
             hw.signalSegmentComplete();
-            cout << "Send Done" << endl;
+            log("Send Done");
             mp.sendDone(ss.getLastCompleteSegmentNumber());
 
             if(pl.isEmpty()){
-                cout << "Send Empty" << endl;
+                log("Send Empty");
                 mp.sendEmpty(ss.getLastCompleteSegmentNumber());
                 empty = true;
             }
@@ -47,12 +46,8 @@ void Loop::loopOnce(){
     }
 
     if(hw.millisSince(UPDATE_TIMER) > UPDATE_INTERVAL){
-        //if (loop_tick++ % 100 == 0){
-        //    logf("Update in loopOnce(%d)", loop_tick);
-        //}
 
         hw.update();
-        hw.setRunningLed(running);
 
         mp.update(t, current_state);
 
@@ -89,6 +84,7 @@ void Loop::processMessage(Message &m) {
         case CommandCode::JMOVE:
         case CommandCode::HMOVE:
             processMove(m);
+
             break;
 
         case CommandCode::STOP:
@@ -121,7 +117,11 @@ void Loop::processMove(Message &mesg){
     PacketHeader ph = mesg.header;
     auto mv = mesg.asMoves();
 
-    Move move(config.n_axes, ph.seq, mv->segment_time, 0);
+    Move move(ph.seq, mv->segment_time, MoveType::none, MoveArray(mv->x, mv->x+config.n_axes));
+
+    stringstream  ss;
+    ss << "Loop::processMove: " << move;
+    log(ss);
 
     switch(ph.code){
         case CommandCode::RMOVE:
@@ -143,11 +143,14 @@ void Loop::processMove(Message &mesg){
         default: ;
     }
 
+    /*
     for (int axis = 0; axis < config.n_axes; axis++){
         move.x[axis] = mv->x[axis];
         // FIXME! This position update will only work for relative moves
         current_state.planner_positions[axis] += mv->x[axis];
     }
+    */
+
 
     empty = false;
 
@@ -155,7 +158,6 @@ void Loop::processMove(Message &mesg){
     current_state.queue_time = pl.getQueueTime();
 
     pl.move(move);
-
 
 }
 
@@ -168,7 +170,9 @@ void Loop::setJoints(){
     pl.setJoints(joints);
 }
 
-void Loop::setConfig(const Config& config){
+void Loop::setConfig(const Config& config_){
+    config = config_;
+
     hw.setConfig(config);
     ss.reloadJoints();
 }

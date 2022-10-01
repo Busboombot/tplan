@@ -68,6 +68,8 @@ public:
 
     void setMicrosZero(uint8_t tag);
 
+    bool everyMs(uint8_t tag, tmillis frequency);
+
     virtual void delayMillis(uint32_t v) = 0;
 
     virtual void delayMicros(uint32_t v) = 0;
@@ -176,6 +178,8 @@ public:
     void setDirection(int dir) { setDirection(static_cast<Direction>(dir)); };
 
     int8_t getAxis() const { return axis; }
+
+    PinVal getStepState(){ return step_state; }
 
     friend ostream &operator<<(ostream &output, const Stepper &s);
 

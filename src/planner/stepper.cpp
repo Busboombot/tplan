@@ -3,7 +3,7 @@
 #include <utility>
 #include "stepper.h"
 #include <iostream>
-
+#include "messageprocessor.h" // For logf
 StepperState::StepperState(double dtime_, Stepper stepper_) : dtime(dtime_), stepper(stepper_) {
 
 }
@@ -28,6 +28,7 @@ void StepperState::next_phase() {
 
     direction = sign(phase->x);
     steps_left = abs(phase->x);
+    logf("next_phase %d steps_left %d", phase_n, steps_left);
 
     t_f = (phase->vi + phase->vf) != 0 ? fabs((2.f * (double) steps_left) / (phase->vi + phase->vf)) : 0;
     a = t_f != 0 ? (phase->vf - phase->vi) / t_f : 0;
@@ -55,6 +56,7 @@ int StepperState::next(double dtime) {
             return 0;
         } else {
             next_phase();
+
         }
     }
 
@@ -74,7 +76,7 @@ int StepperState::next(double dtime) {
     }
 
     double v = phase->vi + a * phase_t;
-
+   
     delay = v != 0 ? abs(1 / v) : 1;
     delay_counter += dtime;
 
@@ -84,11 +86,9 @@ int StepperState::next(double dtime) {
     return 1;
 }
 
-
-Stepper &StepperState::getStepper() {
+ Stepper &StepperState::getStepper() {
     return stepper;
 }
-
 
 SegmentStepper::SegmentStepper(Planner &planner, Hardware &hardware) : planner(planner), hw(hardware) {
     reloadJoints();
@@ -142,7 +142,7 @@ void SegmentStepper::clearSteps() {
     }
 }
 
-const vector<StepperState> &SegmentStepper::getStepperStates() const {
+vector<StepperState> &SegmentStepper::getStepperStates(){
     return stepperStates;
 }
 

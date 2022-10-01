@@ -75,10 +75,13 @@ class TestPlanner:
         import json
         o = {}
 
-        r = subprocess.check_output([self.exe_path, r'[json]'], timeout=1)
+        cmd  =[ str(self.exe_path), r'[json]']
+        print("running", cmd)
+        r = subprocess.check_output(cmd, timeout=1)
         r = r.decode('utf8')
 
         for l in r.splitlines():
+          
             if l.startswith('JSON'):
                 d = json.loads(l[4:])
                 o[d['test']] = d
@@ -147,10 +150,12 @@ class CPPPlanner:
         with open(self.test_dir.joinpath('planner_input.txt'), 'w') as f:
             f.write(inpt)
 
-        proc = subprocess.Popen([str(self.exe_path),options], text=True, encoding='utf-8',
+        cmd = [str(self.exe_path),options]
+        print("Running", cmd)
+        proc = subprocess.Popen(cmd, text=True, encoding='utf-8',
                                 stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         try:
-            outs, errs = proc.communicate(input=inpt, timeout=2)
+            outs, errs = proc.communicate(input=inpt, timeout=15)
         except subprocess.TimeoutExpired:
             print("Timedout")
             proc.kill()
@@ -255,7 +260,9 @@ class TestStepper:
         with open(self.test_dir.joinpath('stepper_input.txt'), 'w') as f:
             f.write(inpt)
 
-        proc = subprocess.Popen(str(self.exe_path), text=True, encoding='utf-8',
+        cmd = str(self.exe_path)
+        print("Running", cmd)
+        proc = subprocess.Popen(cmd, text=True, encoding='utf-8',
                                 stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         try:
             outs, errs = proc.communicate(input=inpt, timeout=2)
