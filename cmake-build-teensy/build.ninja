@@ -533,7 +533,7 @@ build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
 build cmake_object_order_depends_target_libplanner: phony || cmake_object_order_depends_target_libfastcrc
 
 build src/planner/CMakeFiles/libplanner.dir/Hardware.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/Hardware.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/Hardware.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -541,7 +541,7 @@ build src/planner/CMakeFiles/libplanner.dir/Hardware.cpp.o: CXX_COMPILER__libpla
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/block.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/block.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/block.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -549,7 +549,7 @@ build src/planner/CMakeFiles/libplanner.dir/block.cpp.o: CXX_COMPILER__libplanne
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/debug.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/debug.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/debug.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -557,7 +557,7 @@ build src/planner/CMakeFiles/libplanner.dir/debug.cpp.o: CXX_COMPILER__libplanne
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/joint.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/joint.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/joint.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -565,7 +565,7 @@ build src/planner/CMakeFiles/libplanner.dir/joint.cpp.o: CXX_COMPILER__libplanne
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/loop.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/loop.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/loop.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -573,7 +573,7 @@ build src/planner/CMakeFiles/libplanner.dir/loop.cpp.o: CXX_COMPILER__libplanner
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/messageprocessor.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/messageprocessor.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/messageprocessor.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -581,7 +581,7 @@ build src/planner/CMakeFiles/libplanner.dir/messageprocessor.cpp.o: CXX_COMPILER
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/move.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/move.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/move.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -589,7 +589,7 @@ build src/planner/CMakeFiles/libplanner.dir/move.cpp.o: CXX_COMPILER__libplanner
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/planner.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/planner.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/planner.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -597,7 +597,7 @@ build src/planner/CMakeFiles/libplanner.dir/planner.cpp.o: CXX_COMPILER__libplan
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/segment.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/segment.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/segment.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -605,7 +605,7 @@ build src/planner/CMakeFiles/libplanner.dir/segment.cpp.o: CXX_COMPILER__libplan
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/stepper.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/stepper.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/stepper.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -613,7 +613,7 @@ build src/planner/CMakeFiles/libplanner.dir/stepper.cpp.o: CXX_COMPILER__libplan
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/types.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/types.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/types.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -621,7 +621,7 @@ build src/planner/CMakeFiles/libplanner.dir/types.cpp.o: CXX_COMPILER__libplanne
   OBJECT_FILE_DIR = src/planner/CMakeFiles/libplanner.dir
 
 build src/planner/CMakeFiles/libplanner.dir/util.cpp.o: CXX_COMPILER__libplanner_Release /Users/eric/Documents/proj/tplan/src/planner/util.cpp || cmake_object_order_depends_target_libplanner
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/planner/CMakeFiles/libplanner.dir/util.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -855,7 +855,7 @@ build src/target/host/rebuild_cache: phony src/target/host/CMakeFiles/rebuild_ca
 build cmake_object_order_depends_target_test_planner: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
 
 build src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -863,7 +863,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test.cpp.o: CXX_COMPILER__test_p
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_basic.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -871,7 +871,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_basic.cpp.o: CXX_COMPILER__
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_block.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -879,7 +879,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_block.cpp.o: CXX_COMPILER__
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
 build src/test/unit/CMakeFiles/test_planner.dir/__/test_lib.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/test_lib.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/__/test_lib.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -887,7 +887,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/__/test_lib.cpp.o: CXX_COMPILER_
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir/__
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_loop.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -895,7 +895,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_loop.cpp.o: CXX_COMPILER__t
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
 build src/test/unit/CMakeFiles/test_planner.dir/__/devel/test_misc.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/devel/test_misc.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/__/devel/test_misc.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -903,7 +903,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/__/devel/test_misc.cpp.o: CXX_CO
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir/__/devel
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_mp.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -911,7 +911,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_mp.cpp.o: CXX_COMPILER__tes
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_planner.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -919,7 +919,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_planner.cpp.o: CXX_COMPILER
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_segment.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -927,7 +927,7 @@ build src/test/unit/CMakeFiles/test_planner.dir/test_segment.cpp.o: CXX_COMPILER
   OBJECT_FILE_DIR = src/test/unit/CMakeFiles/test_planner.dir
 
 build src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o: CXX_COMPILER__test_planner_Release /Users/eric/Documents/proj/tplan/src/test/unit/test_stepper.cpp || cmake_object_order_depends_target_test_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/unit/CMakeFiles/test_planner.dir/test_stepper.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/unit/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -1002,7 +1002,7 @@ build src/test/unit/rebuild_cache: phony src/test/unit/CMakeFiles/rebuild_cache.
 build cmake_object_order_depends_target_planner: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
 
 build src/test/system/CMakeFiles/planner.dir/planner.cpp.o: CXX_COMPILER__planner_Release /Users/eric/Documents/proj/tplan/src/test/system/planner.cpp || cmake_object_order_depends_target_planner
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DBOOST_PROGRAM_OPTIONS_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/system/CMakeFiles/planner.dir/planner.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -isystem /usr/local/include
@@ -1036,7 +1036,7 @@ build src/test/system/planner: CXX_EXECUTABLE_LINKER__planner_Release src/test/s
 build cmake_object_order_depends_target_stepper: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
 
 build src/test/system/CMakeFiles/stepper.dir/stepper.cpp.o: CXX_COMPILER__stepper_Release /Users/eric/Documents/proj/tplan/src/test/system/stepper.cpp || cmake_object_order_depends_target_stepper
-  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/system/CMakeFiles/stepper.dir/stepper.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/usr/local/include -I/Users/eric/Documents/proj/tplan/src/planner -I/Users/eric/Documents/proj/tplan/src/FastCRC/src
@@ -1110,7 +1110,7 @@ build src/test/system/rebuild_cache: phony src/test/system/CMakeFiles/rebuild_ca
 build cmake_object_order_depends_target_test_devel: phony || cmake_object_order_depends_target_libfastcrc cmake_object_order_depends_target_libhost cmake_object_order_depends_target_libplanner
 
 build src/test/devel/CMakeFiles/test_devel.dir/test.cpp.o: CXX_COMPILER__test_devel_Release /Users/eric/Documents/proj/tplan/src/test/devel/test.cpp || cmake_object_order_depends_target_test_devel
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/devel/CMakeFiles/test_devel.dir/test.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/devel/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -1118,7 +1118,7 @@ build src/test/devel/CMakeFiles/test_devel.dir/test.cpp.o: CXX_COMPILER__test_de
   OBJECT_FILE_DIR = src/test/devel/CMakeFiles/test_devel.dir
 
 build src/test/devel/CMakeFiles/test_devel.dir/test_blink.cpp.o: CXX_COMPILER__test_devel_Release /Users/eric/Documents/proj/tplan/src/test/devel/test_blink.cpp || cmake_object_order_depends_target_test_devel
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/devel/CMakeFiles/test_devel.dir/test_blink.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/devel/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include
@@ -1126,7 +1126,7 @@ build src/test/devel/CMakeFiles/test_devel.dir/test_blink.cpp.o: CXX_COMPILER__t
   OBJECT_FILE_DIR = src/test/devel/CMakeFiles/test_devel.dir
 
 build src/test/devel/CMakeFiles/test_devel.dir/__/test_lib.cpp.o: CXX_COMPILER__test_devel_Release /Users/eric/Documents/proj/tplan/src/test/test_lib.cpp || cmake_object_order_depends_target_test_devel
-  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_ENV_HOST
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DINTERRUPT_DELAY=4 -DTRJ_DEBUG -DTRJ_ENV_HOST
   DEP_FILE = src/test/devel/CMakeFiles/test_devel.dir/__/test_lib.cpp.o.d
   FLAGS = -O3 -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++14
   INCLUDES = -I/Users/eric/Documents/proj/tplan/src/target/host -I/Users/eric/Documents/proj/tplan/src/FastCRC/src -I/Users/eric/Documents/proj/tplan/src/test/devel/.. -I/Users/eric/Documents/proj/tplan/src/planner -isystem /usr/local/include

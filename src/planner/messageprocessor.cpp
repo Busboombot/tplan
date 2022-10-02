@@ -30,36 +30,42 @@ FastCRC8 CRC8;
 // usually in main()
 MessageProcessor *message_processor = nullptr;
 
-
-void log(const char *str) {
-    if (message_processor != nullptr) {
-        message_processor->log(str);
-    }
-}
-
 void log(const string &str) {
     if (message_processor != nullptr) {
         message_processor->log(str);
+    } else {
+#ifdef TRJ_DEBUG
+#ifdef TRJ_DEBUG_SERIAL
+        TRJ_DEBUG_SERIAL.print((str+"\r\n").c_str());
+#elif defined(TRJ_ENV_HOST)
+        //send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
+        cerr << str << endl;
+#endif
+#endif
     }
+}
+
+void log(const char *str) {
+    log(string(str));
 }
 
 void log(stringstream &str) {
     if (message_processor != nullptr) {
         message_processor->log(str);
+    } else {
+        log(str.str());
     }
 }
 
 void logf(const char *fmt, ...) {
 
-    if (message_processor != nullptr) {
 
-        va_list args;
-        va_start(args, fmt);
-        vsprintf(printf_buffer, fmt, args);
-        va_end(args);
+    va_list args;
+    va_start(args, fmt);
+    vsprintf(printf_buffer, fmt, args);
+    va_end(args);
 
-        message_processor->log(printf_buffer);
-    }
+    log(string(printf_buffer));
 
 }
 
@@ -208,14 +214,14 @@ void MessageProcessor::printf(const char *fmt, ...) {
     sendMessage(printf_buffer);
 }
 
-
 void MessageProcessor::log(const string &str) {
 
 #ifdef TRJ_DEBUG
 #ifdef TRJ_DEBUG_SERIAL
     TRJ_DEBUG_SERIAL.print((str+"\r\n").c_str());
 #elif defined(TRJ_ENV_HOST)
-    send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
+    //send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
+    cerr << str << endl;
 #endif
 #endif
 

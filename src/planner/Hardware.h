@@ -80,6 +80,10 @@ public:
 
     virtual void setAxisConfig(const AxisConfig &ac);
 
+    void enableSteppers();
+
+    void disableSteppers();
+
     virtual Stepper getStepper(int axis);
 
     // LEDS
@@ -153,10 +157,10 @@ public:
     void clearStep() {
         // We clear the step pin regularly, so it may be more efficient to avoid setting it
         // when it is already unset.
-        if (step_state != 0) {
-            hw->writePin(step_pin, LOW);
-            step_state = 0;
-        }
+        //if (step_state != 0) {
+        hw->writePin(step_pin, LOW);
+        step_state = 0;
+        //}
     }
 
     void enable() { hw->writePin(enable_pin, enable_val); }

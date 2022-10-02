@@ -44,7 +44,7 @@ public:
     Config &getConfig(){ return config; };
     array<AxisConfig,N_AXES>& getAxesConfig(){ return axes_config;};
     CurrentState &getCurrentState(){ return current_state; }
-    bool isPlannerEmpty(){ return pl.empty();}
+    bool isPlannerEmpty(){ return pl.isEmpty();}
     bool isMessageEmpty(){ return mp.empty();}
 
     friend ostream &operator<<(ostream &output, const Loop &p);

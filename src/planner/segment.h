@@ -66,8 +66,9 @@ public:
 
     VelocityVector getV0();
     VelocityVector getV1();
-
     int getN() const { return n; }
+
+    trj_float_t getT() const;
 
     trj_float_t minTime();
     trj_float_t time();

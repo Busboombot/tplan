@@ -14,6 +14,12 @@ ostream &operator<<( ostream &output, const Moves &m ) {
     return output;
 }
 
+ostream &operator<<( ostream &output, const MoveArray &m ) {
+    output << "[MoveArray  ("; for(auto e: m) output <<e<<","; output << ")]";
+    return output;
+}
+
+
 ostream &operator<<( ostream &output, const AxisConfig &ac ) {
     output << "[AxisConfig "<<(int)ac.axis<<
             " sp=" << (int)ac.step_pin<<
@@ -40,7 +46,7 @@ ostream &operator<<( ostream &output, const Config &c ) {
 
 ostream &operator<<( ostream &output, const CurrentState &cs ) {
 
-    output << "[CurrentState ql="<<cs.queue_length<<" qt="<<cs.queue_time<<" (";
+    output << "[CurrentState ql="<<cs.queue_length<<" qt="<< double(cs.queue_time)/TIMEBASE<<" (";
     for (int i = 0; i < N_AXES; i++) { output << cs.positions[i] << " "; }
     output << ") (";
     for (int i = 0; i < N_AXES; i++) { output << cs.planner_positions[i] << " "; }

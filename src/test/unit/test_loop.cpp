@@ -57,7 +57,7 @@ TEST_CASE("Basic Loop Test", "[loop]"){
     const auto t0 = sclock::now();
 
     int n = 0;
-    while(!pl.empty()){
+    while(!pl.isEmpty()){
         hw.stepTime(1); // Step 1 micro second per loop
         n++;
         loop.loopOnce();

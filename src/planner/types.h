@@ -21,6 +21,8 @@ enum class MoveType {
 
 using MoveArray = std::vector<int32_t>;
 
+ostream &operator<<( ostream &output, const MoveArray &m );
+
 using tmillis = uint32_t;
 using tmicros = uint32_t;
 using Pin = uint8_t;

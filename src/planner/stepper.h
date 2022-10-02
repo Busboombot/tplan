@@ -4,13 +4,14 @@
 #include <array>
 #include "util.h"
 #include "Hardware.h"
+
 #include "planner_types.h"
 
 using namespace std;
 
 
 class Planner;
-
+class Segment;
 
 struct StepperPhase{
     int x;
@@ -26,7 +27,7 @@ private:
     int direction = 0;
 
     double dtime = 0; // a typical time delay between calling next()
-    double t= 0;
+
     double t_f = 0;
     double phase_t = 0;
     double delay = 0;
@@ -40,6 +41,7 @@ private:
     int phase_n;
     int phases_left = 0;
     vector<StepperPhase> phases;
+
     const StepperPhase *phase; // Current phase.
 
     Stepper stepper;
@@ -71,7 +73,14 @@ public:
 
     int next(double dtime);
 
+    void loadNextSegment();
+
+    void popSegment();
+
+    bool isRunning(){ return current_segment == nullptr; }
+
     void clearSteps();
+
 
     int getActiveAxes() const { return activeAxes;}
     double getTime() const { return time; }
@@ -90,11 +99,10 @@ private:
 
     uint32_t last_complete_segment;
 
-
-
+    Segment* current_segment = nullptr;
 
 private:
     int activeAxes = 0;
-    double time;
+    double time = 0;
 
 };

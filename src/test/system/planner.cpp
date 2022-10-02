@@ -95,10 +95,12 @@ void runSteppers(Planner &p, ostream &os, bool drop){
         auto si = step_string.begin();
         for(StepperState &stst : ss.getStepperStates()){
             Stepper &stp = stst.getStepper();
+            int step_state = stp.getStepState();
             si++;
-            *si = stp.getStepState() ? '1' : '0';
+            *si =  step_state? '1' : '0';
             si++;
-            sm += stp.getStepState();
+            sm += step_state;
+            stp.clearStep();
         }
 
         if(!drop || sm > 0 ) {
@@ -106,7 +108,7 @@ void runSteppers(Planner &p, ostream &os, bool drop){
         }
 
         time += dtime;
-    } while (!p.empty());
+    } while (!p.isEmpty());
 
 }
 

@@ -48,19 +48,18 @@ public:
 
     void plan();
 
-    bool isEmpty();
-
-    // Fpr passing in to set_bv for boundaries you don't want to change.
-    VelocityVector V_NAN = {NAN, NAN, NAN, NAN, NAN, NAN, NAN, NAN};
-
+    bool isEmpty() { return segments.empty(); }
     unsigned long getNSegments(){  return segments.size();}
-    bool empty(){  return segments.empty();}
+    Segment &getFront() { return segments.front(); }
+    void popFront() { return segments.pop_front(); }
 
     uint32_t getQueueTime() const{ return queue_time;  }
 
-    uint32_t getQueueSize() const{ return  queue_size; }
+    uint32_t getQueueSize() const{ return  segments.size(); }
 
-    MoveArray getPosition(){ return plannerPosition; }
+    MoveArray getPosition(){ return planner_position; }
+
+    void updateCurrentState(CurrentState &current_state);
 
     MoveType getCurrentMoveType(){
         if (!isEmpty()) {
@@ -70,13 +69,19 @@ public:
         }
     }
 
+
     const std::vector<Joint> &getJoints(){ return joints;}
 
     const Joint &getJoint(int i){ return joints[i];}
 
     const deque<Segment> &getSegments() const;
 
+
+
     json dump(const std::string& tag="") const;
+
+    // Fpr passing in to set_bv for boundaries you don't want to change.
+    VelocityVector V_NAN = {NAN, NAN, NAN, NAN, NAN, NAN, NAN, NAN};
 
     friend ostream &operator<<( ostream &output, const Planner &p );
 
@@ -88,13 +93,12 @@ private:
 
     std::deque<Segment> segments;
 
-    int32_t queue_size=0;
     int32_t queue_time=0;
 
     unsigned int seg_num = 0;
 
-    MoveArray plannerPosition;
-    MoveArray completedPosition;
+    MoveArray planner_position;
+    MoveArray completed_position;
 
     double boundary_error(Segment &p, Segment &c);
 

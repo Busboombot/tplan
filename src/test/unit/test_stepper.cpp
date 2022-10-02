@@ -90,7 +90,7 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
     do {
         ss.next(dtime);
 
-    } while (!p.empty());
+    } while (!p.isEmpty());
 
     // Check that it doesn't crash after segments are exhausted.
     ss.next(dtime);

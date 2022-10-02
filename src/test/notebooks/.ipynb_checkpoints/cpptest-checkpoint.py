@@ -1,6 +1,6 @@
 """ Code for running the C++ versino of the planner and testing it
 """
-from trajectory import Joint, Block, Segment, SegmentList
+from pytplan import Joint, Block, Segment, SegmentList
 from collections import deque
 import subprocess
 import os

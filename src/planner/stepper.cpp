@@ -5,9 +5,7 @@
 #include <iostream>
 #include "messageprocessor.h" // For logf
 StepperState::StepperState(double dtime_, Stepper stepper_) : dtime(dtime_), stepper(stepper_) {
-
 }
-
 
 void StepperState::loadPhases(vector<StepperPhase> phases_) {
 
@@ -19,30 +17,25 @@ void StepperState::loadPhases(vector<StepperPhase> phases_) {
 
 void StepperState::loadPhases(array<StepperPhase, 3> phases_) {
     loadPhases(vector<StepperPhase>(phases_.begin(), phases_.end()));
-
 }
-
 
 void StepperState::next_phase() {
     phase = &phases[phase_n];
 
     direction = sign(phase->x);
     steps_left = abs(phase->x);
-    logf("next_phase %d steps_left %d", phase_n, steps_left);
+
+    phase_t = 0;
+    done = false;
+    phase_n += 1;
+    phases_left -= 1;
 
     t_f = (phase->vi + phase->vf) != 0 ? fabs((2.f * (double) steps_left) / (phase->vi + phase->vf)) : 0;
     a = t_f != 0 ? (phase->vf - phase->vi) / t_f : 0;
 
-    phase_t = 0;
-
     double v = a * dtime + phase->vi;
-    delay = v != 0 ? fabs(1 / v) : 0;
+    delay = (v != 0) ? fabs(1 / v) : 0;
     delay_counter += dtime;
-
-    done = false;
-
-    phase_n += 1;
-    phases_left -= 1;
 
     stepper.setDirection(direction);
 
@@ -64,7 +57,7 @@ int StepperState::next(double dtime) {
         stepper.clearStep();
         clear_counter = -1;
     } else if (delay_counter > delay) {
-        // else if so if the step gets cleared , it doesn't get immediately re-set,
+        // else if so the step gets cleared , it doesn't get immediately re-set,
         // to soon for the stepper driver to notice.
         delay_counter -= delay;
         steps_left -= 1;
@@ -76,11 +69,10 @@ int StepperState::next(double dtime) {
     }
 
     double v = phase->vi + a * phase_t;
-   
-    delay = v != 0 ? abs(1 / v) : 1;
-    delay_counter += dtime;
 
-    t += dtime;
+    delay = v != 0 ? abs(1 / v) : 1;
+
+    delay_counter += dtime;
     phase_t += dtime;
 
     return 1;
@@ -104,36 +96,54 @@ void SegmentStepper::reloadJoints() {
     }
 }
 
+void SegmentStepper::loadNextSegment() {
+
+
+
+}
+
+void SegmentStepper::popSegment() {
+
+}
+
 int SegmentStepper::next(double dtime) {
 
     time += dtime;
 
-    if (activeAxes == 0 && !planner.segments.empty()) {
+    if(planner.isEmpty()){
+        return 0;
+    }
 
-        Segment &seg = planner.segments.front();
+    activeAxes = 0;
+    if (current_segment != nullptr) {
+        for (StepperState &s: stepperStates) {
+            activeAxes += s.next(dtime);
+        }
+    }
 
-        auto bi = seg.blocks.begin();
+    // We were running a segment, but all of the axes are now done
+    if (current_segment != nullptr && activeAxes == 0) {
+        last_complete_segment = planner.getFront().getN();
+        planner.popFront();
+        current_segment = nullptr;
+    }
+
+    // There is no current segment, and the queue isn't empty, so load the next
+    // segment
+    if (current_segment == nullptr){
+        current_segment = &planner.getFront();
+        auto bi = current_segment->blocks.begin();
         for (StepperState &ss: stepperStates) {
-            if (bi != seg.blocks.end()) {
-
+            if (bi != current_segment->blocks.end()) {
                 ss.loadPhases(bi->getStepperPhases());
                 bi++;
             }
         }
+        hw.enableSteppers();
     }
 
-    activeAxes = 0;
-    for (StepperState &s: stepperStates) {
-        activeAxes += s.next(dtime);
-    }
-
-    if (activeAxes == 0 && !planner.segments.empty()) {
-        last_complete_segment = planner.segments.front().getN();
-        planner.segments.pop_front();
-    }
 
     return (int) activeAxes;
-
 }
 
 void SegmentStepper::clearSteps() {

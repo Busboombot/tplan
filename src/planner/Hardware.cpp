@@ -38,6 +38,20 @@ Stepper Hardware::getStepper(int axis) {
     }
 }
 
+void Hardware::enableSteppers(){
+    for(AxisConfig &ac : axes){
+        writePin(ac.enable_pin, ac.enable_high_value);
+    }
+}
+
+void Hardware::disableSteppers(){
+    for(AxisConfig &ac : axes){
+        writePin(ac.step_pin, LOW);
+        writePin(ac.enable_pin, !ac.enable_high_value);
+    }
+}
+
+
 
 void Hardware::update() {
     writePin(config.segment_complete_pin, LOW);

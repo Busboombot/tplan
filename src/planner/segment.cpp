@@ -108,6 +108,7 @@ void Segment::plan(trj_float_t t_, int v_0_, int v_1_, Segment *prior, Segment *
         }
 
     }
+    t = time();
 }
 
 trj_float_t  Segment::minTime(){
@@ -205,14 +206,18 @@ json Segment::dump(std::string tag, bool dump_joints) const{
        j["blocks"].push_back(b.dump());
     }
 
-
     return j;
 }
+
 #else
 using json = std::string;
 json Segment::dump(std::string tag, bool dump_joints) const{
     return string("");
 }
 #endif
+
+trj_float_t Segment::getT() const {
+    return t;
+}
 
 
