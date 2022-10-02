@@ -51,7 +51,7 @@ public:
     bool isEmpty() { return segments.empty(); }
     unsigned long getNSegments(){  return segments.size();}
     Segment &getFront() { return segments.front(); }
-    void popFront() { return segments.pop_front(); }
+    void popFront();
 
     uint32_t getQueueTime() const{ return queue_time;  }
 
@@ -69,14 +69,11 @@ public:
         }
     }
 
-
     const std::vector<Joint> &getJoints(){ return joints;}
 
     const Joint &getJoint(int i){ return joints[i];}
 
     const deque<Segment> &getSegments() const;
-
-
 
     json dump(const std::string& tag="") const;
 

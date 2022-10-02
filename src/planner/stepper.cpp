@@ -123,6 +123,16 @@ int SegmentStepper::next(double dtime) {
 
     // We were running a segment, but all of the axes are now done
     if (current_segment != nullptr && activeAxes == 0) {
+
+        // Add the move into the planner position
+        /*
+        auto mi = move.begin();
+        auto ppi = planner_position.begin();
+        for (; mi != move.end() && ppi != planner_position.end(); mi++, ppi++) {
+            *ppi += *mi;
+        }
+         */
+
         last_complete_segment = planner.getFront().getN();
         planner.popFront();
         current_segment = nullptr;

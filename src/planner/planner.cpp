@@ -52,10 +52,6 @@ void Planner::move(unsigned int seq_id, const MoveArray &move) {
     for (; mi != move.end() && ppi != planner_position.end(); mi++, ppi++) {
         *ppi += *mi;
     }
-    stringstream strstr;
-    strstr << move;
-    log(strstr);
-
 
     // These id number shenanigans are probably a bad idea, but this
     // makes things easier for legacy testing code.
@@ -227,6 +223,17 @@ void Planner::updateCurrentState(CurrentState &current_state) {
             current_state.positions[i] = completed_position[i];
         }
     }
+}
+
+void Planner::popFront() {
+
+    auto cpi = completed_position.begin();
+    for(int m: segments.front().moves){
+        *cpi++ +=  m;
+
+    }
+    return segments.pop_front();
+
 }
 
 
