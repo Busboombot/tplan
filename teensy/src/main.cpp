@@ -26,7 +26,7 @@ int main (){
     loop.setAxisConfig(defaultAxisConfig(1));
 
 #ifdef TRJ_DEBUG_SERIAL
-    TRJ_DEBUG_SERIAL.begin(115200);
+    TRJ_DEBUG_SERIAL.begin(230400); // Not actually necessary on the Teensy ?
     TRJ_DEBUG_SERIAL.println("Starting");
 #endif
 

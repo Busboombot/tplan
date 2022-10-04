@@ -30,11 +30,9 @@ public:
 
     void processMove(Message& message);
 
+    void processReset();
 
-    void reset();
-    void zero();
-    void enable();
-    void disable();
+    void processSet(Message& message);
 
     int getLastSegNum(){ return last_seg_num; }
 

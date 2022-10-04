@@ -14,6 +14,10 @@ bool same_sign(float a, float b){
     return (a == 0) or (b == 0) or (sgn(a) == sgn(b));
 }
 
+bool same_sign(double a, double b){
+    return (a == 0) or (b == 0) or (sgn(a) == sgn(b));
+}
+
 int sign(int x) {
     if (x == 0) return 0;
     else if  (x > 0) return 1;

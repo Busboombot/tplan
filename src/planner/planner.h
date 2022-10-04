@@ -42,9 +42,19 @@ public:
 
     void setJoints(std::vector<Joint> joints);
 
-    // Add a move, processing it into a Segment
+    /**
+     * @brief Add a move, processing it into a Segment
+     * @param move
+     */
     void move(const Move& move);
-    void move(unsigned int seq_id, const MoveArray &move);
+    void move(unsigned int seq_id, const MoveVector &move);
+
+    /**
+     * @brief Add a velocity move which specified velocity and time rather than distance.
+     * @param move
+     */
+    void vmove(const Move& move);
+    void vmove(unsigned int seq_id, trj_float_t t, const MoveVector &move);
 
     void plan();
 
@@ -69,12 +79,50 @@ public:
         }
     }
 
+    MoveArray &getPlannerPosition()  {
+        return planner_position;
+    }
+
+    MoveArray &getCompletedPosition()  {
+        return completed_position;
+    }
+
     const std::vector<Joint> &getJoints(){ return joints;}
 
     const Joint &getJoint(int i){ return joints[i];}
 
     const deque<Segment> &getSegments() const;
 
+
+    /**
+     * @brief Truncate the segments queue to sz elements, from the start
+     * @param sz Number of elements left after the operation
+     */
+    void truncateTo(size_t sz){
+        while(segments.size() > sz){
+            planner_position -= segments.back().moves;
+            segments.pop_back();
+        }
+    }
+
+    /**
+     * @brief Reset the planner, deleting all of the segments
+     *  and setting the planner position and completed position to zero.
+     *  ( Actually truncates to 1, to let the current segment runout, if it is running
+     *  or to 0 if it is stopped )
+     */
+    void reset(bool running);
+
+    void zero();
+
+    void setPositions(const MoveVector &mv);
+
+    /**
+     * @brief Return a JSON object representing the state of the planner
+     * and it's segments.
+     * @param tag Value to include in the '_tag' value in the dict
+     * @return a JSON dict
+     */
     json dump(const std::string& tag="") const;
 
     // Fpr passing in to set_bv for boundaries you don't want to change.

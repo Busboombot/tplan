@@ -43,13 +43,14 @@ void StepperState::next_phase() {
 
 int StepperState::next(double dtime) {
 
+
     if (steps_left <= 0) {
         if (done or phases_left == 0) {
             done = true;
             return 0;
         } else {
-            next_phase();
 
+            next_phase();
         }
     }
 
@@ -75,6 +76,7 @@ int StepperState::next(double dtime) {
     delay_counter += dtime;
     phase_t += dtime;
 
+
     return 1;
 }
 
@@ -96,16 +98,6 @@ void SegmentStepper::reloadJoints() {
     }
 }
 
-void SegmentStepper::loadNextSegment() {
-
-
-
-}
-
-void SegmentStepper::popSegment() {
-
-}
-
 int SegmentStepper::next(double dtime) {
 
     time += dtime;
@@ -121,28 +113,21 @@ int SegmentStepper::next(double dtime) {
         }
     }
 
-    // We were running a segment, but all of the axes are now done
+    //logf("cs %p ax %d segs %d", (void*)current_segment, activeAxes, planner.getNSegments());
+    // We were running a segment, but all the axes are now done
     if (current_segment != nullptr && activeAxes == 0) {
-
-        // Add the move into the planner position
-        /*
-        auto mi = move.begin();
-        auto ppi = planner_position.begin();
-        for (; mi != move.end() && ppi != planner_position.end(); mi++, ppi++) {
-            *ppi += *mi;
-        }
-         */
-
         last_complete_segment = planner.getFront().getN();
+
         planner.popFront();
         current_segment = nullptr;
     }
 
     // There is no current segment, and the queue isn't empty, so load the next
     // segment
-    if (current_segment == nullptr){
+    if (current_segment == nullptr && !planner.isEmpty()){
         current_segment = &planner.getFront();
         auto bi = current_segment->blocks.begin();
+
         for (StepperState &ss: stepperStates) {
             if (bi != current_segment->blocks.end()) {
                 ss.loadPhases(bi->getStepperPhases());
@@ -151,7 +136,6 @@ int SegmentStepper::next(double dtime) {
         }
         hw.enableSteppers();
     }
-
 
     return (int) activeAxes;
 }

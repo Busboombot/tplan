@@ -17,6 +17,7 @@ endif ()
 set(SOURCES_TESTS
         test.cpp
         test_blink.cpp
+        test_misc.cpp
         ../test_lib.cpp
         )
 

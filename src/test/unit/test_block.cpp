@@ -20,58 +20,58 @@ TEST_CASE("Low Level Block Test", "[block]")
     {
         Block b(1000, 0, 0, j);
         b.plan();
-        cout << "A " << b.getMinTime() << " " << b << endl;
+        cout << "A " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(1000, 2500, 2500, j);
         b.plan();
-        cout << "B " << b.getMinTime() << " " << b << endl;
+        cout << "B " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(1000, 5000, 5000, j);
         b.plan();
-        cout << "C " << b.getMinTime() << " " << b << endl;
+        cout << "C " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(200, 5000, 5000, j);
         b.plan();
-        cout << "D " << b.getMinTime() << " " << b << endl;
+        cout << "D " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(1, 5000, 5000, j);
         b.plan();
-        cout << "E " << b.getMinTime() << " " << b << endl;
+        cout << "E " << b.calcMinTime() << " " << b << endl;
     }
 
     {
         Block b(1000, 5000, 0, j);
         b.plan();
-        cout << "F " << b.getMinTime() << " " << b << endl;
+        cout << "F " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(1000, 0, 5000, j);
         b.plan();
-        cout << "G " << b.getMinTime() << " " << b << endl;
+        cout << "G " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(400, 5000, 0, j);
         b.plan();
-        cout << "H " << b.getMinTime() << " " << b << endl;
+        cout << "H " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(400, 0, 5000, j);
         b.plan();
-        cout << "I " << b.getMinTime() << " " << b << endl;
+        cout << "I " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(150, 5000, 0, j);
         b.plan();
-        cout << "J " << b.getMinTime() << " " << b << endl;
+        cout << "J " << b.calcMinTime() << " " << b << endl;
     }
     {
         Block b(150, 0, 5000, j);
         b.plan();
-        cout << "K " << b.getMinTime() << " " << b << endl;
+        cout << "K " << b.calcMinTime() << " " << b << endl;
     }
 
 }

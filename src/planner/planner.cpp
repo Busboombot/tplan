@@ -1,7 +1,7 @@
 
 
 #include <cmath> // abs
-
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include "planner.h"
@@ -17,20 +17,18 @@ using namespace std;
 int here_count = 0; // for the HERE macro, in trj_util
 
 Planner::Planner() {
+    planner_position.fill(0);
+    completed_position.fill(0);
 
 }
 
 Planner::Planner(std::vector<Joint> joints_) {
-
     setJoints(joints_);
 }
 
 void Planner::setJoints(std::vector<Joint> joints_) {
 
     joints.erase(joints.begin(), joints.end());
-
-    planner_position.resize(joints.size());
-    planner_position = {0};
 
     int i = 0;
     for (Joint &j: joints_) {
@@ -43,15 +41,11 @@ void Planner::move(const Move &move) {
     this->move(move.seq, move.x);
 }
 
-void Planner::move(unsigned int seq_id, const MoveArray &move) {
+void Planner::move(unsigned int seq_id, const MoveVector &move) {
 
     // Add the move into the planner position
-    auto mi = move.begin();
-    auto ppi = planner_position.begin();
 
-    for (; mi != move.end() && ppi != planner_position.end(); mi++, ppi++) {
-        *ppi += *mi;
-    }
+    planner_position += move;
 
     // These id number shenanigans are probably a bad idea, but this
     // makes things easier for legacy testing code.
@@ -143,6 +137,48 @@ void Planner::plan() {
 
 }
 
+void Planner::vmove(const Move& move){
+
+    auto v_max_e = std::max_element(move.x.begin(), move.x.end());
+    auto x_max = (trj_float_t)(*v_max_e) * (trj_float_t)move.t;
+
+    MoveVector mv(move.x.size());
+
+    for(auto v: move.x){
+        mv.push_back( x_max * (v/ double(*v_max_e)));
+    }
+
+    Move vmove(move.seq, move.t, MoveType::velocity, mv);
+
+    //planner_position += move;
+
+    // These id number shenanigans are probably a bad idea, but this
+    // makes things easier for legacy testing code.
+    if (vmove.seq > seg_num) {
+        seg_num = vmove.seq;
+    } else {
+        seg_num++;
+    }
+
+    segments.emplace_back(seg_num, joints, vmove);
+
+    u_long seg_idx = segments.size() - 1;
+    Segment *current = &segments[seg_idx];
+    Segment *prior = nullptr;
+    if (seg_idx > 0) {
+        prior = &segments[seg_idx - 1];
+        prior->vplan(NAN );
+        current->vplan(vmove.t, prior);
+    } else {
+        current->vplan(vmove.t);
+    }
+
+}
+
+void Planner::vmove(unsigned int seq_id, trj_float_t t,  const MoveVector &mv){
+    Move vmove(seq_id, t, MoveType::velocity, mv);
+
+}
 
 /**
  * RMS difference between velocities of blocks in two segments, at their boundary
@@ -236,6 +272,21 @@ void Planner::popFront() {
 
 }
 
+void Planner::reset(bool running) {
+    if(running){
+        truncateTo(1);
+    } else {
+        truncateTo(0);
+    }
 
+}
 
+void Planner::zero(){
+    planner_position = MoveArray({0});
+}
+
+void Planner::setPositions(const MoveVector &mv){
+    zero();
+    planner_position += mv;
+}
 

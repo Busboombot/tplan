@@ -29,16 +29,9 @@ class Block {
 
 public:
 
-    Block(trj_float_t x, const Joint& joint) :
-            x(fabs(static_cast<double>(x))), joint(joint) {
-        this->d = sign(x);
-    }
+    Block(trj_float_t x, const Joint& joint);
 
-    Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint& joint) :
-        Block(static_cast<double>(x), joint){
-        this->v_0 = v_0;
-        this->v_1 = v_1;
-    }
+    Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint& joint);
 
 private:
     trj_float_t x;
@@ -57,21 +50,38 @@ private:
     trj_float_t v_c=0;
     trj_float_t v_1=0;
 
+    trj_float_t v_c_max; // Max velocity for v_c, used for velocity moves
+
     const Joint &joint;
 
 public:
 
+    /**
+     * @brief Plan the parameters of this block, given a distance and a time
+     * @param t_ Target time for the block
+     * @param v_0_ Specification of the initial velocity
+     * @param v_1_ Specification of the final velocity
+     * @param prior Link to the block from the same axis in the previous segment
+     * @param next  Link to the block from the same axis in the next segment.
+     */
     void plan(trj_float_t t_=NAN, int v_0_=BV_NAN, int v_1_=BV_NAN, Block *prior = nullptr, Block *next = nullptr);
+
+    /**
+     * @brief Plan the parameters for the block, given a target time and a velocity.
+     * @param t_ Target time
+     * @param prior Link to the block from the same axis in the previous segment
+     * @param next  Link to the block from the same axis in the next segment.
+     */
+    void vplan(trj_float_t t_, Block *prior = nullptr, Block *next = nullptr);
 
     trj_float_t area();
 
     struct ACDBlockParams params();
 
 
-
     trj_float_t getT() const;
 
-    trj_float_t getMinTime() const;
+    trj_float_t calcMinTime() const;
 
     void setBv(int v_0_, int v_1_, Block *prior = nullptr, Block *next = nullptr) ; // Clip the boundary values based on the distance
 

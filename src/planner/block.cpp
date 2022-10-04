@@ -9,6 +9,7 @@
 #include "block.h"
 #include "stepper.h"
 #include "joint.h"
+#include "messageprocessor.h"
 
 using namespace std;
 
@@ -26,7 +27,6 @@ trj_float_t plan_err_f(trj_float_t x, trj_float_t t, trj_float_t v_0,
 
     return x - (x_ad + x_c);
 }
-
 
 
 /**
@@ -139,18 +139,18 @@ trj_float_t Block::area() {
     return x_ad + x_c;
 }
 
-trj_float_t Block::getMinTime() const {
+trj_float_t Block::calcMinTime() const {
 
     trj_float_t x_ad_, t_ad_, t_c_, v_c_;
 
     if (x == 0) {
         v_c_ = 0;
 
-    } else if (x < 2.* joint.small_x) {
+    } else if (x < 2. * joint.small_x) {
         v_c_ = (sqrt(4. * joint.a_max * x +
                      2. * pow(v_0, 2) +
                      2. * pow(v_1, 2.)
-                     ) / 2);
+        ) / 2);
 
     } else {
         // If there is more area than the triangular profile for these boundary
@@ -179,7 +179,7 @@ void Block::plan(trj_float_t t_, int v_0_, int v_1_, Block *prior, Block *next) 
     trj_float_t v_c_;
 
     if (isnan(t_)) {
-        t = getMinTime();
+        t = calcMinTime();
     } else {
         t = t_;
     }
@@ -203,16 +203,12 @@ void Block::plan(trj_float_t t_, int v_0_, int v_1_, Block *prior, Block *next) 
 
     v_c_ = fmin(binary_search(err, 0, x / t, joint.v_max), joint.v_max);
 
-
-    v_c = fmin(v_c_, joint.v_max);
+    v_c = fmin(v_c_, v_c_max);
 
     tie(x_a, t_a) = accel_xt(v_0, v_c);
     tie(x_d, t_d) = accel_xt(v_c, v_1);
 
-    // consistantize will make the values consistent with each other,
-    // and if anything is wrong, it will show up in a negative x_c
-
-    x_c =  x - (x_a + x_d);
+    x_c = x - (x_a + x_d);
 
     t_a = abs((v_c - v_0) / joint.a_max);
     t_d = abs((v_c - v_1) / joint.a_max);
@@ -231,6 +227,40 @@ void Block::plan(trj_float_t t_, int v_0_, int v_1_, Block *prior, Block *next) 
 
 }
 
+void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
+
+    v_c = v_c_max;
+
+    if (prior != nullptr) {
+        if (!same_sign(d, prior->d) ){
+            v_0 = prior->v_1 = 0;
+        } else {
+            v_0 = prior->v_1 = (v_c + prior->v_c) / 2;
+        }
+    } else {
+        v_0 = 0;
+    }
+
+    if (next != nullptr) {
+        if (!same_sign(d, next->d)) {
+            v_1 = next->v_0 =  0;
+        } else {
+            v_1 = next->v_0 = (v_c + next->v_c) / 2;
+        }
+    } else {
+        v_1 = 0;
+    }
+
+    tie(x_a, t_a) = accel_xt(v_0, v_c);
+    tie(x_d, t_d) = accel_xt(v_c, v_1);
+
+    t_c =fmax(t-(t_a+t_d), 0);
+    x_c = t_c * v_c;
+    t = t_a + t_c + t_d;
+
+
+
+}
 
 void Block::setBv(int v_0_, int v_1_, Block *prior, Block *next) {
 
@@ -306,19 +336,20 @@ void Block::limitBv() {
     }
 }
 
-array<StepperPhase,3> Block::getStepperPhases() const{
+array<StepperPhase, 3> Block::getStepperPhases() const {
 
     auto dd = double(d);
-    return array<StepperPhase,3>{
-            StepperPhase{int(d)*int(round(x_a)),dd*v_0,dd*v_c},
-            StepperPhase{int(d)*int(round(x_c)),dd*v_c,dd*v_c},
-            StepperPhase{int(d)*int(round(x_d)),dd*v_c,dd*v_1} };
+    logf("Block::etStepperPhases %f %f %f", v_0, v_c, v_1);
+    return array<StepperPhase, 3>{
+            StepperPhase{int(d) * int(round(x_a)), dd * v_0, dd * v_c},
+            StepperPhase{int(d) * int(round(x_c)), dd * v_c, dd * v_c},
+            StepperPhase{int(d) * int(round(x_d)), dd * v_c, dd * v_1}};
 
 }
 
-bool Block::bent(Block& prior, Block &current) {
-    int cd = (int)current.d;
-    int pd = (int)prior.d;
+bool Block::bent(Block &prior, Block &current) {
+    int cd = (int) current.d;
+    int pd = (int) prior.d;
 
     int s1 = sign(pd * prior.v_c - pd * prior.v_1);
     int s2 = sign(cd * current.v_0 - cd * current.v_c);
@@ -327,22 +358,20 @@ bool Block::bent(Block& prior, Block &current) {
 }
 
 
-trj_float_t Block::meanBv(Block& prior, Block &next) {
+trj_float_t Block::meanBv(Block &prior, Block &next) {
 
     trj_float_t a;
-    trj_float_t  mv;
+    trj_float_t mv;
 
-    if (prior.t_d + next.t_a != 0){
+    if (prior.t_d + next.t_a != 0) {
         a = (next.v_c - prior.v_c) / (prior.t_d + next.t_a);
-        mv = prior.v_c + a*prior.t_d;
-    } else  {
-        mv =  ( next.v_c +  prior.v_c)/2.;
+        mv = prior.v_c + a * prior.t_d;
+    } else {
+        mv = (next.v_c + prior.v_c) / 2.;
     }
 
     return mv;
 }
-
-
 
 
 string fs_a(trj_float_t x, trj_float_t v, trj_float_t t) {
@@ -390,11 +419,12 @@ trj_float_t Block::getV1() const {
 }
 
 #ifdef TRJ_ENV_HOST
+
 json Block::dump(std::string tag) const {
 
     json m;
 
-    if(tag.size() > 0){
+    if (tag.size() > 0) {
         m["_tag"] = tag;
     }
 
@@ -414,6 +444,19 @@ json Block::dump(std::string tag) const {
 
     return m;
 }
+
+Block::Block(trj_float_t x, const Joint &joint) :
+        x(fabs(static_cast<double>(x))), joint(joint) {
+    this->d = sign(x);
+    this->v_c_max = joint.v_max;
+}
+
+Block::Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint &joint) :
+        Block(static_cast<double>(x), joint){
+    this->v_0 = v_0;
+    this->v_1 = v_1;
+}
+
 #else
 json Block::dump(std::string tag) const{
     return string("");

@@ -41,7 +41,7 @@ private:
 
     vector<Block> blocks;
 
-    MoveArray moves;
+    MoveVector moves;
 
     u_long n_joints;
 
@@ -49,10 +49,26 @@ public:
     const vector<Joint> &getJoints() const;
 
     Segment(uint32_t n, const std::vector<Joint>&  joints_);
-    Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveArray moves );
+    Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves );
     Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& move );
 
+    /**
+     * @brief Plan all of the blocks in this segment
+     * @param t_
+     * @param v_0_
+     * @param v_1_
+     * @param prior
+     * @param next
+     */
     void plan(trj_float_t t_=NAN, int v_0_=0, int v_1_=0, Segment *prior = nullptr, Segment *next = nullptr);
+
+    /**
+     * @brief Plan all of the blocks in this segment as velocity based moves
+     * @param t_
+     * @param prior
+     * @param next
+     */
+    void vplan(trj_float_t t_=NAN, Segment *prior = nullptr, Segment *next = nullptr);
 
     void setBv(int v_0, int v_1);
 
@@ -62,7 +78,7 @@ public:
 
     MoveType getMoveType() const;
 
-    const MoveArray& getMoves() const {return moves;}
+    const MoveVector& getMoves() const {return moves;}
 
     VelocityVector getV0();
     VelocityVector getV1();
@@ -70,7 +86,18 @@ public:
 
     trj_float_t getT() const;
 
-    trj_float_t minTime();
+    /**
+     * @brief Calculated maximum of the minimum times of the blocks
+     * @return
+     */
+    trj_float_t calcMinTime();
+
+    /**
+     * @brief Maximum of stored time of the blocks
+     * @return
+     */
+    trj_float_t maxBlockTime();
+
     trj_float_t time();
 
     trj_float_t timeErr(); // RMS difference in times of blocks

@@ -16,11 +16,24 @@ enum class MoveType {
     relative,
     absolute,
     jog,
-    home
+    home,
+    velocity
 };
 
-using MoveArray = std::vector<int32_t>;
+using AxisPos = int32_t;
+using MoveVector = std::vector<AxisPos>;
+using MoveArray = array<AxisPos,N_AXES>;
 
+
+MoveVector& operator-=(MoveVector &a, const MoveArray &b);
+MoveVector& operator+=(MoveVector &a, const MoveArray &b);
+MoveArray& operator+=(MoveArray &a, const MoveVector &b);
+MoveArray& operator-=(MoveArray &a, const MoveVector &b);
+MoveArray& operator+=(MoveArray &a, const MoveArray &b);
+MoveArray& operator-=(MoveArray &a, const MoveArray &b);
+
+
+ostream &operator<<( ostream &output, const MoveVector &m );
 ostream &operator<<( ostream &output, const MoveArray &m );
 
 using tmillis = uint32_t;
@@ -52,14 +65,18 @@ enum class CommandCode : uint8_t {
     AMOVE = 12,  // An absolute movement
     JMOVE = 13,   // A Jog movement.
     HMOVE = 14,   // A Home movement. Move to the next limit
+    VMOVE = 15,   // Velocity move.
 
 
     RUN = 21,
     STOP = 22,
     RESET = 23,  //
     ZERO = 24,  // Zero positions
-    CONFIG = 25, // Reset the configuration
-    AXES = 26, // Configure an axis
+    SET = 25, // Set planner positions
+
+
+    CONFIG = 31, // Reset the configuration
+    AXES = 32, // Configure an axis
 
 
     MESSAGE = 91,  // Payload is a message; the next packet is text
@@ -235,7 +252,7 @@ struct Move {
     uint32_t t = 0;
 
     // Distances
-    MoveArray x;
+    MoveVector x;
 
     Move(int n_joints):seq(0), move_type(MoveType::relative), t(0), x(){
         x.resize(n_joints);
@@ -245,10 +262,10 @@ struct Move {
     //    x.resize(n_joints);
     //}
 
-    Move(uint32_t seq, uint32_t t, MoveType move_type, MoveArray x): seq(seq), move_type(move_type), t(t), x(x){}
+    Move(uint32_t seq, uint32_t t, MoveType move_type, MoveVector x): seq(seq), move_type(move_type), t(t), x(x){}
 
     Move(uint32_t seq, uint32_t t, MoveType move_type, std::initializer_list<int> il):
-            seq(seq), move_type(move_type), t(t), x(MoveArray(il.begin(), il.end())){}
+            seq(seq), move_type(move_type), t(t), x(MoveVector(il.begin(), il.end())){}
 
     Move(uint32_t t, std::initializer_list<int> il): Move(0, t, MoveType::relative, il){}
 

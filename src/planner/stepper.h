@@ -73,10 +73,6 @@ public:
 
     int next(double dtime);
 
-    void loadNextSegment();
-
-    void popSegment();
-
     bool isRunning(){ return current_segment == nullptr; }
 
     void clearSteps();

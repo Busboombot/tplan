@@ -20,7 +20,10 @@ void Loop::setup() {
     hw.setMillisZero(UPDATE_TIMER);
 }
 
+float mean_dt = 0;
+
 void Loop::loopOnce() {
+    static tmicros last_loop_time = hw.micros();
 
     // Step is not using timer features b/c we also need dt
     tmicros t = hw.micros();
@@ -46,7 +49,7 @@ void Loop::loopOnce() {
         last_step_time = t;
     }
 
-    if (hw.everyMs(UPDATE_TIMER, UPDATE_INTERVAL)) {
+    if (hw.everyMs(UPDATE_TIMER, UPDATE_INTERVAL) ) {
         hw.update();
         mp.update(t, current_state);
 
@@ -68,9 +71,8 @@ void Loop::loopOnce() {
             last = strstr.str();
             log(last);
         }
+        //logf("Mean dt %f", mean_dt);
     }
-
-
 }
 
 void Loop::processMessage(Message &m) {
@@ -94,8 +96,8 @@ void Loop::processMessage(Message &m) {
         case CommandCode::AMOVE:
         case CommandCode::JMOVE:
         case CommandCode::HMOVE:
+        case CommandCode::VMOVE:
             processMove(m);
-
             break;
 
         case CommandCode::STOP:
@@ -107,9 +109,15 @@ void Loop::processMessage(Message &m) {
             break;
 
         case CommandCode::RESET:
+            processReset();
             break;
 
         case CommandCode::ZERO:
+            pl.zero();
+            break;
+
+        case CommandCode::SET:
+            pl.setPositions(MoveVector(m.asMoves()->x, m.asMoves()->x+(size_t)N_AXES));
             break;
 
         case CommandCode::INFO:
@@ -126,34 +134,47 @@ void Loop::processMessage(Message &m) {
 void Loop::processMove(Message &mesg) {
 
     PacketHeader ph = mesg.header;
-    auto mv = mesg.asMoves();
-
-    Move move(ph.seq, mv->segment_time, MoveType::none, MoveArray(mv->x, mv->x + config.n_axes));
+    MoveType mt;
+    auto mvp = mesg.asMoves();
+    auto mv = MoveVector(mvp->x, mvp->x + config.n_axes);
 
     stringstream ss;
-    ss << "Loop::processMove: " << move;
+    ss << "Loop::processMove: Pos: " << pl.getPlannerPosition() << endl;
+    ss << "Loop::processMove: Incoming: " << mv;
     log(ss);
 
     switch (ph.code) {
         case CommandCode::RMOVE:
-            move.move_type = MoveType::relative;
+            // Do nothing, move is OK as is.
+            mt = MoveType::relative;
             break;
 
         case CommandCode::HMOVE:
-            move.move_type = MoveType::home;
+            mt = MoveType::home;
             break;
 
         case CommandCode::AMOVE:
-            move.move_type = MoveType::absolute;
+            log("Loop::processMove: process amove");
+            mv -= pl.getPlannerPosition();
+            mt = MoveType::absolute;
             break;
 
         case CommandCode::JMOVE:
-            move.move_type = MoveType::jog;
+            pl.truncateTo(2);
+            mt = MoveType::jog;
             break;
 
         default:;
+        mt = MoveType::none;
     }
 
+    stringstream ss2;
+    ss2 << "Loop::processMove: PostProc:  " << mv;
+    log(ss2);
+
+    Move move(ph.seq, mvp->segment_time, MoveType::none, mv );
+
+    move.move_type = mt;
     /*
     for (int axis = 0; axis < config.n_axes; axis++){
         move.x[axis] = mv->x[axis];
@@ -168,6 +189,19 @@ void Loop::processMove(Message &mesg) {
 
     pl.updateCurrentState(current_state);
 
+}
+
+void Loop::processReset(){
+    pl.reset(running);
+};
+
+void Loop::processSet(Message& message){
+
+    if (message.header.code == CommandCode::ZERO){
+
+    } else {
+
+    }
 
 }
 
@@ -202,21 +236,7 @@ void Loop::setAxisConfig(const AxisConfig &ac) {
  * @brief Remove all of the segments from the queue
  * 
  */
-void Loop::reset() {
-    //sd.clear();
-}
 
-void Loop::zero() {
-    //sd.zero();
-}
-
-void Loop::enable() {
-    //sd.enable();
-}
-
-void Loop::disable() {
-    //sd.disable();
-}
 
 
 #define rstss(ss) ss.str( std::string() ); ss.clear(); // reset the string stream

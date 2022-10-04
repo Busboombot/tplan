@@ -81,3 +81,35 @@ TEST_CASE("CRC Test", "[devel]") {
     cout << (int)crc8<u_int8_t>(data) << endl;
     cout << (int)crc8<int>({'a','b','c','d','e','f'}) << endl;
 }
+
+#include <type_traits>
+
+template <typename TA, typename TB>
+TA& operator-=(TA &a, const TB &b){
+
+    static_assert(std::is_same<TA, MoveArray>::value || std::is_same<TA, MoveVector>::value,
+                  "Templated operator -= is only for MoveArray or MoveVector");
+    static_assert(std::is_same<TB, MoveArray>::value || std::is_same<TB, MoveVector>::value,
+                  "Templated operator -= is only for MoveArray or MoveVector");
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::plus<>());
+    return a;
+}
+
+template <typename TA, typename TB>
+TA& operator+=(TA &a, const TB &b){
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::plus<>());
+    return a;
+}
+
+TEST_CASE("Vector Add", "[devel]") {
+    MoveArray ma{5,5,5,5,5,5};
+    MoveVector mv{7,7,7,7,7,7};
+
+    auto &a = ma;
+    auto &b = mv;
+
+    mv -= ma;
+
+    cout << a << endl;
+
+}

@@ -58,7 +58,7 @@ public:
 
 #define csdc(p) ( std::dynamic_pointer_cast<CoutStepper>(p))
 
-TEST_CASE("Basic Stepper Test", "[stepper]") {
+TEST_CASE("Small Stepper Test", "[stepper]") {
 
     double dtime = 5./1e6; // 5 us
 
@@ -86,11 +86,16 @@ TEST_CASE("Basic Stepper Test", "[stepper]") {
 
     cout << " ============ " << endl;
     cout << p << endl;
+    for(const Segment &s:p.getSegments()){
+        cout << s << endl;
+
+    }
 
     do {
         ss.next(dtime);
 
     } while (!p.isEmpty());
+
 
     // Check that it doesn't crash after segments are exhausted.
     ss.next(dtime);

@@ -1,5 +1,5 @@
 #include <cmath> // abs
-
+#include <algorithm>
 #include "segment.h"
 #include "block.h"
 
@@ -20,7 +20,7 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_) : n(n), joints(
 
 }
 
-Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveArray move ) :
+Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move ) :
         n(n), joints(joints_), t(0), moves(std::move(move)) {
 
     int axis_n = 0;
@@ -37,7 +37,6 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& mov
     Segment(n, joints_, move.x ){
 
 }
-
 
 void Segment::setBv(vector<int> v_0_, vector<int> v_1_) {
 
@@ -71,7 +70,7 @@ void Segment::plan(trj_float_t t_, int v_0_, int v_1_, Segment *prior, Segment *
 
     trj_float_t largest_at = 0, mt=0, lower_bound_time = 0;
 
-    // Longest time requirest for any block to accelerate or decelerate.
+    // Longest time required for any block to accelerate or decelerate.
     for (const Joint &j: this->joints) {
         largest_at = fmax(largest_at, j.max_at);
     }
@@ -82,9 +81,9 @@ void Segment::plan(trj_float_t t_, int v_0_, int v_1_, Segment *prior, Segment *
         if ( !isnan(t_)){
             mt = t_;
         } else if (p_iter <2) {
-            mt = minTime();
+            mt = calcMinTime();
         } else if (p_iter <4) {
-            mt = fmax(lower_bound_time, minTime());
+            mt = fmax(lower_bound_time, calcMinTime());
         } else {
             mt = fmax(lower_bound_time, time());
         }
@@ -109,14 +108,41 @@ void Segment::plan(trj_float_t t_, int v_0_, int v_1_, Segment *prior, Segment *
 
     }
     t = time();
+
 }
 
-trj_float_t  Segment::minTime(){
+void Segment::vplan(trj_float_t t_, Segment *prior, Segment *next){
+
+    Block *prior_block = nullptr;
+    Block *next_block = nullptr;
+
+    auto mt = (isnan(t)) ? maxBlockTime() : t;
+
+    for(size_t i=0; i<blocks.size(); i++) {
+        Block &b = blocks[i];
+        if (prior != nullptr) prior_block = &prior->blocks[i];
+        if (next != nullptr) next_block = &next->blocks[i];
+
+        b.vplan(mt, prior_block, next_block);
+    }
+
+}
+
+trj_float_t Segment::maxBlockTime(){
+    trj_float_t mt=0;
+    for(Block &b : blocks){
+        mt = fmax(mt, b.getT());
+    }
+
+    return mt;
+}
+
+trj_float_t  Segment::calcMinTime(){
 
     trj_float_t mt=0;
 
     for(Block &b : blocks){
-        mt = fmax(mt,b.getMinTime());
+        mt = fmax(mt, b.calcMinTime());
     }
 
     return mt;
@@ -147,7 +173,6 @@ trj_float_t Segment::timeErr(){
     }
 
     return sqrt(rms_time);
-
 
 }
 

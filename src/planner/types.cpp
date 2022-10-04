@@ -2,15 +2,57 @@
 #include "debug.h"
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
+#include <functional>
 
 using namespace std;
 
+void padTo(std::string &str, const size_t num, const char paddingChar = ' ')
+{
+    if(num > str.size())
+        str.insert(0, num - str.size(), paddingChar);
+}
+
+MoveVector& operator-=(MoveVector &a, const MoveArray &b){
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::minus<AxisPos>());
+    return a;
+}
+
+MoveVector& operator+=(MoveVector &a, const MoveArray &b){
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::plus<AxisPos>());
+    return a;
+}
+
+MoveArray& operator+=(MoveArray &a, const MoveVector &b){
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::plus<AxisPos>());
+    return a;
+}
+
+MoveArray& operator-=(MoveArray &a, const MoveVector &b){
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::minus<AxisPos>());
+    return a;
+}
+
+MoveArray& operator+=(MoveArray &a, const MoveArray &b){
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::plus<AxisPos>());
+    return a;
+}
+
+MoveArray& operator-=(MoveArray &a, const MoveArray &b){
+    std::transform(a.begin(), a.end(), b.begin(), a.begin(), std::minus<AxisPos>());
+    return a;
+}
 
 
 ostream &operator<<( ostream &output, const Moves &m ) {
     output << "[Moves t="<<m.segment_time<<" (";
     for(auto e: m.x) output <<e<<",";
     output << ")]";
+    return output;
+}
+
+ostream &operator<<( ostream &output, const MoveVector &m ) {
+    output << "[MoveVector  ("; for(auto e: m) output <<e<<","; output << ")]";
     return output;
 }
 
@@ -22,25 +64,25 @@ ostream &operator<<( ostream &output, const MoveArray &m ) {
 
 ostream &operator<<( ostream &output, const AxisConfig &ac ) {
     output << "[AxisConfig "<<(int)ac.axis<<
-            " sp=" << (int)ac.step_pin<<
-            " dp=" << (int)ac.direction_pin<<
-            " ep=" << (int)ac.enable_pin <<
-            " eh=" << (int)ac.enable_high_value <<
-            " em=" << (int)ac.enable_output_mode <<
-            " vm=" << ac.v_max <<
-            " am=" << ac.a_max <<
-            "]";
+           " sp=" << (int)ac.step_pin<<
+           " dp=" << (int)ac.direction_pin<<
+           " ep=" << (int)ac.enable_pin <<
+           " eh=" << (int)ac.enable_high_value <<
+           " em=" << (int)ac.enable_output_mode <<
+           " vm=" << ac.v_max <<
+           " am=" << ac.a_max <<
+           "]";
     return output;
 }
 
 ostream &operator<<( ostream &output, const Config &c ) {
 
     output << "[Config axes=" << (int)c.n_axes<<
-            " id=" << (int)c.interrupt_delay<<
-            " sp=" << (int)c.segment_complete_pin <<
-            " lp=" << (int)c.limit_pin <<
-            " dp=" << (int)c.debug_print <<
-            " dt=" << (int)c.debug_tick << "]";
+           " id=" << (int)c.interrupt_delay<<
+           " sp=" << (int)c.segment_complete_pin <<
+           " lp=" << (int)c.limit_pin <<
+           " dp=" << (int)c.debug_print <<
+           " dt=" << (int)c.debug_tick << "]";
     return output;
 }
 
@@ -54,14 +96,6 @@ ostream &operator<<( ostream &output, const CurrentState &cs ) {
     return output;
 }
 
-
-
-
-void padTo(std::string &str, const size_t num, const char paddingChar = ' ')
-{
-    if(num > str.size())
-        str.insert(0, num - str.size(), paddingChar);
-}
 
 ostream &operator<<( ostream &output,  const Message &m ){
 
