@@ -6,6 +6,7 @@ include(CTest)
 find_package(Catch2 3 REQUIRED)
 include(Catch)
 
+message(STATUS "DOXYGEN_EXECUTABLE = '${DOXYGEN_EXECUTABLE}'")
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
     # set input and output files

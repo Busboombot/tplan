@@ -1,5 +1,0 @@
-if(EXISTS "/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel/test_devel_tests-b12d07c.cmake")
-  include("/Users/eric/Documents/proj/tplan/cmake-build-teensy/src/test/devel/test_devel_tests-b12d07c.cmake")
-else()
-  add_test(test_devel_NOT_BUILT-b12d07c test_devel_NOT_BUILT-b12d07c)
-endif()
