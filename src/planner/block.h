@@ -33,28 +33,6 @@ public:
 
     Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint& joint);
 
-private:
-    trj_float_t x;
-    trj_float_t d=0;
-    trj_float_t t=0;
-
-    trj_float_t t_a=0;
-    trj_float_t t_c=0;
-    trj_float_t t_d=0;
-
-    trj_float_t x_a=0;
-    trj_float_t x_c=0;
-    trj_float_t x_d=0;
-
-    trj_float_t v_0=0;
-    trj_float_t v_c=0;
-    trj_float_t v_1=0;
-
-    trj_float_t v_c_max; // Max velocity for v_c, used for velocity moves
-
-    const Joint &joint;
-
-public:
 
     /**
      * @brief Plan the parameters of this block, given a distance and a time
@@ -78,7 +56,6 @@ public:
 
     struct ACDBlockParams params();
 
-
     trj_float_t getT() const;
 
     trj_float_t calcMinTime() const;
@@ -97,11 +74,30 @@ public:
     static bool bent(Block& prior, Block &current);
     static trj_float_t meanBv(Block& prior, Block &next);
 
-    friend Planner;
+    friend class Planner;
+    friend class Segment;
     friend ostream &operator<<( ostream &output, const Block &s );
 
 private:
+    trj_float_t x;
+    trj_float_t d=0;
+    trj_float_t t=0;
 
+    trj_float_t t_a=0;
+    trj_float_t t_c=0;
+    trj_float_t t_d=0;
+
+    trj_float_t x_a=0;
+    trj_float_t x_c=0;
+    trj_float_t x_d=0;
+
+    trj_float_t v_0=0;
+    trj_float_t v_c=0;
+    trj_float_t v_1=0;
+
+    // Max velocity for v_c, used for velocity moves
+
+    const Joint &joint;
 
     void set_zero();
 
@@ -109,5 +105,7 @@ private:
 
     std::tuple<trj_float_t, trj_float_t> accel_acd(trj_float_t v_0_, trj_float_t v_c_, trj_float_t v_1_) const; // Compute both accel and decel trapezoids
 
+protected:
+    trj_float_t v_c_max;
 
 };

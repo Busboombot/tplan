@@ -82,6 +82,7 @@ void MessageProcessor::update(tmillis t, CurrentState &current_state) {
     ps.update();
 
     if (!ps.empty()) {
+
         processPacket(ps.front());
         ps.pop();
     }
@@ -158,7 +159,6 @@ void MessageProcessor::processPacket(PacketHeader *ph, const uint8_t *payload, s
     sendAck(ph->seq);
 }
 
-
 void MessageProcessor::processPacket(const MessageBuffer &mb) {
 
     auto *ph = (PacketHeader *) mb.data();
@@ -168,6 +168,7 @@ void MessageProcessor::processPacket(const MessageBuffer &mb) {
     uint8_t that_crc = ph->crc;
     crc(mb.data(), mb.size()); // Calc crc on buffer, put back into ph. Note that crc() changes data in place, which is bad.
     if (that_crc != ph->crc) {
+        logf("MessageProcessor::update %d %d", int(that_crc),int(ph->crc) );
         sendNack();
         return;
     }
@@ -183,13 +184,11 @@ void MessageProcessor::sendMessage(const string &str) {
     send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
 #endif
 
-
 }
 
 void MessageProcessor::sendMessage(const char *message_) {
     sendMessage(string(message_));
 }
-
 
 /**
  * Send a string stream as a message, breaking it into lines

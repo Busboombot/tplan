@@ -229,6 +229,7 @@ void Block::plan(trj_float_t t_, int v_0_, int v_1_, Block *prior, Block *next) 
 
 void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
 
+
     v_c = v_c_max;
 
     if (prior != nullptr) {
@@ -257,7 +258,6 @@ void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
     t_c =fmax(t-(t_a+t_d), 0);
     x_c = t_c * v_c;
     t = t_a + t_c + t_d;
-
 
 
 }

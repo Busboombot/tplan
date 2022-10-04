@@ -26,7 +26,6 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move
     int axis_n = 0;
     for (const Joint &joint: joints) {
         blocks.emplace_back(this->moves[axis_n], joint);
-
         axis_n++;
     }
     n_joints = joints.size();
@@ -35,6 +34,17 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move
 
 Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& move ) :
     Segment(n, joints_, move.x ){
+
+}
+
+Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves, MoveVector maxv )
+    :Segment(n, joints_, moves) {
+
+    cout << moves << maxv << endl;
+    auto mvi = maxv.begin();
+    for(Block &b: blocks){
+        b.v_c_max = *mvi++;
+    }
 
 }
 

@@ -44,11 +44,14 @@ TEST_CASE("VMOVE PlannerTest", "[planner]") {
 
     Planner p(joints);
 
-    p.vmove(0, .2, {1000, 1});
-    p.vmove(0, .2, {1, 1000});
+    p.vmove(0, 200'000, {4000, 400});
+    p.vmove(1, 200'000, {400, 4000});
 
     cout << " ============ " << endl;
     cout << p << endl;
+    for(const Segment &s:p.getSegments()) {
+        cout << s << endl;
+    }
 
 }
 

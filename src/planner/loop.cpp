@@ -23,6 +23,7 @@ void Loop::setup() {
 float mean_dt = 0;
 
 void Loop::loopOnce() {
+
     static tmicros last_loop_time = hw.micros();
 
     // Step is not using timer features b/c we also need dt
@@ -59,6 +60,7 @@ void Loop::loopOnce() {
         }
 
         hw.blink(running, empty);
+
     }
 
     static string last;
@@ -71,7 +73,7 @@ void Loop::loopOnce() {
             last = strstr.str();
             log(last);
         }
-        //logf("Mean dt %f", mean_dt);
+
     }
 }
 
@@ -79,7 +81,7 @@ void Loop::processMessage(Message &m) {
 
 
     stringstream strstr;
-    strstr << "Loop Message: " << m << endl;
+    strstr << "Loop Message: " << m;
     log(strstr);
 
 

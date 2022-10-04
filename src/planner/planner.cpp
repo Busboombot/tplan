@@ -139,45 +139,46 @@ void Planner::plan() {
 
 void Planner::vmove(const Move& move){
 
-    auto v_max_e = std::max_element(move.x.begin(), move.x.end());
-    auto x_max = (trj_float_t)(*v_max_e) * (trj_float_t)move.t;
-
-    MoveVector mv(move.x.size());
-
-    for(auto v: move.x){
-        mv.push_back( x_max * (v/ double(*v_max_e)));
-    }
-
-    Move vmove(move.seq, move.t, MoveType::velocity, mv);
-
-    //planner_position += move;
-
     // These id number shenanigans are probably a bad idea, but this
     // makes things easier for legacy testing code.
-    if (vmove.seq > seg_num) {
-        seg_num = vmove.seq;
+    if (move.seq > seg_num) {
+        seg_num = move.seq;
     } else {
         seg_num++;
     }
 
-    segments.emplace_back(seg_num, joints, vmove);
+    trj_float_t t = (trj_float_t)move.t / TIMEBASE;
+    auto v_max_e = std::max_element(move.x.begin(), move.x.end());
+    auto x_max = (trj_float_t)(*v_max_e) * t;
+
+    MoveVector xi(move.x.size()); // x values calculated from velocity and time
+
+    for(auto v: move.x){
+        int vi = (int) double(x_max) * ( double(v)/ double(*v_max_e));
+        xi.push_back(vi);
+    }
+
+    //planner_position += move;
+
+    segments.emplace_back(seg_num, joints, xi, move.x);
 
     u_long seg_idx = segments.size() - 1;
     Segment *current = &segments[seg_idx];
     Segment *prior = nullptr;
+
     if (seg_idx > 0) {
         prior = &segments[seg_idx - 1];
         prior->vplan(NAN );
-        current->vplan(vmove.t, prior);
+        current->vplan(t, prior);
     } else {
-        current->vplan(vmove.t);
+        current->vplan(t);
     }
 
 }
 
 void Planner::vmove(unsigned int seq_id, trj_float_t t,  const MoveVector &mv){
-    Move vmove(seq_id, t, MoveType::velocity, mv);
-
+    Move vm(seq_id, t, MoveType::velocity, mv);
+    vmove(vm);
 }
 
 /**

@@ -4,6 +4,9 @@
 #include <vector>
 #include "types.h"
 #include "ipacketserial.h"
+#include "FastCRC.h"
+
+extern FastCRC8 CRC8;
 
 using namespace std;
 
@@ -44,11 +47,19 @@ public:
 
     }
 
+    uint8_t crc(const uint8_t *buffer, size_t length) {
+        auto *ph = (PacketHeader *) buffer;
+        ph->crc = 0;
+        ph->crc = CRC8.smbus(buffer, length);
+        return ph->crc;
+    }
+
     void push(PacketHeader ph, char *payload, size_t payload_size){
 
         uint8_t buffer[MESSAGE_BUF_SIZE];
         memcpy(buffer, &ph, sizeof(ph));
         memcpy(((char*)buffer)+(size_t)sizeof(ph), payload, payload_size);
+        crc(buffer,payload_size+sizeof(ph));
 
         push(buffer, payload_size+sizeof(ph));
     }

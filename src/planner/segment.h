@@ -51,6 +51,7 @@ public:
     Segment(uint32_t n, const std::vector<Joint>&  joints_);
     Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves );
     Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& move );
+    Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves, MoveVector maxv );
 
     /**
      * @brief Plan all of the blocks in this segment
