@@ -113,3 +113,17 @@ TEST_CASE("Vector Add", "[devel]") {
     cout << a << endl;
 
 }
+
+TEST_CASE("Unicode size", "[devel]") {
+    // Can unicode literals be used for defining USB names? THe names are UTF16,
+    // and are usually defined with arrays and defines
+
+#define MANUFACTURER_NAME    {'B','u','s','b','o','t'}
+#define MANUFACTURER_NAME_LEN    6
+    auto sd = 2 + MANUFACTURER_NAME_LEN * 2;
+
+    auto s = u"Busbot";
+    wchar_t *z;
+    cout << s << " size="<< char_traits<char16_t>::length(s)<< " " << sd << endl;
+
+}

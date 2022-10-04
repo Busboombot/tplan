@@ -3,7 +3,6 @@
 #include "segment.h"
 #include "block.h"
 
-
 ostream &operator<<(ostream &output, const Segment &s) {
 
     output << setw(6) << setprecision(4) << s.t << " ";
@@ -25,7 +24,8 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move
 
     int axis_n = 0;
     for (const Joint &joint: joints) {
-        blocks.emplace_back(this->moves[axis_n], joint);
+        Block b((trj_float_t)this->moves[axis_n], joint);
+        blocks.emplace_back(std::move(b));
         axis_n++;
     }
     n_joints = joints.size();

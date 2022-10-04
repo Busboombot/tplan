@@ -13,10 +13,11 @@
 #define SERIAL_NUMBER_LEN 13
 #endif
 
+
 struct usb_string_descriptor_struct usb_string_manufacturer_name = {
         2 + MANUFACTURER_NAME_LEN * 2,
         3,
-        MANUFACTURER_NAME
+        MANUFACTURER_NAME // Maybe {u"Busbot"} will also work?
 };
 struct usb_string_descriptor_struct usb_string_product_name = {
         2 + PRODUCT_NAME_LEN * 2,

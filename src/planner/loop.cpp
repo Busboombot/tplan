@@ -24,8 +24,6 @@ float mean_dt = 0;
 
 void Loop::loopOnce() {
 
-    static tmicros last_loop_time = hw.micros();
-
     // Step is not using timer features b/c we also need dt
     tmicros t = hw.micros();
     tmicros dt = t - last_step_time;
@@ -163,7 +161,11 @@ void Loop::processMove(Message &mesg) {
 
         case CommandCode::JMOVE:
             pl.truncateTo(2);
-            mt = MoveType::jog;
+            mt = MoveType::velocity;
+            break;
+
+        case CommandCode::VMOVE:
+            mt = MoveType::velocity;
             break;
 
         default:;

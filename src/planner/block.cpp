@@ -445,17 +445,6 @@ json Block::dump(std::string tag) const {
     return m;
 }
 
-Block::Block(trj_float_t x, const Joint &joint) :
-        x(fabs(static_cast<double>(x))), joint(joint) {
-    this->d = sign(x);
-    this->v_c_max = joint.v_max;
-}
-
-Block::Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint &joint) :
-        Block(static_cast<double>(x), joint){
-    this->v_0 = v_0;
-    this->v_1 = v_1;
-}
 
 #else
 json Block::dump(std::string tag) const{
@@ -463,5 +452,14 @@ json Block::dump(std::string tag) const{
 }
 #endif
 
+Block::Block(trj_float_t x, const Joint &joint) : x(fabs(x)), joint(joint) {
+    this->d = sign(x);
+    this->v_c_max = joint.v_max;
+}
 
+
+Block::Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint &joint) : Block(x, joint){
+    this->v_0 = v_0;
+    this->v_1 = v_1;
+}
 
