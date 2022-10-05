@@ -10,7 +10,7 @@
 
 //extern MessageProcessor *message_processor;
 
-int main (){
+int main() {
 
     TargetPacketSerial tps(&Serial);
     TargetHardware hw;
@@ -30,14 +30,11 @@ int main (){
     TRJ_DEBUG_SERIAL.println("Starting");
 #endif
 
-    hw.setMillisZero(101);
-    while (true){
+    loop.setup();
+
+    while (true) {
         loop.loopOnce();
-
-
     }
-
-
 }
 
 

@@ -1,3 +1,4 @@
+
 #include <sstream>
 #include <functional>
 #include <iostream>
@@ -8,6 +9,9 @@
 #include "config.h"
 #include "types.h"
 
+#if defined(TRJ_ENV_ARDUINO) && defined(TRJ_DEBUG)
+#include "Arduino.h"
+#endif
 
 using namespace std;
 const int UPDATE_TIMER = 1;
@@ -16,8 +20,16 @@ const int UPDATE_INTERVAL = 10; // milliseconds
 const int STATE_LOG_TIMER = 2;
 const int STATE_LOG_INTERVAL = 500; // milliseconds
 
+//#define DEBUG_1 5
+//#define DEBUG_2 6
+
 void Loop::setup() {
     hw.setMillisZero(UPDATE_TIMER);
+#if defined(TRJ_ENV_ARDUINO) && defined(TRJ_DEBUG)
+    //hw.setPinMode(DEBUG_1, OUTPUT );
+    //hw.setPinMode(DEBUG_2, OUTPUT );
+#endif
+
 }
 
 float mean_dt = 0;
@@ -49,20 +61,22 @@ void Loop::loopOnce() {
     }
 
     if (hw.everyMs(UPDATE_TIMER, UPDATE_INTERVAL) ) {
+
         hw.update();
+
         mp.update(t, current_state);
 
         if (!mp.empty()) {
             processMessage(mp.firstMessage());
             mp.pop();
         }
-
         hw.blink(running, empty);
 
     }
 
     static string last;
     if (hw.everyMs(STATE_LOG_TIMER, STATE_LOG_INTERVAL)) {
+
         pl.updateCurrentState(current_state);
         stringstream strstr;
         strstr  << " running: " << (int) running << " empty: " << (int) empty << " " << current_state;
@@ -76,12 +90,6 @@ void Loop::loopOnce() {
 }
 
 void Loop::processMessage(Message &m) {
-
-
-    stringstream strstr;
-    strstr << "Loop Message: " << m;
-    log(strstr);
-
 
     switch (m.header.code) {
         case CommandCode::CONFIG:
@@ -138,10 +146,6 @@ void Loop::processMove(Message &mesg) {
     auto mvp = mesg.asMoves();
     auto mv = MoveVector(mvp->x, mvp->x + config.n_axes);
 
-    stringstream ss;
-    ss << "Loop::processMove: Pos: " << pl.getPlannerPosition() << endl;
-    ss << "Loop::processMove: Incoming: " << mv;
-    log(ss);
 
     switch (ph.code) {
         case CommandCode::RMOVE:

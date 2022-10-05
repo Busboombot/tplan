@@ -42,6 +42,8 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC "TRJ_ENV_HOST")
 target_compile_definitions(${PROJECT_NAME} PUBLIC "TRJ_DEBUG")
 target_compile_definitions(${PROJECT_NAME} PUBLIC INTERRUPT_DELAY=4)
 
+message("FastCRC source dir: ${libfastcrc_SOURCE_DIR}")
+
 target_link_libraries(${PROJECT_NAME} PRIVATE libfastcrc)
 target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}
