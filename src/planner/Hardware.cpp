@@ -117,10 +117,7 @@ void Hardware::cycleLeds(){
 #define BASE_DELAY 2000/PATTERN_SIZE // Pattern runs over 2,000 ms
 
 int blink_patterns[4][PATTERN_SIZE] = {
-        {1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0},  // !empty & !running: 4 fast blinks
-        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0},  // !empty & running: continuous fast blink
-        {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0},  // empty  & !running: long, slow blink
-        {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},  // empty  & running: 1 per second
+        {1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
 };
 
 /**

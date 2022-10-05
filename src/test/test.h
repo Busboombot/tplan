@@ -1,12 +1,12 @@
 #pragma once
-#include "../../../../../../../Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/iostream"
-#include "../../../../../../../Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/string"
-#include "../../../../../../../Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/limits"
-#include "../../../../../../../Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/map"
-#include "../../../../../../../Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/chrono"
-#include "../../../../../../../Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include/c++/v1/thread"
+#include "iostream"
+#include "string"
+#include "limits"
+#include "map"
+#include "chrono"
+#include "thread"
 
-#include "../../../../../../../usr/local/include/catch2/catch_test_macros.hpp"
+#include "catch2/catch_test_macros.hpp"
 
 #include "../planner/types.h"
 #include "../planner/messageprocessor.h"
