@@ -15,11 +15,14 @@ Hardware::Hardware() {
 
 }
 
+void Hardware::togglePin(Pin pin){
+    writePin(pin, toggleState[pin]);
+    toggleState[pin] = !toggleState[pin];
+}
 
 void Hardware::setConfig(const Config &c) {
     config = c;
     axes.resize(config.n_axes);
-
 }
 
 void Hardware::setAxisConfig(const AxisConfig &ac) {

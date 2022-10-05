@@ -79,8 +79,9 @@ void HostHardware::writePin(Pin pin, PinVal value) {
     if (print_pin_change) {
         printPins();
     }
-
 }
+
+
 
 int HostHardware::readPin(Pin pin) {
     return 0;

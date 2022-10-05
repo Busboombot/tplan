@@ -339,7 +339,7 @@ void Block::limitBv() {
 array<StepperPhase, 3> Block::getStepperPhases() const {
 
     auto dd = double(d);
-    logf("Block::etStepperPhases %f %f %f", v_0, v_c, v_1);
+
     return array<StepperPhase, 3>{
             StepperPhase{int(d) * int(round(x_a)), dd * v_0, dd * v_c},
             StepperPhase{int(d) * int(round(x_c)), dd * v_c, dd * v_c},

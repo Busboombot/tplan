@@ -5,6 +5,8 @@
 #include <array>
 #include <map>
 
+using namespace std;
+
 class Stepper;
 class StepperState;
 
@@ -27,6 +29,8 @@ private:
 
     size_t blink_index = 0;
 
+    std::map<Pin, PinVal> toggleState;
+
 public:
 
     Hardware();
@@ -40,6 +44,8 @@ public:
     virtual void clearPin(Pin pin) { writePin(pin, LOW); }
 
     virtual void writePin(Pin pin, PinVal value) = 0;
+
+    void togglePin(Pin pin);
 
     virtual void setPinMode(Pin, PinVal){}
 
