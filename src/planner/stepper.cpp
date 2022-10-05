@@ -113,8 +113,7 @@ int SegmentStepper::next(double dtime) {
         }
     }
 
-    //logf("cs %p ax %d segs %d", (void*)current_segment, activeAxes, planner.getNSegments());
-    // We were running a segment, but all the axes are now done
+     // We were running a segment, but all the axes are now done
     if (current_segment != nullptr && activeAxes == 0) {
         last_complete_segment = planner.getFront().getN();
 
