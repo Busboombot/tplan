@@ -131,17 +131,24 @@ void Planner::plan() {
 
 void Planner::vmove(const Move& move){
 
-
     trj_float_t t = (trj_float_t)move.t / TIMEBASE;
-    auto v_max_e = std::max_element(move.x.begin(), move.x.end());
-    auto x_max = (trj_float_t)(*v_max_e) * t;
+    float v_max_e  = 0;
+    for(auto xi : move.x){
+        v_max_e = fmax(fabs(xi), v_max_e);
+    }
+
+    auto x_max = trj_float_t(v_max_e) * t;
 
     MoveVector xi; // x values calculated from velocity and time
 
     for(auto v: move.x){
-        int vi = (int) double(x_max) * ( double(v)/ double(*v_max_e));
+        int vi = (int) double(x_max) * ( double(v)/ double(v_max_e));
         xi.push_back(vi);
     }
+
+    /*stringstream ss;
+    ss << "Planner::vmove " << xi << " " << move.x << endl;
+    log(ss);*/
 
     //planner_position += move;
 

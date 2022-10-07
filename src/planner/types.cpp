@@ -115,6 +115,7 @@ ostream &operator<<( ostream &output,  const Message &m ){
         case CommandCode::AMOVE:
         case CommandCode::JMOVE:
         case CommandCode::HMOVE:
+        case CommandCode::VMOVE:
             output << cmdName<<*(m.asMoves()) ;
             break;
         case CommandCode::AXES:

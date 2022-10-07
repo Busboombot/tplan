@@ -94,15 +94,16 @@ void Loop::loopOnce() {
             log(last);
         }
 #endif
+
     }
 }
 
 void Loop::processMessage(Message &m) {
 
 #ifdef TRJ_DEBUG
-    //stringstream ss;
-    //ss << "Loop::processMessage "<< m << current_state << endl;
-    //log(ss);
+    stringstream ss;
+    ss << "Loop::processMessage "<< m << current_state << endl;
+    log(ss);
 #endif
 
     switch (m.header.code) {
@@ -164,7 +165,6 @@ void Loop::processMove(Message &mesg) {
     auto mvp = mesg.asMoves();
     auto mv = MoveVector(mvp->x, mvp->x + config.n_axes);
 
-
     switch (ph.code) {
         case CommandCode::RMOVE:
             // Do nothing, move is OK as is.
@@ -181,7 +181,7 @@ void Loop::processMove(Message &mesg) {
             break;
 
         case CommandCode::JMOVE:
-            pl.truncateTo(2);
+            pl.truncateTo(3);
             mt = MoveType::velocity;
             break;
 
