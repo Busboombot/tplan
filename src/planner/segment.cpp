@@ -1,5 +1,6 @@
 #include <cmath> // abs
 #include <algorithm>
+#include <utility>
 #include "segment.h"
 #include "block.h"
 #include "messageprocessor.h" // for logf
@@ -25,7 +26,7 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move
     int axis_n = 0;
     for (const Joint &joint: joints) {
         Block b((trj_float_t)this->moves[axis_n], joint);
-        blocks.emplace_back(std::move(b));
+        blocks.emplace_back(b);
         axis_n++;
     }
     n_joints = joints.size();
@@ -39,14 +40,13 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& mov
 
 // With extra maxv vector, for velocity moves.
 Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves, MoveVector maxv )
-    :Segment(n, joints_, moves) {
+    :Segment(n, joints_, std::move(moves)) {
 
     //cout << "Segment::Segment moves=" << moves << " vmax=" << maxv << endl;
     auto mvi = maxv.begin();
     for(Block &b: blocks){
-        b.v_c_max = *mvi++;
+        b.v_c_max = fabs(*mvi++);
     }
-
 }
 
 void Segment::setBv(vector<int> v_0_, vector<int> v_1_) {

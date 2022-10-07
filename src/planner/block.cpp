@@ -339,7 +339,6 @@ array<StepperPhase, 3> Block::getStepperPhases() const {
             StepperPhase{int(d) * int(round(x_a)), dd * v_0, dd * v_c},
             StepperPhase{int(d) * int(round(x_c)), dd * v_c, dd * v_c},
             StepperPhase{int(d) * int(round(x_d)), dd * v_c, dd * v_1}};
-
 }
 
 bool Block::bent(Block &prior, Block &current) {
@@ -351,7 +350,6 @@ bool Block::bent(Block &prior, Block &current) {
 
     return (s1 * s2) < 0;
 }
-
 
 trj_float_t Block::meanBv(Block &prior, Block &next) {
 
@@ -367,7 +365,6 @@ trj_float_t Block::meanBv(Block &prior, Block &next) {
 
     return mv;
 }
-
 
 string fs_a(trj_float_t x, trj_float_t v, trj_float_t t) {
 
@@ -392,9 +389,9 @@ string fs_d(trj_float_t x, trj_float_t v, trj_float_t t) {
 ostream &operator<<(ostream &output, const Block &b) {
 
     output << "["
-           << setw(48) << fs_a(b.x_a, b.v_0, b.t_a) << "|"
-           << setw(48) << fs_a(b.x_c, b.v_c, b.t_c) << "|"
-           << setw(48) << fs_d(b.x_d, b.v_1, b.t_d) <<
+           << setw(20) << fs_a(b.x_a, b.v_0, b.t_a) << "|"
+           << setw(20) << fs_a(b.x_c, b.v_c, b.t_c) << "|"
+           << setw(20) << fs_d(b.x_d, b.v_1, b.t_d) <<
            "] ";
 
     return output;
@@ -403,7 +400,6 @@ ostream &operator<<(ostream &output, const Block &b) {
 trj_float_t Block::getT() const {
     return t;
 }
-
 
 trj_float_t Block::getV0() const {
     return v_0;
