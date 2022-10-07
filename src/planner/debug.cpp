@@ -47,6 +47,7 @@ const std::map<CommandCode,string>& commandMap() {
         cmdmap[CommandCode::AMOVE] =    "AMOVE";
         cmdmap[CommandCode::JMOVE] =    "JMOVE";
         cmdmap[CommandCode::HMOVE] =    "HMOVE";
+        cmdmap[CommandCode::VMOVE] =    "VMOVE";
         cmdmap[CommandCode::RUN] =      "RUN";
         cmdmap[CommandCode::STOP] =     "STOP";
         cmdmap[CommandCode::RESET] =    "RESET";
@@ -58,8 +59,9 @@ const std::map<CommandCode,string>& commandMap() {
         cmdmap[CommandCode::ECHO] =     "ECHO";
         cmdmap[CommandCode::DEBUG] =    "DEBUG";
         cmdmap[CommandCode::INFO] =     "INFO";
+        cmdmap[CommandCode::QUEUE] =    "QUEUE";
         cmdmap[CommandCode::NOOP] =     "NOOP";
-        cmdmap[CommandCode::POSITIONS] ="POS";
+
     }
     return cmdmap;
 }

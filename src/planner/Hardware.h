@@ -7,6 +7,12 @@
 
 using namespace std;
 
+// Timer number definitions
+const uint8_t UPDATE_TIMER = 1;
+const uint8_t STATE_LOG_TIMER = 2;
+const size_t BLINK_TIMER = 3;
+const size_t ALIVE_TIMER = 4;
+
 class Stepper;
 class StepperState;
 

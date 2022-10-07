@@ -4,7 +4,6 @@
 
 using namespace std;
 
-const size_t BLINK_TIMER = 200;
 
 Hardware::Hardware() {
 
@@ -53,8 +52,6 @@ void Hardware::disableSteppers(){
         writePin(ac.enable_pin, !ac.enable_high_value);
     }
 }
-
-
 
 void Hardware::update() {
     writePin(config.segment_complete_pin, LOW);
@@ -120,7 +117,10 @@ void Hardware::cycleLeds(){
 #define BASE_DELAY 2000/PATTERN_SIZE // Pattern runs over 2,000 ms
 
 int blink_patterns[4][PATTERN_SIZE] = {
-        {1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+        {1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0},  // !empty & !running: 4 fast blinks
+        {1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0},  // !empty & running: continuous fast blink
+        {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0},  // empty  & !running: long, slow blink
+        {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},  // empty  & running: 1 per second
 };
 
 /**
@@ -137,6 +137,7 @@ void Hardware::blink(bool running, bool empty){
     setRunningLed(running);
 
     if(everyMs(BLINK_TIMER, BASE_DELAY)){
+
         blink_index = (blink_index+1)%PATTERN_SIZE;
         setBuiltinLed(blink_patterns[pattern_idx][blink_index]);
     }

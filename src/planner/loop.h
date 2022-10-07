@@ -37,6 +37,10 @@ public:
     int getLastSegNum(){ return last_seg_num; }
 
     void printInfo();
+    void printQueue();
+
+    void run() { running = true; current_state.flags.set((size_t)CSFLags::EMPTY, true); }
+    void stop() { running = false; current_state.flags.set((size_t)CSFLags::EMPTY, false);}
 
 public:
     Config &getConfig(){ return config; };

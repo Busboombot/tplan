@@ -6,9 +6,7 @@
 
 
 #ifdef TRJ_ENV_HOST
-
 #include <iostream>
-
 #endif
 
 #ifdef TRJ_ENV_ARDUINO
@@ -66,7 +64,6 @@ void logf(const char *fmt, ...) {
     va_end(args);
 
     log(string(printf_buffer));
-
 }
 
 MessageProcessor::MessageProcessor(IPacketSerial &ps) : ps(ps) {}
@@ -75,27 +72,30 @@ void MessageProcessor::updateCurrentState(CurrentState &current_state_) {
     current_state = current_state_;
 }
 
-void MessageProcessor::update(tmillis t, CurrentState &current_state) {
+const tmicros ALIVE_TIMER = 500000;
+
+void MessageProcessor::update(tmicros t, CurrentState &current_state) {
 
     updateCurrentState(current_state);
+    last_time = t;
 
     ps.update();
 
     if (!ps.empty()) {
-
         processPacket(ps.front());
         ps.pop();
     }
-}
 
-void MessageProcessor::updateAll(tmillis t, CurrentState &current_state) {
-    while (!ps.empty()) {
-        update(t, current_state);
+    if (last_time - last_alive > ALIVE_TIMER){
+        sendAlive();
+        last_alive = last_time;
     }
 }
 
-void MessageProcessor::setLastSegNum(int v) {
-    lastSegNum = v;
+void MessageProcessor::updateAll(tmicros t, CurrentState &current_state) {
+    while (!ps.empty()) {
+        update(t, current_state);
+    }
 }
 
 
@@ -120,25 +120,33 @@ void MessageProcessor::send(CommandCode code, uint16_t seq, size_t length) {
 }
 
 void MessageProcessor::send(const uint8_t *payload, CommandCode code, uint16_t seq, size_t length) {
+    last_alive = last_time;
     memcpy(buffer + sizeof(PacketHeader), payload, length > MAX_PAYLOAD_SIZE ? MAX_PAYLOAD_SIZE : length);
     send(code, seq, length);
 
 }
 
 void MessageProcessor::sendEmpty(uint16_t seq) {
+    last_alive = last_time;
     send((const uint8_t *) &current_state, CommandCode::EMPTY, seq, sizeof(current_state));
 }
 
 void MessageProcessor::sendDone(uint16_t seq) {
+    last_alive = last_time;
     send((const uint8_t *) &current_state, CommandCode::DONE, seq, sizeof(current_state));
 }
 
 void MessageProcessor::sendNack() {
-    send(CommandCode::NACK, lastSegNum, 0);
+    send(CommandCode::NACK, last_seq, 0);
 }
 
 void MessageProcessor::sendAck(uint16_t seq) {
+    last_alive = last_time;
     send((const uint8_t *) &current_state, CommandCode::ACK, seq, sizeof(current_state));
+}
+
+void MessageProcessor::sendAlive() {
+    send((const uint8_t *) &current_state, CommandCode::ALIVE, last_seq, sizeof(current_state));
 }
 
 // Mostly for testing
@@ -148,15 +156,15 @@ void MessageProcessor::processPacket(PacketHeader ph, char *payload, size_t payl
 
 void MessageProcessor::processPacket(PacketHeader *ph, const uint8_t *payload, size_t payload_size) {
 
-    if (ph->code == CommandCode::NOOP) {
-        return;
-    } else if (ph->code == CommandCode::ECHO) {
+    if (ph->code == CommandCode::ECHO) {
         send(payload, ph->code, ph->seq, payload_size);
         return; // Echos are their own ack.
     }
 
     messages.emplace_back(*ph, (char *) payload, payload_size);
     sendAck(ph->seq);
+    last_seq = ph->seq;
+
 }
 
 void MessageProcessor::processPacket(const MessageBuffer &mb) {
@@ -181,7 +189,7 @@ void MessageProcessor::sendMessage(const string &str) {
 #ifdef TRJ_ENV_HOST
     cout << "|| " << str;
 #else
-    send((const uint8_t *) str.data(), CommandCode::MESSAGE, lastSegNum, str.size());
+    send((const uint8_t *) str.data(), CommandCode::MESSAGE, last_seq, str.size());
 #endif
 
 }

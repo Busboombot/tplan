@@ -58,6 +58,7 @@ public:
 
     void plan();
 
+
     bool isEmpty() { return segments.empty(); }
     unsigned long getNSegments(){  return segments.size();}
     Segment &getFront() { return segments.front(); }
@@ -87,11 +88,14 @@ public:
         return completed_position;
     }
 
-    const std::vector<Joint> &getJoints(){ return joints;}
+    const vector<Joint> &getJoints(){ return joints;}
 
     const Joint &getJoint(int i){ return joints[i];}
 
-    const deque<Segment> &getSegments() const;
+    vector<Segment> getSegments() const{
+        vector<Segment> v(segments.begin(), segments.end());
+        return v;
+    }
 
 
     /**
@@ -134,18 +138,13 @@ public:
 
 private:
 
-    std::vector<Joint> joints; // Joint configuration
+    vector<Joint> joints; // Joint configuration
 
-    std::deque<Segment> segments;
+    deque<Segment> segments;
 
     int32_t queue_time=0;
 
-    unsigned int seg_num = 0;
-
     MoveArray planner_position;
     MoveArray completed_position;
-
-    double boundary_error(Segment &p, Segment &c);
-
 
 };

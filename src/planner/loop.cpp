@@ -8,16 +8,17 @@
 #include "loop.h"
 #include "config.h"
 #include "types.h"
+#include "Hardware.h"
 
 #if defined(TRJ_ENV_ARDUINO) && defined(TRJ_DEBUG)
 #include "Arduino.h"
 #endif
 
 using namespace std;
-const int UPDATE_TIMER = 1;
-const int UPDATE_INTERVAL = 10; // milliseconds
+//const int UPDATE_TIMER  // Defined in Hardware.h
+const int UPDATE_INTERVAL = 20; // milliseconds
 
-const int STATE_LOG_TIMER = 2;
+// const int STATE_LOG_TIMER // Defined in Hardware.h
 const int STATE_LOG_INTERVAL = 500; // milliseconds
 
 //#define DEBUG_1 5
@@ -53,6 +54,7 @@ void Loop::loopOnce() {
             if (pl.isEmpty()) {
                 mp.sendEmpty(ss.getLastCompleteSegmentNumber());
                 empty = true;
+                current_state.flags.set((size_t)CSFLags::EMPTY, true);
                 hw.disableSteppers();
             }
         }
@@ -70,14 +72,20 @@ void Loop::loopOnce() {
             processMessage(mp.firstMessage());
             mp.pop();
         }
+
         hw.blink(running, empty);
 
+        empty = pl.isEmpty();
+
+        current_state.flags.set((size_t)CSFLags::EMPTY, empty);
+        current_state.flags.set((size_t)CSFLags::RUNNING, running);
     }
 
     static string last;
     if (hw.everyMs(STATE_LOG_TIMER, STATE_LOG_INTERVAL)) {
 
         pl.updateCurrentState(current_state);
+#ifdef TRJ_DEBUG
         stringstream strstr;
         strstr  << " running: " << (int) running << " empty: " << (int) empty << " " << current_state;
 
@@ -85,11 +93,17 @@ void Loop::loopOnce() {
             last = strstr.str();
             log(last);
         }
-
+#endif
     }
 }
 
 void Loop::processMessage(Message &m) {
+
+#ifdef TRJ_DEBUG
+    //stringstream ss;
+    //ss << "Loop::processMessage "<< m << current_state << endl;
+    //log(ss);
+#endif
 
     switch (m.header.code) {
         case CommandCode::CONFIG:
@@ -132,6 +146,10 @@ void Loop::processMessage(Message &m) {
             printInfo();
             break;
 
+        case CommandCode::QUEUE:
+            printQueue();
+            break;
+
         default:
             // Should not be getting any other types.
             break;
@@ -158,7 +176,6 @@ void Loop::processMove(Message &mesg) {
             break;
 
         case CommandCode::AMOVE:
-            log("Loop::processMove: process amove");
             mv -= pl.getPlannerPosition();
             mt = MoveType::absolute;
             break;
@@ -176,24 +193,18 @@ void Loop::processMove(Message &mesg) {
         mt = MoveType::none;
     }
 
-    stringstream ss2;
-    ss2 << "Loop::processMove: PostProc:  " << mv;
-    log(ss2);
-
     Move move(ph.seq, mvp->segment_time, MoveType::none, mv );
 
     move.move_type = mt;
-    /*
-    for (int axis = 0; axis < config.n_axes; axis++){
-        move.x[axis] = mv->x[axis];
-        // FIXME! This position update will only work for relative moves
-        current_state.planner_positions[axis] += mv->x[axis];
-    }
-    */
 
     empty = false;
+    current_state.flags.set((size_t)CSFLags::EMPTY, false);
 
-    pl.move(move);
+    if (move.move_type == MoveType::velocity){
+        pl.vmove(move);
+    } else {
+        pl.move(move);
+    }
 
     pl.updateCurrentState(current_state);
 
@@ -245,8 +256,6 @@ void Loop::setAxisConfig(const AxisConfig &ac) {
  * 
  */
 
-
-
 #define rstss(ss) ss.str( std::string() ); ss.clear(); // reset the string stream
 
 void Loop::printInfo() {
@@ -276,6 +285,19 @@ void Loop::printInfo() {
 
 }
 
+void Loop::printQueue() {
+
+
+    size_t n = 30;
+    for (auto &s: pl.getSegments()){
+        stringstream ss;
+        ss <<  s << endl;
+        log(ss);
+        if(n-- == 0){
+            break;
+        }
+    }
+}
 
 ostream &operator<<(ostream &output, const Loop &p) {
 

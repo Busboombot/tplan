@@ -229,7 +229,6 @@ void Block::plan(trj_float_t t_, int v_0_, int v_1_, Block *prior, Block *next) 
 
 void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
 
-
     v_c = v_c_max;
 
     if (prior != nullptr) {
@@ -238,8 +237,6 @@ void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
         } else {
             v_0 = prior->v_1 = (v_c + prior->v_c) / 2;
         }
-    } else {
-        v_0 = 0;
     }
 
     if (next != nullptr) {
@@ -248,14 +245,12 @@ void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
         } else {
             v_1 = next->v_0 = (v_c + next->v_c) / 2;
         }
-    } else {
-        v_1 = 0;
     }
 
     tie(x_a, t_a) = accel_xt(v_0, v_c);
     tie(x_d, t_d) = accel_xt(v_c, v_1);
 
-    t_c =fmax(t-(t_a+t_d), 0);
+    t_c =fmax(t_-(t_a+t_d), 0);
     x_c = t_c * v_c;
     t = t_a + t_c + t_d;
 

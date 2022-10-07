@@ -7,7 +7,7 @@
 #include <vector>
 #include <array>
 #include <iostream>
-
+#include <bitset>
 #include "const.h"
 using namespace std;
 
@@ -52,7 +52,6 @@ typedef enum {
 
 } Direction;
 
-
 /* Enumeration that describe the contents of a command message */
 enum class CommandCode : uint8_t {
 
@@ -67,27 +66,24 @@ enum class CommandCode : uint8_t {
     HMOVE = 14,   // A Home movement. Move to the next limit
     VMOVE = 15,   // Velocity move.
 
-
     RUN = 21,
     STOP = 22,
     RESET = 23,  //
     ZERO = 24,  // Zero positions
     SET = 25, // Set planner positions
 
-
     CONFIG = 31, // Reset the configuration
     AXES = 32, // Configure an axis
-
 
     MESSAGE = 91,  // Payload is a message; the next packet is text
     ERROR = 92,  // Some error
     ECHO = 93,  // Echo the incomming header
     DEBUG = 94,  //
     INFO = 95, // Return info messages
-
+    QUEUE = 96, // Print out the queue
+    SYNC = 97, // Print out the queue
+    ALIVE = 98,  // Step controller tells client it is still alive.
     NOOP = 99,  // Does nothing, but get ACKED
-
-    POSITIONS = 80,  // Position report. ( Unused)
 
 };
 
@@ -122,11 +118,18 @@ struct Moves {
  *
  */
 
+enum class CSFLags : size_t {
+    RUNNING = 0,
+    EMPTY = 1
+};
+
+
 struct CurrentState {
     int32_t queue_length = 0;
     uint32_t queue_time = 0;
     int32_t positions[N_AXES] = {0};
     int32_t planner_positions[N_AXES] = {0};
+    bitset<32> flags;
 
     explicit CurrentState():  queue_length(0), queue_time(0){
         for(int i=0; i< N_AXES; i++){

@@ -8,7 +8,6 @@
 #include <deque>
 #include <sstream>
 
-//extern MessageProcessor *message_processor;
 
 int main() {
 

@@ -2,7 +2,7 @@
 #include <algorithm>
 #include "segment.h"
 #include "block.h"
-
+#include "messageprocessor.h" // for logf
 ostream &operator<<(ostream &output, const Segment &s) {
 
     output << setw(6) << setprecision(4) << s.t << " ";
@@ -37,10 +37,11 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& mov
 
 }
 
+// With extra maxv vector, for velocity moves.
 Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves, MoveVector maxv )
     :Segment(n, joints_, moves) {
 
-    cout << moves << maxv << endl;
+    //cout << "Segment::Segment moves=" << moves << " vmax=" << maxv << endl;
     auto mvi = maxv.begin();
     for(Block &b: blocks){
         b.v_c_max = *mvi++;
@@ -118,7 +119,6 @@ void Segment::plan(trj_float_t t_, int v_0_, int v_1_, Segment *prior, Segment *
 
     }
     t = time();
-
 }
 
 void Segment::vplan(trj_float_t t_, Segment *prior, Segment *next){
@@ -126,7 +126,7 @@ void Segment::vplan(trj_float_t t_, Segment *prior, Segment *next){
     Block *prior_block = nullptr;
     Block *next_block = nullptr;
 
-    auto mt = (isnan(t)) ? maxBlockTime() : t;
+    auto mt = (isnan(t_)) ? maxBlockTime() : t_;
 
     for(size_t i=0; i<blocks.size(); i++) {
         Block &b = blocks[i];
@@ -136,6 +136,7 @@ void Segment::vplan(trj_float_t t_, Segment *prior, Segment *next){
         b.vplan(mt, prior_block, next_block);
     }
 
+    t = maxBlockTime();
 }
 
 trj_float_t Segment::maxBlockTime(){

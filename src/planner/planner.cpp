@@ -47,15 +47,7 @@ void Planner::move(unsigned int seq_id, const MoveVector &move) {
 
     planner_position += move;
 
-    // These id number shenanigans are probably a bad idea, but this
-    // makes things easier for legacy testing code.
-    if (seq_id > seg_num) {
-        seg_num = seq_id;
-    } else {
-        seg_num++;
-    }
-
-    segments.emplace_back(seg_num, joints, move);
+    segments.emplace_back(seq_id, joints, move);
 
     auto last_idx = segments.size() - 1;
     Segment *pre_prior = segments.size() >= 3 ? &segments[last_idx - 2] : nullptr;
@@ -139,19 +131,12 @@ void Planner::plan() {
 
 void Planner::vmove(const Move& move){
 
-    // These id number shenanigans are probably a bad idea, but this
-    // makes things easier for legacy testing code.
-    if (move.seq > seg_num) {
-        seg_num = move.seq;
-    } else {
-        seg_num++;
-    }
 
     trj_float_t t = (trj_float_t)move.t / TIMEBASE;
     auto v_max_e = std::max_element(move.x.begin(), move.x.end());
     auto x_max = (trj_float_t)(*v_max_e) * t;
 
-    MoveVector xi(move.x.size()); // x values calculated from velocity and time
+    MoveVector xi; // x values calculated from velocity and time
 
     for(auto v: move.x){
         int vi = (int) double(x_max) * ( double(v)/ double(*v_max_e));
@@ -160,7 +145,7 @@ void Planner::vmove(const Move& move){
 
     //planner_position += move;
 
-    segments.emplace_back(seg_num, joints, xi, move.x);
+    segments.emplace_back(move.seq, joints, xi, move.x);
 
     u_long seg_idx = segments.size() - 1;
     Segment *current = &segments[seg_idx];
@@ -168,7 +153,7 @@ void Planner::vmove(const Move& move){
 
     if (seg_idx > 0) {
         prior = &segments[seg_idx - 1];
-        prior->vplan(NAN );
+        prior->vplan(NAN, nullptr, current );
         current->vplan(t, prior);
     } else {
         current->vplan(t);
@@ -187,22 +172,14 @@ void Planner::vmove(unsigned int seq_id, trj_float_t t,  const MoveVector &mv){
  * @param c
  * @return
  */
-double Planner::boundary_error(Segment &p, Segment &c) {
 
-    double sq_err = 0;
-
-    for (size_t i = 0; i < joints.size(); i++) {
-        sq_err = pow((p.blocks[i].v_1 - c.blocks[i].v_0), 2);
-    }
-
-    return sqrt(sq_err);
-}
 
 ostream &operator<<(ostream &output, const Planner &p) {
 
     output << "[Planner " <<
            " nj=" << p.joints.size() <<
-           " ns=" << p.segments.size() <<
+           " ql=" << p.segments.size() <<
+           " qt=" << p.queue_time <<
            "]";
 
     return output;
@@ -239,9 +216,7 @@ json Planner::dump(const std::string& tag) const{
 }
 #endif
 
-const deque<Segment> &Planner::getSegments() const {
-    return segments;
-}
+
 
 void Planner::updateCurrentState(CurrentState &current_state) {
 

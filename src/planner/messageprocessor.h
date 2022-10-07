@@ -16,31 +16,23 @@ using namespace std;
 
 class MessageProcessor {
 
-private:
 
-    IPacketSerial &ps;
-
-    uint8_t buffer[MESSAGE_BUF_SIZE]; // Outgoing message buffer
-
-    int lastSegNum = 0;
-
-    std::deque<Message> messages;
-
-    CurrentState current_state;
 
 public:
 
     MessageProcessor(IPacketSerial &ps);
 
-    void update(tmillis t, CurrentState &current_state);
+    void update(tmicros t, CurrentState &current_state);
 
-    void updateAll(tmillis t, CurrentState &current_state);
+    void updateAll(tmicros t, CurrentState &current_state);
 
     void updateCurrentState(CurrentState &current_state);
 
     void setLastSegNum(int v);
 
     void sendAck(uint16_t seq);
+
+    void sendAlive();
 
     void sendNack();
 
@@ -90,6 +82,23 @@ private:
     void send(CommandCode code, uint16_t seq, size_t length);
 
     void send(const uint8_t *payload, CommandCode code, uint16_t seq, size_t length);
+
+
+private:
+
+    IPacketSerial &ps;
+
+    uint8_t buffer[MESSAGE_BUF_SIZE]; // Outgoing message buffer
+
+    uint16_t last_seq = 0;
+
+    std::deque<Message> messages;
+
+    CurrentState current_state;
+
+    tmicros last_alive = 0;
+    tmicros last_time = 0;
+
 
 };
 

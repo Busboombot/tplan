@@ -51,6 +51,14 @@ public:
     Segment(uint32_t n, const std::vector<Joint>&  joints_);
     Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves );
     Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& move );
+
+    /**
+     * @brief Segment constructor with max velocity vector, for JOG and VMOVE moves.
+     * @param n
+     * @param joints_
+     * @param moves
+     * @param maxv
+     */
     Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves, MoveVector maxv );
 
     /**
