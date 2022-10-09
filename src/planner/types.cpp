@@ -65,7 +65,9 @@ ostream &operator<<( ostream &output, const MoveArray &m ) {
 ostream &operator<<( ostream &output, const AxisConfig &ac ) {
     output << "[AxisConfig "<<(int)ac.axis<<
            " sp=" << (int)ac.step_pin<<
+           " so=" << (int)ac.step_output_mode <<
            " dp=" << (int)ac.direction_pin<<
+           " do=" << (int)ac.direction_output_mode <<
            " ep=" << (int)ac.enable_pin <<
            " eh=" << (int)ac.enable_high_value <<
            " em=" << (int)ac.enable_output_mode <<
@@ -82,7 +84,8 @@ ostream &operator<<( ostream &output, const Config &c ) {
            " sp=" << (int)c.segment_complete_pin <<
            " lp=" << (int)c.limit_pin <<
            " dp=" << (int)c.debug_print <<
-           " dt=" << (int)c.debug_tick << "]";
+           " dt=" << (int)c.debug_tick <<
+           "]";
     return output;
 }
 

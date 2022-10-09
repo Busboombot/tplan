@@ -85,26 +85,26 @@ void Loop::loopOnce() {
     if (hw.everyMs(STATE_LOG_TIMER, STATE_LOG_INTERVAL)) {
 
         pl.updateCurrentState(current_state);
-#ifdef TRJ_DEBUG
-        stringstream strstr;
-        strstr  << " running: " << (int) running << " empty: " << (int) empty << " " << current_state;
+        if (config.debug_print) {
+            stringstream strstr;
+            strstr << " running: " << (int) running << " empty: " << (int) empty << " " << current_state;
 
-        if (last != strstr.str()) {
-            last = strstr.str();
-            log(last);
+            if (last != strstr.str()) {
+                last = strstr.str();
+                log(last);
+            }
         }
-#endif
 
     }
 }
 
 void Loop::processMessage(Message &m) {
 
-#ifdef TRJ_DEBUG
-    stringstream ss;
-    ss << "Loop::processMessage "<< m << current_state << endl;
-    log(ss);
-#endif
+    if (config.debug_print) {
+        stringstream ss;
+        ss << "Loop::processMessage " << m << current_state << endl;
+        log(ss);
+    }
 
     switch (m.header.code) {
         case CommandCode::CONFIG:
