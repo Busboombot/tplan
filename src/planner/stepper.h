@@ -34,6 +34,8 @@ private:
     double delay_counter= 0;
     int clear_counter = 0;
 
+    double clear_timer = 0;
+
     double a;
 
     bool done = false;
@@ -45,6 +47,8 @@ private:
     const StepperPhase *phase; // Current phase.
 
     Stepper stepper;
+
+    int next_calls = 0;
 
 public:
     StepperState(double dtime, Stepper stepper_) ;
@@ -101,4 +105,5 @@ private:
     int activeAxes = 0;
     double time = 0;
 
+    int last_active_axes = 0;
 };

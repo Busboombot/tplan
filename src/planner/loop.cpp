@@ -33,7 +33,6 @@ void Loop::setup() {
 
 }
 
-float mean_dt = 0;
 
 void Loop::loopOnce() {
 
