@@ -30,6 +30,9 @@ public:
 
     void processMove(Message& message);
 
+    void processMove(Move &move);
+    void processMove(Move &&move);
+
     void processReset();
 
     void processSet(Message& message);

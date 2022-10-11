@@ -193,10 +193,11 @@ void Loop::processMove(Message &mesg) {
         mt = MoveType::none;
     }
 
-    Move move(ph.seq, mvp->segment_time, MoveType::none, mv );
+    processMove(Move(ph.seq, mvp->segment_time, mt, mv ));
 
-    move.move_type = mt;
+}
 
+void Loop::processMove(Move &move) {
     empty = false;
     current_state.flags.set((size_t)CSFLags::EMPTY, false);
 
@@ -207,7 +208,10 @@ void Loop::processMove(Message &mesg) {
     }
 
     pl.updateCurrentState(current_state);
+}
 
+void Loop::processMove(Move &&move) {
+    processMove(move);
 }
 
 void Loop::processReset(){
