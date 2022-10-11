@@ -6,19 +6,6 @@
 #include "TargetHardware.h"
 
 
-/*
- *
- *   if (config.segment_complete_pin > 0){
-    pinMode(config.segment_complete_pin, OUTPUT);
-  }
-
-  if (config.limit_pin > 0){
-
-  }
-
-
- */
-
 
 TargetHardware::TargetHardware() : Hardware() {
 

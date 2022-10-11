@@ -335,6 +335,8 @@ array<StepperPhase, 3> Block::getStepperPhases() const {
 
     auto dd = double(d);
 
+    //logf("Block::getStepperPhases %d %f %f", (int)d, (float)v_c, float(dd*v_c) );
+
     return array<StepperPhase, 3>{
             StepperPhase{int(d) * int(round(x_a)), dd * v_0, dd * v_c},
             StepperPhase{int(d) * int(round(x_c)), dd * v_c, dd * v_c},

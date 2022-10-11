@@ -134,18 +134,18 @@ protected:
 protected:
 
     Pin step_pin = -1;
-    Pin direction_pin = -1;
+    Pin direction_pin = Direction::STOP;
     Pin enable_pin = -1;
 
     PinVal enable_val = HIGH;
-    PinVal cw_dir_val = HIGH; // Pin value for CW direction“
+    PinVal cw_dir_val = HIGH; // Pin value for CW direction
 
     PinVal step_state;
 
 public:
 
     explicit Stepper(Hardware *hardware) :
-            hw(hardware), axis(-1), step_pin(-1), direction_pin(-1), enable_pin(-1) {}
+            hw(hardware), axis(-1), step_pin(-1), direction_pin(Direction::STOP), enable_pin(-1) {}
 
     Stepper(Hardware *hardware, int8_t axis) : hw(hardware), axis(axis) {};
 
@@ -167,12 +167,8 @@ public:
 
     // Set the step pin for this axis to LOW
     void clearStep() {
-        // We clear the step pin regularly, so it may be more efficient to avoid setting it
-        // when it is already unset.
-        //if (step_state != 0) {
         hw->writePin(step_pin, LOW);
         step_state = 0;
-        //}
     }
 
     void enable() { hw->writePin(enable_pin, enable_val); }

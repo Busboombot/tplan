@@ -33,7 +33,6 @@ void Loop::setup() {
 
 }
 
-float mean_dt = 0;
 
 void Loop::loopOnce() {
 
@@ -49,8 +48,9 @@ void Loop::loopOnce() {
             hw.signalSegmentComplete();
             pl.updateCurrentState(current_state);
             mp.update(t, current_state);
+#ifdef TRJ_SEND_DONE
             mp.sendDone(ss.getLastCompleteSegmentNumber());
-
+#endif
             if (pl.isEmpty()) {
                 mp.sendEmpty(ss.getLastCompleteSegmentNumber());
                 empty = true;
@@ -85,25 +85,27 @@ void Loop::loopOnce() {
     if (hw.everyMs(STATE_LOG_TIMER, STATE_LOG_INTERVAL)) {
 
         pl.updateCurrentState(current_state);
-#ifdef TRJ_DEBUG
-        stringstream strstr;
-        strstr  << " running: " << (int) running << " empty: " << (int) empty << " " << current_state;
 
-        if (last != strstr.str()) {
-            last = strstr.str();
-            log(last);
+        if (config.debug_print) {
+            stringstream strstr;
+            strstr << " running: " << (int) running << " empty: " << (int) empty << " " << current_state;
+
+            if (last != strstr.str()) {
+                last = strstr.str();
+                log(last);
+            }
         }
-#endif
+
     }
 }
 
 void Loop::processMessage(Message &m) {
 
-#ifdef TRJ_DEBUG
-    //stringstream ss;
-    //ss << "Loop::processMessage "<< m << current_state << endl;
-    //log(ss);
-#endif
+    if (config.debug_print) {
+        stringstream ss;
+        ss << "Loop::processMessage " << m << current_state << endl;
+        log(ss);
+    }
 
     switch (m.header.code) {
         case CommandCode::CONFIG:
@@ -164,7 +166,6 @@ void Loop::processMove(Message &mesg) {
     auto mvp = mesg.asMoves();
     auto mv = MoveVector(mvp->x, mvp->x + config.n_axes);
 
-
     switch (ph.code) {
         case CommandCode::RMOVE:
             // Do nothing, move is OK as is.
@@ -181,7 +182,7 @@ void Loop::processMove(Message &mesg) {
             break;
 
         case CommandCode::JMOVE:
-            pl.truncateTo(2);
+            pl.truncateTo(4);
             mt = MoveType::velocity;
             break;
 

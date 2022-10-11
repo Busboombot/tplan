@@ -37,37 +37,37 @@ void StepperState::next_phase() {
     delay = (v != 0) ? fabs(1 / v) : 0;
     delay_counter += dtime;
 
-    stepper.setDirection(direction);
 
+    stepper.setDirection(direction);
 }
 
 int StepperState::next(double dtime) {
-
 
     if (steps_left <= 0) {
         if (done or phases_left == 0) {
             done = true;
             return 0;
         } else {
-
             next_phase();
         }
     }
 
-    if(clear_counter == 0) {
-        stepper.clearStep();
-        clear_counter = -1;
-    } else if (delay_counter > delay) {
-        // else if so the step gets cleared , it doesn't get immediately re-set,
+
+    if (delay_counter > delay and steps_left >0) {
+        // else if so if the step gets cleared , it doesn't get immediately re-set,
         // to soon for the stepper driver to notice.
         delay_counter -= delay;
         steps_left -= 1;
         steps_stepped += 1;
         stepper.setStep();
-        clear_counter = 1;
-    }  else if(clear_counter > 0){
-        clear_counter--;
+
+        clear_timer = phase_t + 3e-6;
+
+    } else if (phase_t > clear_timer){
+        stepper.clearStep();
+        clear_timer = 0;
     }
+
 
     double v = phase->vi + a * phase_t;
 
@@ -76,6 +76,7 @@ int StepperState::next(double dtime) {
     delay_counter += dtime;
     phase_t += dtime;
 
+    next_calls += 1;
 
     return 1;
 }
@@ -113,10 +114,14 @@ int SegmentStepper::next(double dtime) {
         }
     }
 
+    if (last_active_axes != activeAxes){
+        logf("SegmentStepper::next aa= %d", (int)activeAxes);
+    }
+    last_active_axes = activeAxes;
+
      // We were running a segment, but all the axes are now done
     if (current_segment != nullptr && activeAxes == 0) {
         last_complete_segment = planner.getFront().getN();
-
         planner.popFront();
         current_segment = nullptr;
     }
