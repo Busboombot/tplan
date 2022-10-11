@@ -23,7 +23,7 @@ using namespace std;
 char printf_buffer[5000];
 FastCRC8 CRC8;
 
-// Singleton message proces for logging on the teensy.
+// Singleton message process for logging on the teensy.
 // This should be assigned in the module where the MessageProcessor,
 // usually in main()
 MessageProcessor *message_processor = nullptr;
@@ -86,10 +86,12 @@ void MessageProcessor::update(tmicros t, CurrentState &current_state) {
         ps.pop();
     }
 
+#ifdef TRJ_SEND_ALIVE
     if (last_time - last_alive > ALIVE_TIMER){
         sendAlive();
         last_alive = last_time;
     }
+#endif
 }
 
 void MessageProcessor::updateAll(tmicros t, CurrentState &current_state) {

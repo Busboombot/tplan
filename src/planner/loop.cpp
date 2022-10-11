@@ -48,8 +48,9 @@ void Loop::loopOnce() {
             hw.signalSegmentComplete();
             pl.updateCurrentState(current_state);
             mp.update(t, current_state);
+#ifdef TRJ_SEND_DONE
             mp.sendDone(ss.getLastCompleteSegmentNumber());
-
+#endif
             if (pl.isEmpty()) {
                 mp.sendEmpty(ss.getLastCompleteSegmentNumber());
                 empty = true;
@@ -84,6 +85,7 @@ void Loop::loopOnce() {
     if (hw.everyMs(STATE_LOG_TIMER, STATE_LOG_INTERVAL)) {
 
         pl.updateCurrentState(current_state);
+
         if (config.debug_print) {
             stringstream strstr;
             strstr << " running: " << (int) running << " empty: " << (int) empty << " " << current_state;
@@ -180,7 +182,7 @@ void Loop::processMove(Message &mesg) {
             break;
 
         case CommandCode::JMOVE:
-            pl.truncateTo(3);
+            pl.truncateTo(4);
             mt = MoveType::velocity;
             break;
 

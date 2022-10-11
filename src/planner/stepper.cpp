@@ -37,6 +37,7 @@ void StepperState::next_phase() {
     delay = (v != 0) ? fabs(1 / v) : 0;
     delay_counter += dtime;
 
+
     stepper.setDirection(direction);
 }
 
@@ -51,23 +52,22 @@ int StepperState::next(double dtime) {
         }
     }
 
-    if (clear_timer > 0) {
-        clear_timer -= dtime;
 
-        if (clear_timer < 0) {
-            stepper.clearStep();
-        }
-    }
-
-    if (delay_counter > delay) {
+    if (delay_counter > delay and steps_left >0) {
         // else if so if the step gets cleared , it doesn't get immediately re-set,
         // to soon for the stepper driver to notice.
         delay_counter -= delay;
         steps_left -= 1;
         steps_stepped += 1;
         stepper.setStep();
-        clear_timer = 3./TIMEBASE;
+
+        clear_timer = phase_t + 3e-6;
+
+    } else if (phase_t > clear_timer){
+        stepper.clearStep();
+        clear_timer = 0;
     }
+
 
     double v = phase->vi + a * phase_t;
 
