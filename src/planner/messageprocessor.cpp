@@ -165,6 +165,7 @@ void MessageProcessor::processPacket(PacketHeader *ph, const uint8_t *payload, s
 
     messages.emplace_back(*ph, (char *) payload, payload_size);
     sendAck(ph->seq);
+
     last_seq = ph->seq;
 
 }

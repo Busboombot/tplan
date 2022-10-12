@@ -280,5 +280,5 @@ private:
 /**
  * @brief Maps from CommandCode for moves to MoveTypes
  */
-extern map<CommandCode, MoveType> cmdmove_map;
+extern std::map<CommandCode, MoveType> cmdmove_map;
 

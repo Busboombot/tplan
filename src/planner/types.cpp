@@ -142,10 +142,9 @@ ostream &operator<<(ostream &output, const Message &m) {
 
     output << "]";
     return output;
-
 }
 
-map<CommandCode, MoveType> cmdmove_map = {
+std::map<CommandCode, MoveType> cmdmove_map = {
         {CommandCode::RMOVE, MoveType::relative},
         {CommandCode::HMOVE, MoveType::home},
         {CommandCode::AMOVE, MoveType::absolute},
