@@ -82,7 +82,6 @@ public:
 
     void clearSteps();
 
-
     int getActiveAxes() const { return activeAxes;}
     double getTime() const { return time; }
 
@@ -91,6 +90,9 @@ public:
     vector<StepperState> &getStepperStates();
 
     friend ostream &operator<<(ostream &output, const SegmentStepper &s);
+
+    void enable();
+    void disable();
 
 private:
 
@@ -101,6 +103,7 @@ private:
     uint32_t last_complete_segment;
 
     Segment* current_segment = nullptr;
+
 
 private:
     int activeAxes = 0;

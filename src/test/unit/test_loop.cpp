@@ -176,10 +176,10 @@ TEST_CASE("VMOVE Loop Test", "[loop]") {
     loop.setAxisConfig(defaultAxisConfig(0));
     loop.setAxisConfig(defaultAxisConfig(1));
 
-    loop.processMove(Move(0, 300'000, MoveType::jog, {500,1000} ));
-    loop.processMove(Move(0, 300'000, MoveType::jog, {500,1000} ));
-    loop.processMove(Move(0, 300'000, MoveType::jog, {500,1000} ));
-    loop.processMove(Move(0, 300'000, MoveType::jog, {500,1000} ));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
 
     loop.printQueue();
 
@@ -211,15 +211,21 @@ TEST_CASE("Zero Move Jog Test", "[loop]") {
     loop.setAxisConfig(defaultAxisConfig(0));
     loop.setAxisConfig(defaultAxisConfig(1));
 
+    cout << defaultAxisConfig(0) << endl;
+    cout << defaultAxisConfig(1) << endl;
+
     loop.run();
 
-    for (int i = 0; i < 100; i++){
-        loop.processMove(Move(0, 300'000, MoveType::jog, {0,0} ));
-        for( int j = 0; j < 200'000; j++){
+    for (int i = 0; i < 10; i++){
+        for(int j = 0; j < 8; j++) {
+            loop.processMove(Move(0, 300'000, MoveType::jog, {0, 0}));
+            loop.loopOnce();
+        }
+        cout << loop << loop.getCurrentState() << endl;
+        for( int j = 0; j < 100'000; j++){
             hw.stepTime(2);
             loop.loopOnce();
         }
-
     }
 
     while (!pl.isEmpty()) {
@@ -228,6 +234,11 @@ TEST_CASE("Zero Move Jog Test", "[loop]") {
     }
 
     hw.dumpPinCounts();
+
+    REQUIRE(hw.lowCount[8] == 10);
+    REQUIRE(hw.highCount[8] == 10);
+    REQUIRE(hw.missCount[8] == 0);
+
 
 }
 

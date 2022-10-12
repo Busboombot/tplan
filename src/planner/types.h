@@ -1,13 +1,13 @@
 #pragma once
 
 #include <cstdint>
-#include <stdint.h>
 #include <climits>
 #include <deque>
 #include <vector>
 #include <array>
 #include <iostream>
 #include <bitset>
+#include <map>
 #include "const.h"
 using namespace std;
 
@@ -277,4 +277,8 @@ private:
     friend std::ostream &operator<<( ostream &output, const Move &p );
 };
 
+/**
+ * @brief Maps from CommandCode for moves to MoveTypes
+ */
+extern map<CommandCode, MoveType> cmdmove_map;
 

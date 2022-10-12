@@ -4,11 +4,13 @@
 #include <iostream>
 #include <climits>
 #include <vector>
+#include <map>
 
 #include "loop.h"
 #include "config.h"
 #include "types.h"
 #include "Hardware.h"
+
 
 #if defined(TRJ_ENV_ARDUINO) && defined(TRJ_DEBUG)
 #include "Arduino.h"
@@ -55,7 +57,7 @@ void Loop::loopOnce() {
                 mp.sendEmpty(ss.getLastCompleteSegmentNumber());
                 empty = true;
                 current_state.flags.set((size_t)CSFLags::EMPTY, true);
-                hw.disableSteppers();
+                ss.disable();
             }
         }
 
@@ -98,6 +100,7 @@ void Loop::loopOnce() {
 
     }
 }
+
 
 void Loop::processMessage(Message &m) {
 
@@ -158,6 +161,8 @@ void Loop::processMessage(Message &m) {
     }
 }
 
+extern map<CommandCode, MoveType> cmdmove_map;
+
 // Turn a move command into a move and add it to the planner
 void Loop::processMove(Message &mesg) {
 
@@ -166,32 +171,10 @@ void Loop::processMove(Message &mesg) {
     auto mvp = mesg.asMoves();
     auto mv = MoveVector(mvp->x, mvp->x + config.n_axes);
 
-    switch (ph.code) {
-        case CommandCode::RMOVE:
-            // Do nothing, move is OK as is.
-            mt = MoveType::relative;
-            break;
+    mt = cmdmove_map[ph.code];
 
-        case CommandCode::HMOVE:
-            mt = MoveType::home;
-            break;
-
-        case CommandCode::AMOVE:
-            mv -= pl.getPlannerPosition();
-            mt = MoveType::absolute;
-            break;
-
-        case CommandCode::JMOVE:
-            pl.truncateTo(4);
-            mt = MoveType::velocity;
-            break;
-
-        case CommandCode::VMOVE:
-            mt = MoveType::velocity;
-            break;
-
-        default:;
-        mt = MoveType::none;
+    if(mt == MoveType::absolute){
+        mv -= pl.getPlannerPosition();
     }
 
     processMove(Move(ph.seq, mvp->segment_time, mt, mv ));
@@ -202,10 +185,25 @@ void Loop::processMove(Move &move) {
     empty = false;
     current_state.flags.set((size_t)CSFLags::EMPTY, false);
 
-    if (move.move_type == MoveType::velocity){
-        pl.vmove(move);
-    } else {
-        pl.move(move);
+
+    switch (move.move_type) {
+        case MoveType::absolute:
+        case MoveType::relative:
+            pl.move(move);
+            break;
+
+        case MoveType::home:
+            // Not implemented
+            break;
+
+        case MoveType::jog:
+            pl.truncateTo(4);
+        case MoveType::velocity:
+            pl.vmove(move);
+            break;
+
+        case MoveType::none:
+            break;
     }
 
     pl.updateCurrentState(current_state);

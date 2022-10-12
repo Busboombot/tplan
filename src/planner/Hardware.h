@@ -131,21 +131,21 @@ protected:
     Hardware *hw;
     int8_t axis;
 
-protected:
-
     Pin step_pin = -1;
-    Pin direction_pin = Direction::STOP;
+    Pin direction_pin = -1;
     Pin enable_pin = -1;
 
     PinVal enable_val = HIGH;
-    PinVal cw_dir_val = HIGH; // Pin value for CW direction
+    PinVal cw_dir_val = HIGH; // Pin value for CW direction_state
 
-    PinVal step_state;
+    PinVal step_state = LOW;
+    PinVal direction_state = Direction::STOP;
+    PinVal enable_state = LOW;
 
 public:
 
     explicit Stepper(Hardware *hardware) :
-            hw(hardware), axis(-1), step_pin(-1), direction_pin(Direction::STOP), enable_pin(-1) {}
+            hw(hardware), axis(-1), step_pin(-1), direction_pin(-1), enable_pin(-1) {}
 
     Stepper(Hardware *hardware, int8_t axis) : hw(hardware), axis(axis) {};
 
@@ -171,7 +171,12 @@ public:
         step_state = 0;
     }
 
-    void enable() { hw->writePin(enable_pin, enable_val); }
+    void enable() {
+        if( enable_state != enable_val) {
+            enable_state = enable_val;
+            hw->writePin(enable_pin, enable_val);
+        }
+    }
 
     void enable(Direction dir) {
         setDirection(dir);
@@ -179,12 +184,19 @@ public:
     }
 
     void disable() {
-        setDirection(STOP);
-        hw->writePin(enable_pin, !enable_val);
+
+        if( enable_state != !enable_val) {
+            enable_state = !enable_val;
+            hw->writePin(enable_pin, !enable_val);
+        }
+
     }
 
     void setDirection(Direction dir) {
-        hw->writePin(direction_pin, (dir == Direction::CW) ? cw_dir_val : !cw_dir_val);
+        if(direction_state != dir ) {
+            direction_state = dir;
+            hw->writePin(direction_pin, (direction_state == Direction::CW) ? cw_dir_val : !cw_dir_val);
+        }
     }
 
     void setDirection(int dir) { setDirection(static_cast<Direction>(dir)); };

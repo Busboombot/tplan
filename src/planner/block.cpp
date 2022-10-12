@@ -281,7 +281,7 @@ void Block::setBv(int v_0_, int v_1_, Block *prior, Block *next) {
     }
 
     if (prior != nullptr) {
-        // If the current block has a different sign -- changes direction --
+        // If the current block has a different sign -- changes direction_state --
         // then the boundary velocity must be zero.
         if (!same_sign(prior->d, d) || prior->x == 0 or x == 0) {
             v_0 = 0;

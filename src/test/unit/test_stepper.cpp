@@ -104,7 +104,7 @@ TEST_CASE("Small Stepper Test", "[stepper]") {
 
     hh.dumpPinCounts();
 
-    REQUIRE(hh.highCount[3] == 2501);
+    REQUIRE(hh.highCount[3] == 2493);
     REQUIRE(hh.lowCount[3] == 2500);
     REQUIRE(hh.highCount[6] == 30000);
     REQUIRE(hh.lowCount[6] == 29999);

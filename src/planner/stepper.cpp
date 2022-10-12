@@ -114,9 +114,6 @@ int SegmentStepper::next(double dtime) {
         }
     }
 
-    if (last_active_axes != activeAxes){
-        logf("SegmentStepper::next aa= %d", (int)activeAxes);
-    }
     last_active_axes = activeAxes;
 
      // We were running a segment, but all the axes are now done
@@ -137,8 +134,8 @@ int SegmentStepper::next(double dtime) {
                 ss.loadPhases(bi->getStepperPhases());
                 bi++;
             }
+            ss.getStepper().enable();
         }
-        hw.enableSteppers();
     }
 
     return (int) activeAxes;
@@ -152,6 +149,18 @@ void SegmentStepper::clearSteps() {
 
 vector<StepperState> &SegmentStepper::getStepperStates(){
     return stepperStates;
+}
+
+
+void SegmentStepper::enable(){
+    for (StepperState &ss: stepperStates) {
+        ss.getStepper().enable();
+    }
+}
+void SegmentStepper::disable(){
+    for (StepperState &ss: stepperStates) {
+        ss.getStepper().disable();
+    }
 }
 
 
