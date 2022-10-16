@@ -32,9 +32,6 @@ private:
     double phase_t = 0;
     double delay = 0;
     double delay_counter= 0;
-
-
-    int clear_counter = 0;
     double clear_timer = 0;
 
     double a;
@@ -51,15 +48,21 @@ private:
 
     int next_calls = 0;
 
+    PinVal step_val = LOW;
+
+    bool _printed_done = false; // for testing
+
 public:
     StepperState(double dtime, Stepper stepper_) ;
 
     void loadPhases(vector<StepperPhase> phases);
     void loadPhases(array<StepperPhase,3> phases);
 
-    void next_phase();
+    void nextPhase();
 
     int next(double dtime);
+
+    inline void clearStep ();
 
     inline int isDone() const { return done ? 1 : 0; };
 
@@ -103,7 +106,6 @@ private:
     uint32_t last_complete_segment;
 
     Segment* current_segment = nullptr;
-
 
 private:
     int activeAxes = 0;

@@ -250,7 +250,6 @@ TEST_CASE("Zero Move Jog Test", "[loop][jog]") {
 
     REQUIRE(hw.highCount[6] == 0); // Axis 1 step
 
-
 }
 
 /**
@@ -260,15 +259,19 @@ TEST_CASE("Imbalanced Move Jog Test", "[loop][jog]") {
 
     SETUP_LOOP()
 
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 8; j++) { // Add 8 jog moves. Only 3 should end up getting executed
+    int n_iter = 3;
+    int n_moves = 2;
+    int move_time = 100'000;
+
+    for (int i = 0; i < n_iter; i++) {
+        for (int j = 0; j < n_moves; j++) { // Add 8 jog moves. Only 3 should end up getting executed
             hw.stepTime(1);
-            loop.processMove(Move(0, 300'000, MoveType::jog, {10000, 100}));
+            loop.processMove(Move(0, move_time, MoveType::velocity, {10000, 10000}));
             loop.loopOnce();
         }
         // Some time between sending Jog moves
         cout << loop << loop.getCurrentState() << endl;
-        for (int j = 0; j < 100'000; j++) {
+        for (int j = 0; j < move_time/4; j++) {
             hw.stepTime(1);
             loop.loopOnce();
         }
@@ -279,7 +282,7 @@ TEST_CASE("Imbalanced Move Jog Test", "[loop][jog]") {
         loop.loopOnce();
     }
 
+    cout << loop << loop.getCurrentState() << endl;
+
     hw.dumpPinCounts();
-
-
 }
