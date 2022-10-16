@@ -144,7 +144,7 @@ private:
 
     int32_t queue_time=0;
 
-    MoveArray planner_position;
-    MoveArray completed_position;
+    MoveArray planner_position = {0};
+    MoveArray completed_position = {0};
 
 };

@@ -93,8 +93,8 @@ TEST_CASE("Short Loop Test", "[loop]") {
     loop.setAxisConfig(defaultAxisConfig(1));
     loop.setAxisConfig(defaultAxisConfig(2));
 
-    loop.processMove(Move(0, 0, MoveType::relative, {10000, 10, 1000} ));
-    loop.processMove(Move(0, 0, MoveType::relative, {-10000, 10, -1000} ));
+    loop.processMove(Move(0, 0, MoveType::relative, {10000, 10, 1000}));
+    loop.processMove(Move(0, 0, MoveType::relative, {-10000, 10, -1000}));
 
     loop.run();
 
@@ -176,10 +176,10 @@ TEST_CASE("VMOVE Loop Test", "[loop]") {
     loop.setAxisConfig(defaultAxisConfig(0));
     loop.setAxisConfig(defaultAxisConfig(1));
 
-    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
-    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
-    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
-    loop.processMove(Move(0, 300'000, MoveType::velocity, {500,1000} ));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500, 1000}));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500, 1000}));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500, 1000}));
+    loop.processMove(Move(0, 300'000, MoveType::velocity, {500, 1000}));
 
     loop.printQueue();
 
@@ -197,32 +197,35 @@ TEST_CASE("VMOVE Loop Test", "[loop]") {
 
 }
 
-TEST_CASE("Zero Move Jog Test", "[loop]") {
-
-    CurrentState current_state;
-    MockPacketSerial mps;
-    MessageProcessor mp(static_cast<IPacketSerial &>(mps));
-    HostHardware hw;
-    Planner pl;
-
-    Loop loop(mp, hw, pl);
-
-    loop.setConfig(defaultConfig(2));
-    loop.setAxisConfig(defaultAxisConfig(0));
-    loop.setAxisConfig(defaultAxisConfig(1));
-
-    cout << defaultAxisConfig(0) << endl;
-    cout << defaultAxisConfig(1) << endl;
-
+#define SETUP_LOOP() \
+    CurrentState current_state; \
+    MockPacketSerial mps; \
+    MessageProcessor mp(static_cast<IPacketSerial &>(mps)); \
+    HostHardware hw; \
+    hw.useSystemTime(false);   \
+    Planner pl; \
+    Loop loop(mp, hw, pl); \
+    loop.setConfig(defaultConfig(2)); \
+    loop.setAxisConfig(defaultAxisConfig(0)); \
+    loop.setAxisConfig(defaultAxisConfig(1)); \
+    cout << defaultAxisConfig(0) << endl; \
+    cout << defaultAxisConfig(1) << endl; \
     loop.run();
+/**
+ * @brief Check that the Jog moves with zero distance don't result in any
+ * steps.
+ */
+TEST_CASE("Zero Move Jog Test", "[loop][jog]") {
 
-    for (int i = 0; i < 10; i++){
-        for(int j = 0; j < 8; j++) {
+    SETUP_LOOP()
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 8; j++) { // Add 8 jog moves. Only 3 should end up getting executed
             loop.processMove(Move(0, 300'000, MoveType::jog, {0, 0}));
             loop.loopOnce();
         }
         cout << loop << loop.getCurrentState() << endl;
-        for( int j = 0; j < 100'000; j++){
+        for (int j = 0; j < 100'000; j++) {
             hw.stepTime(2);
             loop.loopOnce();
         }
@@ -235,10 +238,48 @@ TEST_CASE("Zero Move Jog Test", "[loop]") {
 
     hw.dumpPinCounts();
 
-    REQUIRE(hw.lowCount[8] == 10);
-    REQUIRE(hw.highCount[8] == 10);
-    REQUIRE(hw.missCount[8] == 0);
+    REQUIRE(hw.lowCount[5] == 10); // Axis 0 Enable
+    REQUIRE(hw.highCount[5] == 10);  // Axis 0 Enable
+    REQUIRE(hw.missCount[5] == 0);  // Axis 0 Enable
+
+    REQUIRE(hw.highCount[3] == 0); // Axis 0 step
+
+    REQUIRE(hw.lowCount[8] == 10); // Axis 1 Enable
+    REQUIRE(hw.highCount[8] == 10);  // Axis 1 Enable
+    REQUIRE(hw.missCount[8] == 0);  //Axis 0 Enable
+
+    REQUIRE(hw.highCount[6] == 0); // Axis 1 step
 
 
 }
 
+/**
+ * @brief Check that when two axes are active for jogs, the axes run approximately the same time
+ */
+TEST_CASE("Imbalanced Move Jog Test", "[loop][jog]") {
+
+    SETUP_LOOP()
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 8; j++) { // Add 8 jog moves. Only 3 should end up getting executed
+            hw.stepTime(1);
+            loop.processMove(Move(0, 300'000, MoveType::jog, {10000, 100}));
+            loop.loopOnce();
+        }
+        // Some time between sending Jog moves
+        cout << loop << loop.getCurrentState() << endl;
+        for (int j = 0; j < 100'000; j++) {
+            hw.stepTime(1);
+            loop.loopOnce();
+        }
+    }
+
+    while (!pl.isEmpty()) {
+        hw.stepTime(1); // Step 1 micro second per loop
+        loop.loopOnce();
+    }
+
+    hw.dumpPinCounts();
+
+
+}

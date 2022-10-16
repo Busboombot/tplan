@@ -21,8 +21,6 @@ add_library( ${PROJECT_NAME}
         loop.h
         messageprocessor.cpp
         messageprocessor.h
-        move.cpp
-        move.h
         planner.cpp
         planner.h
         planner_types.h

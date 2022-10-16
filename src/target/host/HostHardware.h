@@ -65,4 +65,6 @@ public: // Public b/c this object is for testing.
     map<PinVal, int> missCount;
     map<PinVal, int> transCount;
 
+    map<PinVal, tmicros> writeTime;
+
 };

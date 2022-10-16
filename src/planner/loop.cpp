@@ -186,6 +186,7 @@ void Loop::processMove(Move &move) {
     current_state.flags.set((size_t)CSFLags::EMPTY, false);
 
 
+
     switch (move.move_type) {
         case MoveType::absolute:
         case MoveType::relative:

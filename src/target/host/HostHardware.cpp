@@ -25,10 +25,12 @@ void HostHardware::dumpPinCounts() {
     for (auto &i: highCount) {
         auto lc = lowCount[i.first];
         auto mc = missCount[i.first];
+        auto wt = writeTime[i.first];
         cout << "Pin " << setw(3) << (int) i.first <<
-             " H: " << setw(3) << (int) i.second <<
-             " L: " << setw(3) << (int) lc <<
-             " M: " << setw(3) << (int) mc << endl;
+             " H: " << setw(7) << (int) i.second <<
+             " L: " << setw(7) << (int) lc <<
+             " M: " << setw(7) << (int) mc <<
+             " T: " << setw(8) << (double) double(wt)/1000. << endl;
     }
 
 }
@@ -71,10 +73,15 @@ void HostHardware::writePin(Pin pin, PinVal value) {
     } else if ( !value && pins[pin] == HIGH) {
         lowCount[pin]++;
     } else {
+        if (pin == 3){
+            int i = 0;
+        }
         missCount[pin]++;
     }
 
     pins[pin] = value;
+
+    writeTime[pin] = micros();
 
     if (print_pin_change) {
         printPins();

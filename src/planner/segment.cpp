@@ -23,9 +23,6 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_) : n(n), joints(
 Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move ) :
         n(n), joints(joints_), t(0), moves(std::move(move)) {
 
-    //stringstream ss;
-    //ss << "Segment::Segment moves=" << moves << " " << joints_.size();
-    //log(ss);
 
     int axis_n = 0;
     for (const Joint &joint: joints) {
@@ -40,12 +37,12 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move
 Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, const Move& move ) :
     Segment(n, joints_, move.x ){
 
+
 }
 
 // With extra maxv vector, for velocity moves.
 Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector moves, MoveVector maxv )
     :Segment(n, joints_, std::move(moves)) {
-
 
     auto mvi = maxv.begin();
     for(Block &b: blocks){

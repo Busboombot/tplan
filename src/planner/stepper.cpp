@@ -52,7 +52,6 @@ int StepperState::next(double dtime) {
         }
     }
 
-
     if (delay_counter > delay and steps_left >0) {
         // else if so if the step gets cleared , it doesn't get immediately re-set,
         // to soon for the stepper driver to notice.
@@ -61,13 +60,12 @@ int StepperState::next(double dtime) {
         steps_stepped += 1;
         stepper.setStep();
 
-        clear_timer = phase_t + 3e-6;
+        clear_timer = phase_t + PULSE_WIDTH;
 
-    } else if (phase_t > clear_timer){
+    } else if (clear_timer != 0 && phase_t > clear_timer){
         stepper.clearStep();
         clear_timer = 0;
     }
-
 
     double v = phase->vi + a * phase_t;
 

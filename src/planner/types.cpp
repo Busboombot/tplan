@@ -145,6 +145,20 @@ ostream &operator<<(ostream &output, const Message &m) {
 
 }
 
+ostream &operator<<( ostream &output, const Move &m ) {
+
+    output << "[Move #" << m.seq << " " << (int)m.move_type <<  " t=" <<m.t << " (" ;
+
+    for(auto &xi : m.x){
+        output << xi << ", ";
+    }
+
+    output << ")]";
+
+    return output;
+}
+
+
 map<CommandCode, MoveType> cmdmove_map = {
         {CommandCode::RMOVE, MoveType::relative},
         {CommandCode::HMOVE, MoveType::home},

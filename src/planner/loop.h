@@ -70,6 +70,12 @@ public:
 
     const SegmentStepper &getSegStepper() const { return ss; }
 
+    MessageProcessor &getMessageProcessor() const { return mp; }
+
+    Hardware &getHardware() const { return hw; }
+
+    Planner &getPlanner() const { return pl; }
+
     void setConfig(const Config &config);
 
     void setAxisConfig(const AxisConfig &ac);

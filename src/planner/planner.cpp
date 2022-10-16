@@ -20,6 +20,7 @@ Planner::Planner() {
     planner_position.fill(0);
     completed_position.fill(0);
 
+
 }
 
 Planner::Planner(std::vector<Joint> joints_) {
@@ -124,9 +125,7 @@ void Planner::plan() {
         if (seg_idx >= segments.size()) {
             break;
         }
-
     }
-
 }
 
 void Planner::vmove(const Move& move){
@@ -142,15 +141,13 @@ void Planner::vmove(const Move& move){
     MoveVector xi; // x values calculated from velocity and time
 
     for(auto v: move.x){
-        int vi = (int) double(x_max) * ( double(v)/ double(v_max_e));
+        int vi = 0;
+        if (v != 0 && v_max_e != 0){
+            vi = (int) double(x_max) * (double(v) / double(v_max_e));
+        }
+
         xi.push_back(vi);
     }
-
-    /*stringstream ss;
-    ss << "Planner::vmove " << xi << " " << move.x << endl;
-    log(ss);*/
-
-    //planner_position += move;
 
     segments.emplace_back(move.seq, joints, xi, move.x);
 
@@ -165,6 +162,9 @@ void Planner::vmove(const Move& move){
     } else {
         current->vplan(t);
     }
+
+    planner_position += xi;
+
 
 }
 
