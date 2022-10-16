@@ -17,7 +17,6 @@ using namespace std;
 class MessageProcessor {
 
 
-
 public:
 
     MessageProcessor(IPacketSerial &ps);

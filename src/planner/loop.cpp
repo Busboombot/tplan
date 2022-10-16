@@ -159,9 +159,11 @@ void Loop::processMessage(Message &m) {
             // Should not be getting any other types.
             break;
     }
+
+    pl.updateCurrentState(current_state);
 }
 
-extern map<CommandCode, MoveType> cmdmove_map;
+extern std::map<CommandCode, MoveType> cmdmove_map;
 
 // Turn a move command into a move and add it to the planner
 void Loop::processMove(Message &mesg) {
@@ -207,7 +209,7 @@ void Loop::processMove(Move &move) {
             break;
     }
 
-    pl.updateCurrentState(current_state);
+
 }
 
 void Loop::processMove(Move &&move) {
