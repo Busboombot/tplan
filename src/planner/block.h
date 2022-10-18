@@ -25,7 +25,7 @@ using std::ostream;
 struct StepperPhase;
 
 class Joint;
-
+class Segment;
 class Planner;
 
 /**
@@ -35,8 +35,16 @@ class Block {
 
 public:
 
-    Block(trj_float_t x, const Joint &joint);
+    Block(trj_float_t x, const Joint &joint, Segment *segment);
 
+    /**
+     * @brief Construct a Block with boundary velocities. This constructor
+     * is primarily for testing Blocks, because it does not set the segment pointer.
+     * @param x
+     * @param v_0
+     * @param v_1
+     * @param joint
+     */
     Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint &joint);
 
     /**
@@ -107,6 +115,8 @@ private:
     // Max velocity for v_c, used for velocity moves
 
     const Joint &joint;
+
+    Segment *segment;
 
     void set_zero();
 

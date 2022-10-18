@@ -26,7 +26,7 @@ Segment::Segment(uint32_t n, const std::vector<Joint>&  joints_, MoveVector move
 
     int axis_n = 0;
     for (const Joint &joint: joints) {
-        Block b((trj_float_t)this->moves[axis_n], joint);
+        Block b((trj_float_t)this->moves[axis_n], joint, this);
         blocks.emplace_back(b);
         axis_n++;
     }

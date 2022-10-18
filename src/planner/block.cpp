@@ -227,12 +227,17 @@ void Block::plan(trj_float_t t_, int v_0_, int v_1_, Block *prior, Block *next) 
 
 }
 
+// Alt calculation for phase time, for debugging
+double phase_ttf(double x, double vi, double vf) {
+    return (vi + vf) != 0 ? fabs((2.f * (double) abs(x)) / (vi + vf)) : 0;
+}
+
 void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
 
     v_c = v_c_max;
 
     if (prior != nullptr) {
-        if (!same_sign(d, prior->d) ){
+        if (!same_sign(d, prior->d)) {
             v_0 = prior->v_1 = 0;
         } else {
             v_0 = prior->v_1 = (v_c + prior->v_c) / 2;
@@ -241,7 +246,7 @@ void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
 
     if (next != nullptr) {
         if (!same_sign(d, next->d)) {
-            v_1 = next->v_0 =  0;
+            v_1 = next->v_0 = 0;
         } else {
             v_1 = next->v_0 = (v_c + next->v_c) / 2;
         }
@@ -250,11 +255,17 @@ void Block::vplan(trj_float_t t_, Block *prior, Block *next) {
     tie(x_a, t_a) = accel_xt(v_0, v_c);
     tie(x_d, t_d) = accel_xt(v_c, v_1);
 
-    t_c =fmax(t_-(t_a+t_d), 0);
+    t_c = fmax(t_ - (t_a + t_d), 0);
     x_c = t_c * v_c;
     t = t_a + t_c + t_d;
 
-
+    /*
+    cerr << "Block::vplan     " << (void*)this << endl;
+    cerr << "Block::vplan t_a " << phase_ttf(d*x_a, d*v_0, d*v_c) << " " << t_a << endl;
+    cerr << "Block::vplan t_c " << phase_ttf(d*x_c, d*v_c, d*v_c) << " " << t_c << endl;
+    cerr << "Block::vplan t_d " << phase_ttf(d*x_d, d*v_c, d*v_1) << " " << t_d << endl;
+    cerr << "Block::vplan     " << v_c << " " << x_d<<"/"<<v_c << " " << v_1 << endl << endl;
+    */
 }
 
 void Block::setBv(int v_0_, int v_1_, Block *prior, Block *next) {
@@ -335,12 +346,18 @@ array<StepperPhase, 3> Block::getStepperPhases() const {
 
     auto dd = double(d);
 
-    //logf("Block::getStepperPhases %d %f %f", (int)d, (float)v_c, float(dd*v_c) );
+    /*
+    cerr << "Block::getStepperPhases " << (void*)this << endl;
+    cerr << "Block::getStepperPhases t_a " << phase_ttf(d*x_a, d*v_0, d*v_c) << " " << t_a << endl;
+    cerr << "Block::getStepperPhases t_c " << phase_ttf(d*x_c, d*v_c, d*v_c) << " " << t_c << endl;
+    cerr << "Block::getStepperPhases t_d " << phase_ttf(d*x_d, d*v_c, d*v_1) << " " << t_d << endl;
+    cerr << "Block::getStepperPhases     " << v_c << " " << x_d<<"/"<<v_c << " " << v_1 << endl << endl;
+    */
 
     return array<StepperPhase, 3>{
-            StepperPhase{int(d) * int(round(x_a)), dd * v_0, dd * v_c},
-            StepperPhase{int(d) * int(round(x_c)), dd * v_c, dd * v_c},
-            StepperPhase{int(d) * int(round(x_d)), dd * v_c, dd * v_1}};
+            StepperPhase{double(t_a), int(d) * int(round(x_a)), dd * v_0, dd * v_c},
+            StepperPhase{double(t_c), int(d) * int(round(x_c)), dd * v_c, dd * v_c},
+            StepperPhase{double(t_d), int(d) * int(round(x_d)), dd * v_c, dd * v_1}};
 }
 
 bool Block::bent(Block &prior, Block &current) {
@@ -445,13 +462,14 @@ json Block::dump(std::string tag) const{
 }
 #endif
 
-Block::Block(trj_float_t x, const Joint &joint) : x(fabs(x)), joint(joint) {
+Block::Block(trj_float_t x, const Joint &joint, Segment *segment)
+        : x(fabs(x)), joint(joint), segment(segment) {
     this->d = sign(x);
     this->v_c_max = joint.v_max;
 }
 
 
-Block::Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint &joint) : Block(x, joint){
+Block::Block(trj_float_t x, trj_float_t v_0, trj_float_t v_1, const Joint &joint) : Block(x, joint, nullptr) {
     this->v_0 = v_0;
     this->v_1 = v_1;
 }

@@ -200,7 +200,8 @@ void Loop::processMove(Move &move) {
             break;
 
         case MoveType::jog:
-            pl.truncateTo(4);
+            pl.jog(move);
+            break;
         case MoveType::velocity:
             pl.vmove(move);
             break;

@@ -91,7 +91,7 @@ int main() {
         }
 
         for(int i = 0; i < ints.size(); i+= 3){
-            segments.back()[i/3][line_n%3] = StepperPhase{ints[i],(float)ints[i+1], (float)ints[i+2]};
+            segments.back()[i/3][line_n%3] = StepperPhase{0, ints[i],(float)ints[i+1], (float)ints[i+2]};
         }
 
         line_n += 1;

@@ -56,8 +56,10 @@ public:
     void vmove(const Move& move);
     void vmove(unsigned int seq_id, trj_float_t t, const MoveVector &move);
 
-    void plan();
+    void jog(const Move& move);
+    void jog(unsigned int seq_id, trj_float_t t, const MoveVector &move);
 
+    void plan();
 
     bool isEmpty() { return segments.empty(); }
     unsigned long getNSegments(){  return segments.size();}

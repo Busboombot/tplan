@@ -1,10 +1,10 @@
 """ Code for running the C++ versino of the planner and testing it
 """
-from pytplan import Joint, Block, Segment, SegmentList
-from collections import deque
-import subprocess
 import os
+import subprocess
 from pathlib import Path
+
+from pytplan import Joint, Block, Segment, SegmentList
 
 precision_map = {
     'v': 0,
@@ -13,13 +13,15 @@ precision_map = {
     'd': 0,
 }
 
+
 def report_planner_diffs(sl1, sl2):
     for seg_n, seg_diffs in compare_planner(sl1, sl2):
         print("=====", seg_n)
         for block_n, block_diffs in seg_diffs:
             print("Block: ", block_n)
             for var, b1, b2 in block_diffs:
-                print("   ", var, abs(b1-b2), b1, b2)
+                print("   ", var, abs(b1 - b2), b1, b2)
+
 
 def compare_blocks(a, b):
     diffs = []
@@ -41,6 +43,7 @@ def compare_planner(sl1, sl2):
 
     return diffs
 
+
 def compare_seg(s1, s2):
     sdiffs = []
     for i, b1 in enumerate(s1.blocks):
@@ -54,6 +57,7 @@ def compare_seg(s1, s2):
 
 class TestPlanner:
     """Run the unit test program, looking for tests that output JSON"""
+
     def __init__(self, test_dir):
         from pathlib import Path
         self.test_dir = Path(test_dir)
@@ -75,13 +79,13 @@ class TestPlanner:
         import json
         o = {}
 
-        cmd  =[ str(self.exe_path), r'[json]']
+        cmd = [str(self.exe_path), r'[json]']
         print("running", cmd)
         r = subprocess.check_output(cmd, timeout=1)
         r = r.decode('utf8')
 
         for l in r.splitlines():
-          
+
             if l.startswith('JSON'):
                 d = json.loads(l[4:])
                 o[d['test']] = d
@@ -108,9 +112,10 @@ class TestPlanner:
             blocks.append(Block(**bd, joint=joint))
 
         s = Segment(0, joints, blocks)
-        s.move =j['move']
+        s.move = j['move']
 
         return s
+
 
 class CPPPlanner:
     """Run the program that recieves std input describing moves, runs it through the planner and
@@ -141,7 +146,6 @@ class CPPPlanner:
 
         return inpt
 
-
     def _run_planner(self, joints, moves, options):
         import json
 
@@ -150,7 +154,7 @@ class CPPPlanner:
         with open(self.test_dir.joinpath('planner_input.txt'), 'w') as f:
             f.write(inpt)
 
-        cmd = [str(self.exe_path),options]
+        cmd = [str(self.exe_path)] + options
         print("Running", cmd)
         proc = subprocess.Popen(cmd, text=True, encoding='utf-8',
                                 stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -161,34 +165,34 @@ class CPPPlanner:
             proc.kill()
             outs, errs = proc.communicate()
 
-        if 'j' in options: # JSON output
+        if '-j' in options:  # JSON output
             for line in outs.splitlines():
+
                 try:
                     return json.loads(line)
                 except json.JSONDecodeError as e:
-                    print("| ",line)
-        elif 's' in options: # stepper output
+                    print("| ", line)
+        elif '-s' in options:  # stepper output
             steps = []
             for line in outs.splitlines():
                 t, *d = line.split()
-                steps.append([float(t)]+list(map(int, d)))
+                steps.append([float(t)] + list(map(int, d)))
             return steps
 
+    def run_planner(self, joints, moves, move_time=200, move_type='R'):
+        return self._run_planner(joints, moves, ['-p', '-j', '--vtime', str(move_time), '--type', str(move_type)])
 
-    def run_planner(self, joints, moves):
-        return self._run_planner(joints, moves, '-pj')
+    def run_stepper(self, joints, moves, move_time=200, move_type='R'):
+        return self._run_planner(joints, moves, ['-s', '--vtime', str(move_time), '--type', str(move_type)])
 
-    def run_stepper(self, joints, moves):
-        return self._run_planner(joints, moves, '-s')
+    def planner(self, joints, moves, move_time=200, move_type='R'):
 
-    def planner(self, joints, moves):
-
-        d = self.run_planner(joints, moves)
+        d = self.run_planner(joints, moves, move_time=move_time, move_type=move_type)
 
         sl = SegmentList(joints)
 
-        joints = [Joint(n=i, v_max=j['v_max'],a_max=j['a_max']) for i,j in enumerate(d['joints'])]
-        for seg_n, sd in  enumerate(d['segments']):
+        joints = [Joint(n=i, v_max=j['v_max'], a_max=j['a_max']) for i, j in enumerate(d['joints'])]
+        for seg_n, sd in enumerate(d['segments']):
             blocks = []
             for joint, bd in zip(joints, sd['blocks']):
                 del bd['_type']
@@ -198,23 +202,29 @@ class CPPPlanner:
 
         if "_time" in d:
             print("CPP Time: ", round(d["_time"]), "μs",
-                  round(d["_time"]/(len(sl.segments)*len(joints))), "μs per block")
+                  round(d["_time"] / (len(sl.segments) * len(joints))), "μs per block")
 
         return sl
 
-    def compare_planner(self, joints, moves, report=True):
+    def compare_planner(self, joints, moves, move_time=200, move_type='R', report=True):
         import time
 
         sl_p = SegmentList(joints)
         start = time.time()
         for move in moves:
-            sl_p.move(move)
-        t_diff = time.time()-start
-        print("Pyp Time: ", round(t_diff*1_000_000) , "μs",
-              round(t_diff*1_000_000/(len(sl_p.segments)*len(joints))), "μs per block")
+            if move_type == 'J':
+                sl_p.jmove(move_time, move)
+            elif move_type == 'V':
+                sl_p.vmove(move_time, move)
+            else:
+                sl_p.move(move)
+
+        t_diff = time.time() - start
+        print("Pyp Time: ", round(t_diff * 1_000_000), "μs",
+              round(t_diff * 1_000_000 / (len(sl_p.segments) * len(joints))), "μs per block")
 
         self.make()
-        sl_c = self.planner(joints, moves)
+        sl_c = self.planner(joints, moves, move_time=move_time, move_type=move_type)
 
         if report:
             report_planner_diffs(sl_p, sl_c)
@@ -245,13 +255,11 @@ class TestStepper:
         for s in sl.segments:
             sb = [b.stepper_blocks() for b in s]
             for e in zip(*sb):
-                inpt += " ".join(str(i) for i in list(chain(*e)))+'\n'
+                inpt += " ".join(str(i) for i in list(chain(*e))) + '\n'
 
         return inpt
 
-
     def run_stepper(self, sl):
-        import json
 
         self.make()
 
@@ -273,4 +281,3 @@ class TestStepper:
 
         for line in outs.splitlines():
             print(line)
-

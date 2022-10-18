@@ -69,6 +69,71 @@ void Planner::move(unsigned int seq_id, const MoveVector &move) {
 
 }
 
+// Velocity move
+void Planner::vmove(const Move &move) {
+
+    // First, determine the maximum velocity among the axes, for this move.
+    // This velocity, v_max_e, will be used to scale the velocity of the non-dominant
+    // axes. The values of move.x are actually velocities.
+
+    float v_max_e = 0;
+    for (auto v_i: move.x) {
+        v_max_e = fmax(fabs(v_i), v_max_e);
+    }
+
+    // Given the move time, which is fixed, we can calculate the distance traveled
+    // by the dominant axis
+    trj_float_t t = (trj_float_t) move.t / TIMEBASE;
+    auto x_max = trj_float_t(v_max_e) * t;
+
+    // Now that we have the velocities, calculate the distances. These values are only
+    // correct when the segment doesn't have a lot of acel/decel, but the velocities don't
+    // have to be exact.
+    MoveVector distances; // x values calculated from velocity and time. x_i is 'ith value of x'
+    for (auto v_i: move.x) {
+        int x_i = 0;
+        if (v_i != 0 && v_max_e != 0) {
+            x_i = (int) double(x_max) * (double(v_i) / double(v_max_e));
+        }
+
+        distances.push_back(x_i);
+    }
+
+    // Add the segment, but with both the distances and velocities.
+    segments.emplace_back(move.seq, joints, distances, move.x);
+
+    u_long seg_idx = segments.size() - 1;
+    Segment *current = &segments[seg_idx];
+    Segment *prior = nullptr;
+
+    current->vplan(t);
+
+    if (seg_idx > 0) {
+        prior = &segments[seg_idx - 1];
+        prior->vplan(NAN, nullptr, current);
+        current->vplan(t, prior);
+    }
+
+    planner_position += distances;
+
+}
+
+void Planner::vmove(unsigned int seq_id, trj_float_t t, const MoveVector &mv) {
+    Move vm(seq_id, t, MoveType::velocity, mv);
+    vmove(vm);
+}
+
+void Planner::jog(const Move &move) {
+    truncateTo(2);
+    vmove(move);
+}
+
+void Planner::jog(unsigned int seq_id, trj_float_t t, const MoveVector &move) {
+    Move vm(seq_id, t, MoveType::jog, move);
+    jog(vm);
+}
+
+
 trj_float_t vLimit(int p_iter, trj_float_t v_max) {
     if (p_iter < 2) {
         return v_max;
@@ -128,58 +193,6 @@ void Planner::plan() {
     }
 }
 
-void Planner::vmove(const Move& move){
-
-    trj_float_t t = (trj_float_t)move.t / TIMEBASE;
-    float v_max_e  = 0;
-    for(auto xi : move.x){
-        v_max_e = fmax(fabs(xi), v_max_e);
-    }
-
-    auto x_max = trj_float_t(v_max_e) * t;
-
-    MoveVector xi; // x values calculated from velocity and time
-
-    for(auto v: move.x){
-        int vi = 0;
-        if (v != 0 && v_max_e != 0){
-            vi = (int) double(x_max) * (double(v) / double(v_max_e));
-        }
-
-        xi.push_back(vi);
-    }
-
-    segments.emplace_back(move.seq, joints, xi, move.x);
-
-    u_long seg_idx = segments.size() - 1;
-    Segment *current = &segments[seg_idx];
-    Segment *prior = nullptr;
-
-    if (seg_idx > 0) {
-        prior = &segments[seg_idx - 1];
-        prior->vplan(NAN, nullptr, current );
-        current->vplan(t, prior);
-    } else {
-        current->vplan(t);
-    }
-
-    planner_position += xi;
-
-
-}
-
-void Planner::vmove(unsigned int seq_id, trj_float_t t,  const MoveVector &mv){
-    Move vm(seq_id, t, MoveType::velocity, mv);
-    vmove(vm);
-}
-
-/**
- * RMS difference between velocities of blocks in two segments, at their boundary
- * @param p
- * @param c
- * @return
- */
-
 
 ostream &operator<<(ostream &output, const Planner &p) {
 
@@ -224,7 +237,6 @@ json Planner::dump(const std::string& tag) const{
 #endif
 
 
-
 void Planner::updateCurrentState(CurrentState &current_state) {
 
     float qt = 0;
@@ -247,8 +259,8 @@ void Planner::updateCurrentState(CurrentState &current_state) {
 void Planner::popFront() {
 
     auto cpi = completed_position.begin();
-    for(int m: segments.front().moves){
-        *cpi++ +=  m;
+    for (int m: segments.front().moves) {
+        *cpi++ += m;
 
     }
     return segments.pop_front();
@@ -256,7 +268,7 @@ void Planner::popFront() {
 }
 
 void Planner::reset(bool running) {
-    if(running){
+    if (running) {
         truncateTo(1);
     } else {
         truncateTo(0);
@@ -264,11 +276,11 @@ void Planner::reset(bool running) {
 
 }
 
-void Planner::zero(){
+void Planner::zero() {
     planner_position = MoveArray({0});
 }
 
-void Planner::setPositions(const MoveVector &mv){
+void Planner::setPositions(const MoveVector &mv) {
     zero();
     planner_position += mv;
 }
