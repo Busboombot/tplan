@@ -144,10 +144,8 @@ protected:
 
 public:
 
-    explicit Stepper(Hardware *hardware) :
-            hw(hardware), axis(-1), step_pin(-1), direction_pin(-1), enable_pin(-1) {}
-
-    Stepper(Hardware *hardware, int8_t axis) : hw(hardware), axis(axis) {};
+    explicit Stepper(Hardware *hardware, int8_t axis=-1 ) :
+            hw(hardware), axis(axis), step_pin(-1), direction_pin(-1), enable_pin(-1) {}
 
     Stepper(Hardware *hw, int8_t axis, Pin stepPin, Pin directionPin, Pin enablePin) :
             hw(hw), axis(axis), step_pin(stepPin), direction_pin(directionPin), enable_pin(enablePin) {}

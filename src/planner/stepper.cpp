@@ -20,6 +20,28 @@ void StepperState::loadPhases(array<StepperPhase, 3> phases_) {
     loadPhases(vector<StepperPhase>(phases_.begin(), phases_.end()));
 }
 
+/**
+ * @brief Return the expected length of the phase, calculated from the
+ * distance and accelerations.
+ * @param phase
+ * @return
+ */
+double phase_ttf(const StepperPhase *phase){
+    return (phase->vi + phase->vf) != 0 ? fabs((2.f * (double) abs(phase->x)) / (phase->vi + phase->vf)) : 0;
+}
+
+// Calc time from time-to-finish
+double segment_ttf(const array<StepperPhase,3>& phases){
+    return phase_ttf(&phases[0])+phase_ttf(&phases[1])+phase_ttf(&phases[2]);
+}
+
+// Calc time from phase times
+double segment_t(const array<StepperPhase,3>& phases){
+    return phases[0].t + phases[1].t + phases[2].t;
+}
+
+
+
 void StepperState::nextPhase() {
     phase = &phases[phase_n];
 
@@ -28,11 +50,11 @@ void StepperState::nextPhase() {
 
     phase_t = 0;
     done = false;
-    phase_n += 1;
-    phases_left -= 1;
 
-    t_f = (phase->vi + phase->vf) != 0 ? fabs((2.f * (double) steps_left) / (phase->vi + phase->vf)) : 0;
+    // Expected time to finish.
+    t_f = phase_ttf(phase);
     a = t_f != 0 ? (phase->vf - phase->vi) / t_f : 0;
+
 
     double v = a * dtime + phase->vi;
     delay = (v != 0) ? fabs(1 / v) : 0;
@@ -41,6 +63,8 @@ void StepperState::nextPhase() {
 
     stepper.setDirection(direction);
 
+    phase_n += 1;
+    phases_left -= 1;
     _printed_done = false;
 }
 
@@ -58,6 +82,10 @@ int StepperState::next(double dtime) {
     if (steps_left <= 0) {
         if (done or phases_left == 0) {
             done = true;
+            if( !_printed_done){
+                //cerr << "StepperState::next      "<<phase_t<<" "<<t_f << " | "<< x_err << endl;
+                _printed_done = true;
+            }
             return 0;
         } else {
             nextPhase();
@@ -89,6 +117,9 @@ int StepperState::next(double dtime) {
     phase_t += dtime;
 
     next_calls += 1;
+
+    calc_x = (a * pow(phase_t, 2))/2 + phase->vi*phase_t;
+    x_err = steps_stepped - calc_x;
 
     return 1;
 }
@@ -141,15 +172,21 @@ int SegmentStepper::next(double dtime) {
     // segment
     if (current_segment == nullptr && !planner.isEmpty()) {
         current_segment = &planner.getFront();
+
         auto bi = current_segment->blocks.begin();
 
+        //cerr << "SegmentStepper::next #"<< current_segment->getN()<<endl;
         for (StepperState &ss: stepperStates) {
             if (bi != current_segment->blocks.end()) {
-                ss.loadPhases(bi->getStepperPhases());
+                auto phases = bi->getStepperPhases();
+                ss.loadPhases(phases);
+                 //cerr << " t=(" <<segment_ttf(phases)<<","<<segment_t(phases)<<") "<<endl;
                 bi++;
             }
+
             ss.getStepper().enable();
         }
+
     }
 
     return (int) activeAxes;

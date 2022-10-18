@@ -36,7 +36,7 @@ Stepper Hardware::getStepper(int axis) {
         AxisConfig &ac = axes[axis];
         return {this, (int8_t) ac.axis, ac.step_pin, ac.direction_pin, ac.enable_pin};
     } else {
-        return Stepper(this);
+        return Stepper(this, axis);
     }
 }
 

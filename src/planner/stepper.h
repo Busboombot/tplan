@@ -14,6 +14,7 @@ class Planner;
 class Segment;
 
 struct StepperPhase{
+    double t;
     int x;
     double vi;
     double vf;
@@ -29,7 +30,8 @@ private:
     double dtime = 0; // a typical time delay between calling next()
 
     double t_f = 0;
-    double phase_t = 0;
+    double phase_t = 0; // Time within the phase
+
     double delay = 0;
     double delay_counter= 0;
     double clear_timer = 0;
@@ -51,6 +53,10 @@ private:
     PinVal step_val = LOW;
 
     bool _printed_done = false; // for testing
+
+    double calc_x;
+    double x_err;
+
 
 public:
     StepperState(double dtime, Stepper stepper_) ;
@@ -106,6 +112,8 @@ private:
     uint32_t last_complete_segment;
 
     Segment* current_segment = nullptr;
+
+
 
 private:
     int activeAxes = 0;

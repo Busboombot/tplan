@@ -259,22 +259,28 @@ TEST_CASE("Imbalanced Move Jog Test", "[loop][jog]") {
 
     SETUP_LOOP()
 
-    int n_iter = 3;
+    int n_iter = 2;
     int n_moves = 2;
-    int move_time = 100'000;
+    int move_time = 200'000;
 
     for (int i = 0; i < n_iter; i++) {
         for (int j = 0; j < n_moves; j++) { // Add 8 jog moves. Only 3 should end up getting executed
             hw.stepTime(1);
             loop.processMove(Move(0, move_time, MoveType::velocity, {10000, 10000}));
-            loop.loopOnce();
+            //loop.loopOnce();
         }
         // Some time between sending Jog moves
+        /*
         cout << loop << loop.getCurrentState() << endl;
         for (int j = 0; j < move_time/4; j++) {
             hw.stepTime(1);
             loop.loopOnce();
         }
+         */
+    }
+
+    for(auto const &seg: loop.getPlanner().getSegments()){
+        cout << seg << endl;
     }
 
     while (!pl.isEmpty()) {
