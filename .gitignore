@@ -21,3 +21,5 @@ DartConfiguration.tcl
 
 .DS_Store
 .ipynb_checkpoints
+*.icloud
+
