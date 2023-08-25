@@ -118,8 +118,8 @@ int StepperState::next(double dtime) {
 
     next_calls += 1;
 
-    calc_x = (a * pow(phase_t, 2))/2 + phase->vi*phase_t;
-    x_err = steps_stepped - calc_x;
+    //calc_x = (a * pow(phase_t, 2))/2 + phase->vi*phase_t;
+    //x_err = steps_stepped - calc_x;
 
     return 1;
 }

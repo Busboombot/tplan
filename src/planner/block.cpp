@@ -426,6 +426,7 @@ trj_float_t Block::getV0() const {
 
 trj_float_t Block::getV1() const {
     return v_1;
+
 }
 
 #ifdef TRJ_ENV_HOST
